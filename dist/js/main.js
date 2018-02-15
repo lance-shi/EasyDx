@@ -29481,7 +29481,7 @@ var OrgRow = function OrgRow(props) {
 		_react2.default.createElement(
 			"div",
 			{ className: "col-sm-4" },
-			"props.org.username"
+			props.org.username
 		),
 		_react2.default.createElement(
 			"div",
@@ -29491,7 +29491,7 @@ var OrgRow = function OrgRow(props) {
 		_react2.default.createElement(
 			"div",
 			{ className: "col-sm-4" },
-			"props.org.alias"
+			props.org.alias
 		)
 	);
 };
