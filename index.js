@@ -1,18 +1,15 @@
 const express = require("express");
 const cmd = require('node-cmd');
 const Promise = require('bluebird');
+const bodyParser = require('body-parser');
+
+const orgRouter = require('./routes/orgRouter');
 
 const app = express();
 const port = process.env.PORT || 3000;
-const getAsync = Promise.promisify(cmd.get, { multiArgs: true, context: cmd });
+app.use(bodyParser.json());
 
-app.get('/api/org', (req, res) => {
-    getAsync('sfdx force:org:list --json').then(data => {
-        res.send(data);
-    }).catch(err => {
-        console.log('cmd err', err);
-    });
-});
+app.use("/api/org", orgRouter);
 
 app.use(express.static('dist'));
 
