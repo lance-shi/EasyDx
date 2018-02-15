@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index",
-    "build": "webpack"
+    "build": "webpack",
+    "watch": "webpack watch"
   },
   "author": "Lance Shi",
   "license": "ISC",

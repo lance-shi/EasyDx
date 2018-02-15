@@ -12,7 +12,6 @@ app.get('/api/org', (req, res) => {
     }).catch(err => {
         console.log('cmd err', err);
     });
-    
 });
 
 app.use(express.static('dist'));

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import $ from "jquery";
-import OrgList from "./OrgList";
+import OrgList from "../presentational/OrgList";
+import OrgDetails from "../presentational/OrgDetails";
 import axios from 'axios';
 
 class OrgContainer extends Component {
@@ -8,7 +9,8 @@ class OrgContainer extends Component {
 		super();
 		this.state = {
 			scratchOrgs: [],
-			nonScratchOrgs: []
+			nonScratchOrgs: [],
+			detailOrg: {}
 		};
 	}
 
@@ -22,12 +24,19 @@ class OrgContainer extends Component {
 		});
 	}
 
+	setDetailOrg(org) {
+		this.setState({detailOrg: org});
+	}
+
 	render() {
 		return (
 			<div>
-				<OrgList orgs={this.state.nonScratchOrgs} title="Non Scratch Orgs"></OrgList>
-				<OrgList orgs={this.state.scratchOrgs} title="Scratch Orgs"></OrgList>
+				<OrgList orgs={this.state.nonScratchOrgs} title="Non Scratch Orgs" 
+				setDetailOrg={this.setDetailOrg.bind(this)}></OrgList>
+				<OrgList orgs={this.state.scratchOrgs} title="Scratch Orgs"
+				setDetailOrg={this.setDetailOrg.bind(this)}></OrgList>
 				<button id="orgInfo" type="button" onClick={this.handleRefreshOrgs.bind(this)}>Get Org List</button>
+				<OrgDetails org={this.state.detailOrg}></OrgDetails>
 			</div>
 		)
 	}

@@ -71,7 +71,7 @@
 
 
 var bind = __webpack_require__(16);
-var isBuffer = __webpack_require__(41);
+var isBuffer = __webpack_require__(42);
 
 /*global toString:true*/
 
@@ -878,7 +878,7 @@ module.exports = warning;
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(0);
-var normalizeHeaderName = __webpack_require__(43);
+var normalizeHeaderName = __webpack_require__(44);
 
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -1369,12 +1369,12 @@ module.exports = function bind(fn, thisArg) {
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(0);
-var settle = __webpack_require__(44);
-var buildURL = __webpack_require__(46);
-var parseHeaders = __webpack_require__(47);
-var isURLSameOrigin = __webpack_require__(48);
+var settle = __webpack_require__(45);
+var buildURL = __webpack_require__(47);
+var parseHeaders = __webpack_require__(48);
+var isURLSameOrigin = __webpack_require__(49);
 var createError = __webpack_require__(18);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(49);
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(50);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -1471,7 +1471,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(50);
+      var cookies = __webpack_require__(51);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -1556,7 +1556,7 @@ module.exports = function xhrAdapter(config) {
 "use strict";
 
 
-var enhanceError = __webpack_require__(45);
+var enhanceError = __webpack_require__(46);
 
 /**
  * Create an Error with the specified message, config, error code, request and response.
@@ -18976,7 +18976,11 @@ var _OrgList = __webpack_require__(37);
 
 var _OrgList2 = _interopRequireDefault(_OrgList);
 
-var _axios = __webpack_require__(39);
+var _OrgDetails = __webpack_require__(39);
+
+var _OrgDetails2 = _interopRequireDefault(_OrgDetails);
+
+var _axios = __webpack_require__(40);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -18998,7 +19002,8 @@ var OrgContainer = function (_Component) {
 
 		_this.state = {
 			scratchOrgs: [],
-			nonScratchOrgs: []
+			nonScratchOrgs: [],
+			detailOrg: {}
 		};
 		return _this;
 	}
@@ -19017,18 +19022,26 @@ var OrgContainer = function (_Component) {
 			});
 		}
 	}, {
+		key: "setDetailOrg",
+		value: function setDetailOrg(org) {
+			this.setState({ detailOrg: org });
+		}
+	}, {
 		key: "render",
 		value: function render() {
 			return _react2.default.createElement(
 				"div",
 				null,
-				_react2.default.createElement(_OrgList2.default, { orgs: this.state.nonScratchOrgs, title: "Non Scratch Orgs" }),
-				_react2.default.createElement(_OrgList2.default, { orgs: this.state.scratchOrgs, title: "Scratch Orgs" }),
+				_react2.default.createElement(_OrgList2.default, { orgs: this.state.nonScratchOrgs, title: "Non Scratch Orgs",
+					setDetailOrg: this.setDetailOrg.bind(this) }),
+				_react2.default.createElement(_OrgList2.default, { orgs: this.state.scratchOrgs, title: "Scratch Orgs",
+					setDetailOrg: this.setDetailOrg.bind(this) }),
 				_react2.default.createElement(
 					"button",
 					{ id: "orgInfo", type: "button", onClick: this.handleRefreshOrgs.bind(this) },
 					"Get Org List"
-				)
+				),
+				_react2.default.createElement(_OrgDetails2.default, { org: this.state.detailOrg })
 			);
 		}
 	}]);
@@ -29432,7 +29445,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function OrgList(props) {
 	var orgRows = props.orgs.map(function (org) {
-		return _react2.default.createElement(_OrgRow2.default, { key: org.username, org: org });
+		return _react2.default.createElement(_OrgRow2.default, { key: org.orgId, org: org,
+			setDetailOrg: props.setDetailOrg });
 	});
 	return _react2.default.createElement(
 		"div",
@@ -29444,6 +29458,20 @@ function OrgList(props) {
 				"h3",
 				null,
 				props.title
+			)
+		),
+		_react2.default.createElement(
+			"div",
+			{ className: "row" },
+			_react2.default.createElement(
+				"div",
+				{ className: "col-sm-4" },
+				"User Name "
+			),
+			_react2.default.createElement(
+				"div",
+				{ className: "col-sm-3" },
+				"Alias"
 			)
 		),
 		orgRows
@@ -29463,38 +29491,77 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var OrgRow = function OrgRow(props) {
-	return _react2.default.createElement(
-		"div",
-		{ className: "row" },
-		_react2.default.createElement(
-			"div",
-			{ className: "col-sm-2" },
-			"User Name: "
-		),
-		_react2.default.createElement(
-			"div",
-			{ className: "col-sm-4" },
-			props.org.username
-		),
-		_react2.default.createElement(
-			"div",
-			{ className: "col-sm-2" },
-			"alias "
-		),
-		_react2.default.createElement(
-			"div",
-			{ className: "col-sm-4" },
-			props.org.alias
-		)
-	);
-};
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var OrgRow = function (_Component) {
+	_inherits(OrgRow, _Component);
+
+	function OrgRow() {
+		_classCallCheck(this, OrgRow);
+
+		var _this = _possibleConstructorReturn(this, (OrgRow.__proto__ || Object.getPrototypeOf(OrgRow)).call(this));
+
+		_this.handleShowDetail = _this.handleShowDetail.bind(_this);
+		return _this;
+	}
+
+	_createClass(OrgRow, [{
+		key: "handleShowDetail",
+		value: function handleShowDetail() {
+			this.props.setDetailOrg(this.props.org);
+		}
+	}, {
+		key: "render",
+		value: function render() {
+			return _react2.default.createElement(
+				"div",
+				{ className: "row" },
+				_react2.default.createElement(
+					"div",
+					{ className: "col-sm-4" },
+					this.props.org.username
+				),
+				_react2.default.createElement(
+					"div",
+					{ className: "col-sm-3" },
+					this.props.org.alias
+				),
+				_react2.default.createElement(
+					"div",
+					{ className: "col-sm-2" },
+					_react2.default.createElement(
+						"a",
+						{ href: "#", onClick: this.handleShowDetail },
+						"Show Details"
+					)
+				),
+				_react2.default.createElement(
+					"div",
+					{ className: "col-sm-2" },
+					_react2.default.createElement(
+						"a",
+						{ href: "#" },
+						"Open Org"
+					)
+				)
+			);
+		}
+	}]);
+
+	return OrgRow;
+}(_react.Component);
 
 exports.default = OrgRow;
 
@@ -29502,10 +29569,198 @@ exports.default = OrgRow;
 /* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(40);
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var OrgDetails = function (_Component) {
+    _inherits(OrgDetails, _Component);
+
+    function OrgDetails() {
+        _classCallCheck(this, OrgDetails);
+
+        return _possibleConstructorReturn(this, (OrgDetails.__proto__ || Object.getPrototypeOf(OrgDetails)).apply(this, arguments));
+    }
+
+    _createClass(OrgDetails, [{
+        key: "render",
+        value: function render() {
+            if (this.props.org !== {}) {
+                return _react2.default.createElement(
+                    "div",
+                    { className: "section-group" },
+                    _react2.default.createElement(
+                        "div",
+                        { className: "row" },
+                        _react2.default.createElement(
+                            "h3",
+                            null,
+                            this.props.org.alias ? this.props.org.alias : "Anonymous"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "row" },
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col-sm-3" },
+                            "User Name: "
+                        ),
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col-sm-6" },
+                            this.props.org.username
+                        )
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "row" },
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col-sm-3" },
+                            "Alias: "
+                        ),
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col-sm-6" },
+                            this.props.org.alias
+                        )
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "row" },
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col-sm-3" },
+                            "Org Id: "
+                        ),
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col-sm-6" },
+                            this.props.org.orgId
+                        )
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "row" },
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col-sm-3" },
+                            "Connected Status: "
+                        ),
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col-sm-6" },
+                            this.props.org.connectedStatus
+                        )
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "row" },
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col-sm-3" },
+                            "Instance Url: "
+                        ),
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col-sm-6" },
+                            this.props.org.instanceUrl
+                        )
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "row" },
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col-sm-3" },
+                            "Login Url: "
+                        ),
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col-sm-6" },
+                            this.props.org.loginUrl
+                        )
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "row" },
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col-sm-3" },
+                            "Last Used: "
+                        ),
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col-sm-6" },
+                            this.props.org.lastUsed
+                        )
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "row" },
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col-sm-3" },
+                            "Expiration Date: "
+                        ),
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col-sm-6" },
+                            this.props.org.expirationDate
+                        )
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "row" },
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col-sm-3" },
+                            "DevHub User Name: "
+                        ),
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col-sm-6" },
+                            this.props.org.devHubUsername
+                        )
+                    )
+                );
+            } else {
+                return _react2.default.createElement("div", { className: "section-group" });
+            }
+        }
+    }]);
+
+    return OrgDetails;
+}(_react.Component);
+
+exports.default = OrgDetails;
 
 /***/ }),
 /* 40 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(41);
+
+/***/ }),
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29513,7 +29768,7 @@ module.exports = __webpack_require__(40);
 
 var utils = __webpack_require__(0);
 var bind = __webpack_require__(16);
-var Axios = __webpack_require__(42);
+var Axios = __webpack_require__(43);
 var defaults = __webpack_require__(8);
 
 /**
@@ -29548,14 +29803,14 @@ axios.create = function create(instanceConfig) {
 
 // Expose Cancel & CancelToken
 axios.Cancel = __webpack_require__(20);
-axios.CancelToken = __webpack_require__(56);
+axios.CancelToken = __webpack_require__(57);
 axios.isCancel = __webpack_require__(19);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(57);
+axios.spread = __webpack_require__(58);
 
 module.exports = axios;
 
@@ -29564,7 +29819,7 @@ module.exports.default = axios;
 
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports) {
 
 /*!
@@ -29591,7 +29846,7 @@ function isSlowBuffer (obj) {
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29599,8 +29854,8 @@ function isSlowBuffer (obj) {
 
 var defaults = __webpack_require__(8);
 var utils = __webpack_require__(0);
-var InterceptorManager = __webpack_require__(51);
-var dispatchRequest = __webpack_require__(52);
+var InterceptorManager = __webpack_require__(52);
+var dispatchRequest = __webpack_require__(53);
 
 /**
  * Create a new instance of Axios
@@ -29677,7 +29932,7 @@ module.exports = Axios;
 
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29696,7 +29951,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29729,7 +29984,7 @@ module.exports = function settle(resolve, reject, response) {
 
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29757,7 +30012,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29832,7 +30087,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29892,7 +30147,7 @@ module.exports = function parseHeaders(headers) {
 
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29967,7 +30222,7 @@ module.exports = (
 
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30010,7 +30265,7 @@ module.exports = btoa;
 
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30070,7 +30325,7 @@ module.exports = (
 
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30129,18 +30384,18 @@ module.exports = InterceptorManager;
 
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(0);
-var transformData = __webpack_require__(53);
+var transformData = __webpack_require__(54);
 var isCancel = __webpack_require__(19);
 var defaults = __webpack_require__(8);
-var isAbsoluteURL = __webpack_require__(54);
-var combineURLs = __webpack_require__(55);
+var isAbsoluteURL = __webpack_require__(55);
+var combineURLs = __webpack_require__(56);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -30222,7 +30477,7 @@ module.exports = function dispatchRequest(config) {
 
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30249,7 +30504,7 @@ module.exports = function transformData(data, headers, fns) {
 
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30270,7 +30525,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30291,7 +30546,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30355,7 +30610,7 @@ module.exports = CancelToken;
 
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
