@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import $ from "jquery";
 import OrgList from "../presentational/OrgList";
 import OrgDetails from "../presentational/OrgDetails";
 import axios from 'axios';

@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import OrgContainer from "./components/container/OrgContainer";
+import MainContainer from "./components/container/MainContainer";
 
-const wrapper = document.getElementById("orgContainer");
-wrapper ? ReactDOM.render(<OrgContainer />, wrapper) : false;
+const wrapper = document.getElementById("mainContainer");
+wrapper ? ReactDOM.render(<MainContainer />, wrapper) : false;
