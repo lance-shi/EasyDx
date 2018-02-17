@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import MenuItem from "./MenuItem";
 
 class MenuItems extends Component {
     render() {
@@ -8,11 +9,9 @@ class MenuItems extends Component {
                     <a className="navbar-brand" href="#"><img src="img/easydxlogo.png" height="30" width="41"/></a>
                     <div className="navbar-collapse collapse" id="conFunMenu">
                         <ul className="navbar-nav mr-auto" >
-                            <li className="nav-item active"><a className="nav-link" href="#"><span className="fa fa-home fa-lg"></span> Home</a></li>
-                            <li className="nav-item"><a className="nav-link" href="#"><span className="fa fa-info fa-lg"></span> About</a></li>
-                            <li className="nav-item"><a className="nav-link" href="#"><span className="fa fa-list fa-lg"></span> Menu</a></li>
-                            <li className="nav-item"><a className="nav-link" href="#"><span className="fa fa-address-card fa-lg"></span> Contact</a></li>
-                        </ul>
+                            <MenuItem menuName="Org" setActivePanel={this.props.setActivePanel} activePanel={this.props.activePanel}/>
+                            <MenuItem menuName="Source" setActivePanel={this.props.setActivePanel} activePanel={this.props.activePanel}/>
+                         </ul>
                     </div>
                 </div>
             </nav>

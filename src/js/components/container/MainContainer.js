@@ -7,17 +7,19 @@ class MainContainer extends Component {
     constructor() {
         super();
         this.state = {
-            showOrgPanel: true,
-            showSourcePanel: false,
             activePanel: "Org"
         };
 		//this.handleShowDetail = this.handleShowDetail.bind(this);
+    }
+
+    setActivePanel(activePanel) {
+        this.setState({activePanel: activePanel});
     }
     
     render() {
         return (
             <div>
-                <MenuItems activePanel={this.props.activePanel}/>
+                <MenuItems activePanel={this.state.activePanel} setActivePanel={this.setActivePanel.bind(this)}/>
                 <div className="jumbotron">
                     <div className="container">
                         <div className="row">
@@ -32,8 +34,8 @@ class MainContainer extends Component {
                     </div>
                 </div>
                 <div className="container">
-                    {this.state.showOrgPanel ? <OrgContainer/> : null}
-                    {this.state.showSourcePanel ? <SourceContainer/> : null}
+                    {this.state.activePanel==="Org" ? <OrgContainer/> : null}
+                    {this.state.activePanel==="Source" ? <SourceContainer/> : null}
                 </div>
             </div>
         );
