@@ -20241,6 +20241,15 @@ var OrgDetails = function (_Component) {
     _createClass(OrgDetails, [{
         key: "render",
         value: function render() {
+            var connectionStatus = "";
+            if (this.props.org.connectedStatus === "Connected") {
+                connectionStatus += " healthy-status";
+            } else if (this.props.org.connectedStatus === "Unknown") {
+                connectionStatus = "";
+            } else {
+                connectionStatus += " error-status";
+            }
+
             return _react2.default.createElement(
                 "div",
                 { className: "section-group" },
@@ -20305,7 +20314,7 @@ var OrgDetails = function (_Component) {
                     ),
                     _react2.default.createElement(
                         "div",
-                        { className: "col-sm-6" },
+                        { className: "col-sm-6" + connectionStatus },
                         this.props.org.connectedStatus
                     )
                 ),

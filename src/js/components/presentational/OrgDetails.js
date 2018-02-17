@@ -2,6 +2,15 @@ import React, { Component } from "react";
 
 class OrgDetails extends Component {
     render() {
+        let connectionStatus = "";
+        if(this.props.org.connectedStatus === "Connected") {
+            connectionStatus += " healthy-status";
+        } else if(this.props.org.connectedStatus === "Unknown") {
+            connectionStatus = ""
+        } else {
+            connectionStatus += " error-status";
+        }
+
         return (
             <div className="section-group">
                 <div className="row">
@@ -21,7 +30,7 @@ class OrgDetails extends Component {
                 </div>
                 <div className="row">
                     <div className="col-sm-3">Connected Status: </div>
-                    <div className="col-sm-6">{this.props.org.connectedStatus}</div>
+                    <div className={"col-sm-6" + connectionStatus}>{this.props.org.connectedStatus}</div>
                 </div>
                 <div className="row">
                     <div className="col-sm-3">Instance Url: </div>
