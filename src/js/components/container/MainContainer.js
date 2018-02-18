@@ -9,7 +9,6 @@ class MainContainer extends Component {
         this.state = {
             activePanel: "Org"
         };
-		//this.handleShowDetail = this.handleShowDetail.bind(this);
     }
 
     setActivePanel(activePanel) {
