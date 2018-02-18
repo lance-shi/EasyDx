@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import OrgContainer from "./OrgContainer";
-import SourceContainer from "./SourceContainer";
+import ProjectContainer from "./ProjectContainer";
 import MenuItems from "../presentational/MenuItems";
 
 class MainContainer extends Component {
@@ -34,7 +34,7 @@ class MainContainer extends Component {
                 </div>
                 <div className="container">
                     {this.state.activePanel==="Org" ? <OrgContainer/> : null}
-                    {this.state.activePanel==="Source" ? <SourceContainer/> : null}
+                    {this.state.activePanel==="Project" ? <ProjectContainer/> : null}
                 </div>
             </div>
         );

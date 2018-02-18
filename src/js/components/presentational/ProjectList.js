@@ -1,12 +1,19 @@
 import React, { Component } from "react";
-//import OrgRow from "./OrgRow";
+import ProjectRow from "./ProjectRow";
 
 function ProjectList(props) {
-	//const orgRows = props.orgs.map(org=><OrgRow key={org.orgId} org={org} 
-	//	setDetailOrg={props.setDetailOrg}/>);
+	const projectRows = props.projects.map(project=><ProjectRow key={project.directory} project={project}
+        setDefaultProj={props.setDefaultProj}/>);
 	return (
 		<div className="section-group">
-			Place holder for project list
+			<div className="row">
+				<h3>Existing Projects</h3>
+			</div>
+			<div className="row">
+				<div className="col-sm-3">Alias</div>
+				<div className="col-sm-6">Directory</div>
+			</div>
+			{projectRows}
 		</div>
 	);
 }

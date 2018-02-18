@@ -745,6 +745,12 @@ module.exports = emptyObject;
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
+module.exports = __webpack_require__(40);
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -802,7 +808,7 @@ module.exports = invariant;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -869,12 +875,6 @@ if (process.env.NODE_ENV !== 'production') {
 
 module.exports = warning;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(40);
 
 /***/ }),
 /* 9 */
@@ -991,8 +991,8 @@ module.exports = defaults;
 
 
 if (process.env.NODE_ENV !== 'production') {
-  var invariant = __webpack_require__(6);
-  var warning = __webpack_require__(7);
+  var invariant = __webpack_require__(7);
+  var warning = __webpack_require__(8);
   var ReactPropTypesSecret = __webpack_require__(26);
   var loggedTypeFailures = {};
 }
@@ -1701,8 +1701,8 @@ if (process.env.NODE_ENV !== "production") {
 
 var _assign = __webpack_require__(4);
 var emptyObject = __webpack_require__(5);
-var invariant = __webpack_require__(6);
-var warning = __webpack_require__(7);
+var invariant = __webpack_require__(7);
+var warning = __webpack_require__(8);
 var emptyFunction = __webpack_require__(3);
 var checkPropTypes = __webpack_require__(10);
 
@@ -3422,8 +3422,8 @@ if (process.env.NODE_ENV !== "production") {
 'use strict';
 
 var React = __webpack_require__(0);
-var invariant = __webpack_require__(6);
-var warning = __webpack_require__(7);
+var invariant = __webpack_require__(7);
+var warning = __webpack_require__(8);
 var ExecutionEnvironment = __webpack_require__(11);
 var _assign = __webpack_require__(4);
 var emptyFunction = __webpack_require__(3);
@@ -18978,11 +18978,11 @@ var _OrgContainer = __webpack_require__(37);
 
 var _OrgContainer2 = _interopRequireDefault(_OrgContainer);
 
-var _SourceContainer = __webpack_require__(59);
+var _ProjectContainer = __webpack_require__(59);
 
-var _SourceContainer2 = _interopRequireDefault(_SourceContainer);
+var _ProjectContainer2 = _interopRequireDefault(_ProjectContainer);
 
-var _MenuItems = __webpack_require__(61);
+var _MenuItems = __webpack_require__(62);
 
 var _MenuItems2 = _interopRequireDefault(_MenuItems);
 
@@ -19055,7 +19055,7 @@ var MainContainer = function (_Component) {
                     "div",
                     { className: "container" },
                     this.state.activePanel === "Org" ? _react2.default.createElement(_OrgContainer2.default, null) : null,
-                    this.state.activePanel === "Source" ? _react2.default.createElement(_SourceContainer2.default, null) : null
+                    this.state.activePanel === "Project" ? _react2.default.createElement(_ProjectContainer2.default, null) : null
                 )
             );
         }
@@ -19091,7 +19091,7 @@ var _OrgDetails = __webpack_require__(58);
 
 var _OrgDetails2 = _interopRequireDefault(_OrgDetails);
 
-var _axios = __webpack_require__(8);
+var _axios = __webpack_require__(6);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -19237,7 +19237,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _axios = __webpack_require__(8);
+var _axios = __webpack_require__(6);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -20413,7 +20413,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _axios = __webpack_require__(8);
+var _axios = __webpack_require__(6);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -20429,37 +20429,44 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var SourceContainer = function (_Component) {
-	_inherits(SourceContainer, _Component);
+var ProjectContainer = function (_Component) {
+	_inherits(ProjectContainer, _Component);
 
-	function SourceContainer() {
-		_classCallCheck(this, SourceContainer);
+	function ProjectContainer() {
+		_classCallCheck(this, ProjectContainer);
 
-		var _this = _possibleConstructorReturn(this, (SourceContainer.__proto__ || Object.getPrototypeOf(SourceContainer)).call(this));
+		var _this = _possibleConstructorReturn(this, (ProjectContainer.__proto__ || Object.getPrototypeOf(ProjectContainer)).call(this));
 
 		_this.state = {
-			projects: []
+			projects: [],
+			defaultProject: null
 		};
 		_axios2.default.get("/api/project").then(function (res) {
 			_this.setState({
-				projects: res.data
+				projects: res.data.projects
 			});
 		});
 		return _this;
 	}
 
-	_createClass(SourceContainer, [{
+	_createClass(ProjectContainer, [{
+		key: "setDefaultProj",
+		value: function setDefaultProj(project) {
+			this.setState({
+				defaultProject: project
+			});
+		}
+	}, {
 		key: "render",
 		value: function render() {
-
-			return _react2.default.createElement(_ProjectList2.default, { projects: this.state.projects });
+			return _react2.default.createElement(_ProjectList2.default, { projects: this.state.projects, setDefaultProj: this.setDefaultProj.bind(this) });
 		}
 	}]);
 
-	return SourceContainer;
+	return ProjectContainer;
 }(_react.Component);
 
-exports.default = SourceContainer;
+exports.default = ProjectContainer;
 
 /***/ }),
 /* 60 */
@@ -20476,17 +20483,44 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _ProjectRow = __webpack_require__(61);
+
+var _ProjectRow2 = _interopRequireDefault(_ProjectRow);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-//import OrgRow from "./OrgRow";
-
 function ProjectList(props) {
-	//const orgRows = props.orgs.map(org=><OrgRow key={org.orgId} org={org} 
-	//	setDetailOrg={props.setDetailOrg}/>);
+	var projectRows = props.projects.map(function (project) {
+		return _react2.default.createElement(_ProjectRow2.default, { key: project.directory, project: project,
+			setDefaultProj: props.setDefaultProj });
+	});
 	return _react2.default.createElement(
 		"div",
 		{ className: "section-group" },
-		"Place holder for project list"
+		_react2.default.createElement(
+			"div",
+			{ className: "row" },
+			_react2.default.createElement(
+				"h3",
+				null,
+				"Existing Projects"
+			)
+		),
+		_react2.default.createElement(
+			"div",
+			{ className: "row" },
+			_react2.default.createElement(
+				"div",
+				{ className: "col-sm-3" },
+				"Alias"
+			),
+			_react2.default.createElement(
+				"div",
+				{ className: "col-sm-6" },
+				"Directory"
+			)
+		),
+		projectRows
 	);
 }
 
@@ -20494,6 +20528,105 @@ exports.default = ProjectList;
 
 /***/ }),
 /* 61 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _axios = __webpack_require__(6);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ProjectRow = function (_Component) {
+	_inherits(ProjectRow, _Component);
+
+	function ProjectRow() {
+		_classCallCheck(this, ProjectRow);
+
+		var _this = _possibleConstructorReturn(this, (ProjectRow.__proto__ || Object.getPrototypeOf(ProjectRow)).call(this));
+
+		_this.handleSetDefault = _this.handleSetDefault.bind(_this);
+		_this.handleConvertCode = _this.handleConvertCode.bind(_this);
+		return _this;
+	}
+
+	_createClass(ProjectRow, [{
+		key: "handleSetDefault",
+		value: function handleSetDefault() {
+			this.props.setDefaultProj(this.props.project);
+		}
+	}, {
+		key: "handleConvertCode",
+		value: function handleConvertCode() {
+			/*axios.post("/api/org", {
+   	username: this.props.org.username	
+   }).then((res) => {
+   	console.log('Org opened successfully');
+      });*/
+		}
+	}, {
+		key: "render",
+		value: function render() {
+			return _react2.default.createElement(
+				"div",
+				{ className: "row" },
+				_react2.default.createElement(
+					"div",
+					{ className: "col-sm-3" },
+					this.props.project.alias
+				),
+				_react2.default.createElement(
+					"div",
+					{ className: "col-sm-5" },
+					this.props.project.directory
+				),
+				_react2.default.createElement(
+					"div",
+					{ className: "col-sm-2" },
+					_react2.default.createElement(
+						"a",
+						{ href: "#", onClick: this.handleSetDefault },
+						"Set as Default Project"
+					)
+				),
+				_react2.default.createElement(
+					"div",
+					{ className: "col-sm-2" },
+					_react2.default.createElement(
+						"a",
+						{ href: "#", onClick: this.handleConvertCode },
+						"Convert Code"
+					)
+				)
+			);
+		}
+	}]);
+
+	return ProjectRow;
+}(_react.Component);
+
+exports.default = ProjectRow;
+
+/***/ }),
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20509,7 +20642,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _MenuItem = __webpack_require__(62);
+var _MenuItem = __webpack_require__(63);
 
 var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
@@ -20551,7 +20684,7 @@ var MenuItems = function (_Component) {
                             "ul",
                             { className: "navbar-nav mr-auto" },
                             _react2.default.createElement(_MenuItem2.default, { menuName: "Org", setActivePanel: this.props.setActivePanel, activePanel: this.props.activePanel }),
-                            _react2.default.createElement(_MenuItem2.default, { menuName: "Source", setActivePanel: this.props.setActivePanel, activePanel: this.props.activePanel })
+                            _react2.default.createElement(_MenuItem2.default, { menuName: "Project", setActivePanel: this.props.setActivePanel, activePanel: this.props.activePanel })
                         )
                     )
                 )
@@ -20565,7 +20698,7 @@ var MenuItems = function (_Component) {
 exports.default = MenuItems;
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

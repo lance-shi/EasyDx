@@ -10,7 +10,7 @@ class MenuItems extends Component {
                     <div className="navbar-collapse collapse" id="conFunMenu">
                         <ul className="navbar-nav mr-auto" >
                             <MenuItem menuName="Org" setActivePanel={this.props.setActivePanel} activePanel={this.props.activePanel}/>
-                            <MenuItem menuName="Source" setActivePanel={this.props.setActivePanel} activePanel={this.props.activePanel}/>
+                            <MenuItem menuName="Project" setActivePanel={this.props.setActivePanel} activePanel={this.props.activePanel}/>
                          </ul>
                     </div>
                 </div>
