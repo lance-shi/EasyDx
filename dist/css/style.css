@@ -9,5 +9,9 @@
 }
 
 .healthy-status {
-    color: #00ff55
+    color: #00ff55;
+}
+
+.title-row {
+    font-weight: bold;
 }

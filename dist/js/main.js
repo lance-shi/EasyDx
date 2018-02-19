@@ -19202,7 +19202,7 @@ function OrgList(props) {
 		),
 		_react2.default.createElement(
 			"div",
-			{ className: "row" },
+			{ className: "row title-row" },
 			_react2.default.createElement(
 				"div",
 				{ className: "col-sm-4" },
@@ -20508,7 +20508,7 @@ function ProjectList(props) {
 		),
 		_react2.default.createElement(
 			"div",
-			{ className: "row" },
+			{ className: "row title-row" },
 			_react2.default.createElement(
 				"div",
 				{ className: "col-sm-3" },
