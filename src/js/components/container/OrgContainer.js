@@ -9,14 +9,15 @@ class OrgContainer extends Component {
 		this.state = {
 			scratchOrgs: [],
 			nonScratchOrgs: [],
-			detailOrg: {}
+			detailOrg: {},
+			showDetailOrg: false
 		};
 	}
 
 	handleRefreshOrgs(e) {
 		axios.get("/api/org").then((res) => {
 			if(res.status === 200) {
-				let result = JSON.parse(res.data[0]).result;
+				let result = res.data.result;
 	            this.setState({
 		        	scratchOrgs: result.scratchOrgs,
 		        	nonScratchOrgs: result.nonScratchOrgs
@@ -28,18 +29,21 @@ class OrgContainer extends Component {
 	}
 
 	setDetailOrg(org) {
-		this.setState({detailOrg: org});
+		this.setState({
+			detailOrg: org,
+			showDetailOrg: true
+		});
 	}
 
 	render() {
 		return (
 			<div>
 				<OrgList orgs={this.state.nonScratchOrgs} title="Non Scratch Orgs" 
-				setDetailOrg={this.setDetailOrg.bind(this)}></OrgList>
+				setDetailOrg={this.setDetailOrg.bind(this)}/>
 				<OrgList orgs={this.state.scratchOrgs} title="Scratch Orgs"
-				setDetailOrg={this.setDetailOrg.bind(this)}></OrgList>
+				setDetailOrg={this.setDetailOrg.bind(this)}/>
 				<button id="orgInfo" type="button" onClick={this.handleRefreshOrgs.bind(this)}>Get Org List</button>
-				<OrgDetails org={this.state.detailOrg}></OrgDetails>
+				{this.state.showDetailOrg ? <OrgDetails org={this.state.detailOrg}/> : null}
 			</div>
 		)
 	}

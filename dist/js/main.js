@@ -19114,7 +19114,8 @@ var OrgContainer = function (_Component) {
 		_this.state = {
 			scratchOrgs: [],
 			nonScratchOrgs: [],
-			detailOrg: {}
+			detailOrg: {},
+			showDetailOrg: false
 		};
 		return _this;
 	}
@@ -19125,17 +19126,24 @@ var OrgContainer = function (_Component) {
 			var _this2 = this;
 
 			_axios2.default.get("/api/org").then(function (res) {
-				var result = JSON.parse(res.data[0]).result;
-				_this2.setState({
-					scratchOrgs: result.scratchOrgs,
-					nonScratchOrgs: result.nonScratchOrgs
-				});
+				if (res.status === 200) {
+					var result = res.data.result;
+					_this2.setState({
+						scratchOrgs: result.scratchOrgs,
+						nonScratchOrgs: result.nonScratchOrgs
+					});
+				} else {
+					console.log("Error: " + res.data.err);
+				}
 			});
 		}
 	}, {
 		key: "setDetailOrg",
 		value: function setDetailOrg(org) {
-			this.setState({ detailOrg: org });
+			this.setState({
+				detailOrg: org,
+				showDetailOrg: true
+			});
 		}
 	}, {
 		key: "render",
@@ -19152,7 +19160,7 @@ var OrgContainer = function (_Component) {
 					{ id: "orgInfo", type: "button", onClick: this.handleRefreshOrgs.bind(this) },
 					"Get Org List"
 				),
-				_react2.default.createElement(_OrgDetails2.default, { org: this.state.detailOrg })
+				this.state.showDetailOrg ? _react2.default.createElement(_OrgDetails2.default, { org: this.state.detailOrg }) : null
 			);
 		}
 	}]);
@@ -19273,7 +19281,11 @@ var OrgRow = function (_Component) {
 			_axios2.default.post("/api/org", {
 				username: this.props.org.username
 			}).then(function (res) {
-				console.log('Org opened successfully');
+				if (res.status === 200) {
+					console.log('Org opened successfully');
+				} else {
+					console.log("Error: " + res.data.err);
+				}
 			});
 		}
 	}, {
