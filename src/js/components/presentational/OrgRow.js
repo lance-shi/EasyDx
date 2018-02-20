@@ -16,7 +16,11 @@ class OrgRow extends Component {
 		axios.post("/api/org", {
 			username: this.props.org.username	
 		}).then((res) => {
-			console.log('Org opened successfully');
+			if(res.status === 200) {
+				console.log('Org opened successfully');
+			} else {
+				console.log("Error: " + res.data.err);
+			}
 	    });
 	}
 
