@@ -15,11 +15,15 @@ class OrgContainer extends Component {
 
 	handleRefreshOrgs(e) {
 		axios.get("/api/org").then((res) => {
-			let result = JSON.parse(res.data[0]).result;
-            this.setState({
-	        	scratchOrgs: result.scratchOrgs,
-	        	nonScratchOrgs: result.nonScratchOrgs
-	        })
+			if(res.status === 200) {
+				let result = JSON.parse(res.data[0]).result;
+	            this.setState({
+		        	scratchOrgs: result.scratchOrgs,
+		        	nonScratchOrgs: result.nonScratchOrgs
+		        })
+	        } else {
+	        	console.log("Error: " + res.data.err);
+	        }
 		});
 	}
 
