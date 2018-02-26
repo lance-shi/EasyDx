@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import MenuItem from "./MenuItem";
+import { NavLink } from "react-router-dom";
 
 class MenuItems extends Component {
     render() {
@@ -9,9 +9,17 @@ class MenuItems extends Component {
                     <a className="navbar-brand" href="#"><img src="img/easydxlogo.png" height="30" width="41"/></a>
                     <div className="navbar-collapse collapse" id="conFunMenu">
                         <ul className="navbar-nav mr-auto" >
-                            <MenuItem menuName="Org" setActivePanel={this.props.setActivePanel} activePanel={this.props.activePanel}/>
-                            <MenuItem menuName="Project" setActivePanel={this.props.setActivePanel} activePanel={this.props.activePanel}/>
-                         </ul>
+                            <li className="nav-item">
+                                <NavLink to="/" exact activeClassName="active" className="nav-link">
+                                    <span className="fa fa-home fa-lg"></span> Org
+                                </NavLink> 
+                            </li>
+                            <li className="nav-item">
+                                <NavLink to="/Project" activeClassName="active" className="nav-link">
+                                    <span className="fa fa-home fa-lg"></span> Project
+                                </NavLink> 
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </nav>
