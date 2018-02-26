@@ -20588,7 +20588,7 @@ var OrgContainer = function (_Component) {
 					setDetailOrg: this.setDetailOrg.bind(this) }),
 				_react2.default.createElement(
 					"button",
-					{ id: "orgInfo", type: "button", onClick: this.handleRefreshOrgs.bind(this) },
+					{ id: "orgInfo", type: "button", className: "btn btn-primary", onClick: this.handleRefreshOrgs.bind(this) },
 					"Get Org List"
 				),
 				this.state.showDetailOrg ? _react2.default.createElement(_OrgDetails2.default, { org: this.state.detailOrg }) : null

@@ -15,3 +15,7 @@
 .title-row {
     font-weight: bold;
 }
+
+.btn {
+    cursor: pointer;
+}
