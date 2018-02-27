@@ -10,7 +10,7 @@ function OrgList(props) {
 				<h3>{props.title}</h3>
 			</div>
 			<div className="row title-row">
-				<div className="col-sm-4">User Name </div>
+				<div className="col-sm-1">Default</div>
 				<div className="col-sm-3">Alias</div>
 			</div>
 			{orgRows}

@@ -45,10 +45,11 @@ class OrgContainer extends Component {
 			<div>
 				{this.state.showLoaidngImage ? <LoadingImage/> : null}
 				<OrgList orgs={this.state.nonScratchOrgs} title="Non Scratch Orgs" 
-				setDetailOrg={this.setDetailOrg.bind(this)}/>
+					setDetailOrg={this.setDetailOrg.bind(this)}/>
 				<OrgList orgs={this.state.scratchOrgs} title="Scratch Orgs"
-				setDetailOrg={this.setDetailOrg.bind(this)}/>
-				<button id="orgInfo" type="button" className="btn btn-primary" onClick={this.handleRefreshOrgs.bind(this)}>Get Org List</button>
+					setDetailOrg={this.setDetailOrg.bind(this)}/>
+				<button id="orgInfo" type="button" className="btn btn-primary" 
+					onClick={this.handleRefreshOrgs.bind(this)}>Get Org List</button>
 				{this.state.showDetailOrg ? <OrgDetails org={this.state.detailOrg}/> : null}
 			</div>
 		)

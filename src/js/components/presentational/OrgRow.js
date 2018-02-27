@@ -6,6 +6,7 @@ class OrgRow extends Component {
 		super();
 		this.handleShowDetail = this.handleShowDetail.bind(this);
 		this.handleOpenOrg = this.handleOpenOrg.bind(this);
+		this.handleDefaultOrg = this.handleDefaultOrg.bind(this);
 	}
 
 	handleShowDetail() {
@@ -24,16 +25,23 @@ class OrgRow extends Component {
 	    });
 	}
 
+	handleDefaultOrg() {
+		
+	}
+
 	render() {
 		return (
 			<div className="row">
-				<div className="col-sm-4">{this.props.org.username}</div>
+				<div className="col-sm-1"></div>
 				<div className="col-sm-3">{this.props.org.alias}</div>
 				<div className="col-sm-2">
 					<a href="#" onClick={this.handleShowDetail}>Show Details</a>
 				</div>
 				<div className="col-sm-2">
 					<a href="#" onClick={this.handleOpenOrg}>Open Org</a>
+				</div>
+				<div className="col-sm-2">
+					<a href="#" onClick={this.handleDefaultOrg}>Set as Default Org</a>
 				</div>
 			</div>
 		);
