@@ -32,7 +32,7 @@ class OrgRow extends Component {
 	render() {
 		return (
 			<tr>
-				<td></td>
+				<td>{this.props.org.defaultMarker}</td>
 				<td>{this.props.org.username}</td>
 				<td>{this.props.org.alias}</td>
 				<td >

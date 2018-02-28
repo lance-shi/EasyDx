@@ -21648,7 +21648,11 @@ var OrgRow = function (_Component) {
 			return _react2.default.createElement(
 				"tr",
 				null,
-				_react2.default.createElement("td", null),
+				_react2.default.createElement(
+					"td",
+					null,
+					this.props.org.defaultMarker
+				),
 				_react2.default.createElement(
 					"td",
 					null,
