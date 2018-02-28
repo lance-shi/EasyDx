@@ -16,7 +16,6 @@
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
-    "jquery": "^3.3.1",
     "jsonfile": "^4.0.0",
     "node-cmd": "^3.0.0",
     "react-router-dom": "^4.2.2",

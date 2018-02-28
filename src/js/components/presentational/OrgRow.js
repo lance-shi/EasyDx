@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from 'axios';
+import axios from "axios";
 
 class OrgRow extends Component {
 	constructor() {
@@ -26,22 +26,38 @@ class OrgRow extends Component {
 	}
 
 	handleDefaultOrg() {
-		
+
 	}
+
+	/*handleDropDownToggle() {
+		if(this.state.showDropDown === "") {
+			this.setState({
+				showDropDown: " show"
+			});
+		} else {
+			this.setState({
+				showDropDown: ""
+			});
+		}
+	}*/
 
 	render() {
 		return (
 			<div className="row">
 				<div className="col-sm-1"></div>
+				<div className="col-sm-4">{this.props.org.username}</div>
 				<div className="col-sm-3">{this.props.org.alias}</div>
-				<div className="col-sm-2">
-					<a href="#" onClick={this.handleShowDetail}>Show Details</a>
-				</div>
-				<div className="col-sm-2">
-					<a href="#" onClick={this.handleOpenOrg}>Open Org</a>
-				</div>
-				<div className="col-sm-2">
-					<a href="#" onClick={this.handleDefaultOrg}>Set as Default Org</a>
+				<div className="col-sm-3">
+					<div className="btn-group">
+						<button type="button" className="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+							Action
+						</button>
+						<div className="dropdown-menu">
+							<a class="dropdown-item" href="#" onClick={this.handleShowDetail}>Show Details</a>
+							<a class="dropdown-item" href="#" onClick={this.handleOpenOrg}>Open Org</a>
+							<a class="dropdown-item" href="#" onClick={this.handleDefaultOrg}>Set as Default Org</a>
+						</div>
+					</div>
 				</div>
 			</div>
 		);

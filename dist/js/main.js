@@ -20596,7 +20596,8 @@ var OrgContainer = function (_Component) {
 					setDetailOrg: this.setDetailOrg.bind(this) }),
 				_react2.default.createElement(
 					"button",
-					{ id: "orgInfo", type: "button", className: "btn btn-primary", onClick: this.handleRefreshOrgs.bind(this) },
+					{ id: "orgInfo", type: "button", className: "btn btn-primary",
+						onClick: this.handleRefreshOrgs.bind(this) },
 					"Get Org List"
 				),
 				this.state.showDetailOrg ? _react2.default.createElement(_OrgDetails2.default, { org: this.state.detailOrg }) : null
@@ -21536,13 +21537,23 @@ function OrgList(props) {
 			{ className: "row title-row" },
 			_react2.default.createElement(
 				"div",
+				{ className: "col-sm-1" },
+				"Default"
+			),
+			_react2.default.createElement(
+				"div",
 				{ className: "col-sm-4" },
-				"User Name "
+				"User Name"
 			),
 			_react2.default.createElement(
 				"div",
 				{ className: "col-sm-3" },
 				"Alias"
+			),
+			_react2.default.createElement(
+				"div",
+				{ className: "col-sm-3" },
+				"Action"
 			)
 		),
 		orgRows
@@ -21590,6 +21601,7 @@ var OrgRow = function (_Component) {
 
 		_this.handleShowDetail = _this.handleShowDetail.bind(_this);
 		_this.handleOpenOrg = _this.handleOpenOrg.bind(_this);
+		_this.handleDefaultOrg = _this.handleDefaultOrg.bind(_this);
 		return _this;
 	}
 
@@ -21612,11 +21624,28 @@ var OrgRow = function (_Component) {
 			});
 		}
 	}, {
+		key: "handleDefaultOrg",
+		value: function handleDefaultOrg() {}
+
+		/*handleDropDownToggle() {
+  	if(this.state.showDropDown === "") {
+  		this.setState({
+  			showDropDown: " show"
+  		});
+  	} else {
+  		this.setState({
+  			showDropDown: ""
+  		});
+  	}
+  }*/
+
+	}, {
 		key: "render",
 		value: function render() {
 			return _react2.default.createElement(
 				"div",
 				{ className: "row" },
+				_react2.default.createElement("div", { className: "col-sm-1" }),
 				_react2.default.createElement(
 					"div",
 					{ className: "col-sm-4" },
@@ -21629,20 +21658,34 @@ var OrgRow = function (_Component) {
 				),
 				_react2.default.createElement(
 					"div",
-					{ className: "col-sm-2" },
+					{ className: "col-sm-3" },
 					_react2.default.createElement(
-						"a",
-						{ href: "#", onClick: this.handleShowDetail },
-						"Show Details"
-					)
-				),
-				_react2.default.createElement(
-					"div",
-					{ className: "col-sm-2" },
-					_react2.default.createElement(
-						"a",
-						{ href: "#", onClick: this.handleOpenOrg },
-						"Open Org"
+						"div",
+						{ className: "btn-group" },
+						_react2.default.createElement(
+							"button",
+							{ type: "button", className: "btn btn-primary dropdown-toggle", "data-toggle": "dropdown" },
+							"Action"
+						),
+						_react2.default.createElement(
+							"div",
+							{ className: "dropdown-menu" },
+							_react2.default.createElement(
+								"a",
+								{ "class": "dropdown-item", href: "#", onClick: this.handleShowDetail },
+								"Show Details"
+							),
+							_react2.default.createElement(
+								"a",
+								{ "class": "dropdown-item", href: "#", onClick: this.handleOpenOrg },
+								"Open Org"
+							),
+							_react2.default.createElement(
+								"a",
+								{ "class": "dropdown-item", href: "#", onClick: this.handleDefaultOrg },
+								"Set as Default Org"
+							)
+						)
 					)
 				)
 			);
