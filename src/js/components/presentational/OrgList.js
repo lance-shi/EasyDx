@@ -9,13 +9,21 @@ function OrgList(props) {
 			<div className="row">
 				<h3>{props.title}</h3>
 			</div>
-			<div className="row title-row">
-				<div className="col-sm-1">Default</div>
-				<div className="col-sm-4">User Name</div>
-				<div className="col-sm-3">Alias</div>
-				<div className="col-sm-3">Action</div>
+			<div className="row">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Default</th>
+							<th>User Name</th>
+							<th>Alias</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						{orgRows}
+					</tbody>
+				</table>
 			</div>
-			{orgRows}
 		</div>
 	);
 }

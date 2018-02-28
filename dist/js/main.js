@@ -21534,29 +21534,45 @@ function OrgList(props) {
 		),
 		_react2.default.createElement(
 			"div",
-			{ className: "row title-row" },
+			{ className: "row" },
 			_react2.default.createElement(
-				"div",
-				{ className: "col-sm-1" },
-				"Default"
-			),
-			_react2.default.createElement(
-				"div",
-				{ className: "col-sm-4" },
-				"User Name"
-			),
-			_react2.default.createElement(
-				"div",
-				{ className: "col-sm-3" },
-				"Alias"
-			),
-			_react2.default.createElement(
-				"div",
-				{ className: "col-sm-3" },
-				"Action"
+				"table",
+				{ "class": "table table-hover" },
+				_react2.default.createElement(
+					"thead",
+					null,
+					_react2.default.createElement(
+						"tr",
+						null,
+						_react2.default.createElement(
+							"th",
+							null,
+							"Default"
+						),
+						_react2.default.createElement(
+							"th",
+							null,
+							"User Name"
+						),
+						_react2.default.createElement(
+							"th",
+							null,
+							"Alias"
+						),
+						_react2.default.createElement(
+							"th",
+							null,
+							"Action"
+						)
+					)
+				),
+				_react2.default.createElement(
+					"tbody",
+					null,
+					orgRows
+				)
 			)
-		),
-		orgRows
+		)
 	);
 }
 
@@ -21626,39 +21642,26 @@ var OrgRow = function (_Component) {
 	}, {
 		key: "handleDefaultOrg",
 		value: function handleDefaultOrg() {}
-
-		/*handleDropDownToggle() {
-  	if(this.state.showDropDown === "") {
-  		this.setState({
-  			showDropDown: " show"
-  		});
-  	} else {
-  		this.setState({
-  			showDropDown: ""
-  		});
-  	}
-  }*/
-
 	}, {
 		key: "render",
 		value: function render() {
 			return _react2.default.createElement(
-				"div",
-				{ className: "row" },
-				_react2.default.createElement("div", { className: "col-sm-1" }),
+				"tr",
+				null,
+				_react2.default.createElement("td", null),
 				_react2.default.createElement(
-					"div",
-					{ className: "col-sm-4" },
+					"td",
+					null,
 					this.props.org.username
 				),
 				_react2.default.createElement(
-					"div",
-					{ className: "col-sm-3" },
+					"td",
+					null,
 					this.props.org.alias
 				),
 				_react2.default.createElement(
-					"div",
-					{ className: "col-sm-3" },
+					"td",
+					null,
 					_react2.default.createElement(
 						"div",
 						{ className: "btn-group" },

@@ -29,25 +29,13 @@ class OrgRow extends Component {
 
 	}
 
-	/*handleDropDownToggle() {
-		if(this.state.showDropDown === "") {
-			this.setState({
-				showDropDown: " show"
-			});
-		} else {
-			this.setState({
-				showDropDown: ""
-			});
-		}
-	}*/
-
 	render() {
 		return (
-			<div className="row">
-				<div className="col-sm-1"></div>
-				<div className="col-sm-4">{this.props.org.username}</div>
-				<div className="col-sm-3">{this.props.org.alias}</div>
-				<div className="col-sm-3">
+			<tr>
+				<td></td>
+				<td>{this.props.org.username}</td>
+				<td>{this.props.org.alias}</td>
+				<td >
 					<div className="btn-group">
 						<button type="button" className="btn btn-primary dropdown-toggle" data-toggle="dropdown">
 							Action
@@ -58,8 +46,8 @@ class OrgRow extends Component {
 							<a class="dropdown-item" href="#" onClick={this.handleDefaultOrg}>Set as Default Org</a>
 						</div>
 					</div>
-				</div>
-			</div>
+				</td>
+			</tr>
 		);
 	} 
 } 
