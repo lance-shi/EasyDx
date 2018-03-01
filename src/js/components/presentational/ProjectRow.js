@@ -22,16 +22,21 @@ class ProjectRow extends Component {
 
 	render() {
 		return (
-			<div className="row">
-				<div className="col-sm-3">{this.props.project.alias}</div>
-				<div className="col-sm-5">{this.props.project.directory}</div>
-				<div className="col-sm-2">
-					<a href="#" onClick={this.handleSetDefault}>Set as Default Project</a>
-				</div>
-				<div className="col-sm-2">
-					<a href="#" onClick={this.handleConvertCode}>Convert Code</a>
-				</div>
-			</div>
+			<tr>
+				<td>{this.props.project.alias}</td>
+				<td>{this.props.project.directory}</td>
+				<td >
+					<div className="btn-group">
+						<button type="button" className="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+							Action
+						</button>
+						<div className="dropdown-menu">
+							<a className="dropdown-item" href="#" onClick={this.handleSetDefault}>Set as Default Project</a>
+							<a className="dropdown-item" href="#" onClick={this.handleConvertCode}>Convert Code</a>
+						</div>
+					</div>
+				</td>
+			</tr>
 		);
 	} 
 } 

@@ -10,7 +10,6 @@ const projectFile = './data/projects.json';
 projectRouter.route('/')
 .get((req, res) => {
     jsonfile.readFile(projectFile, function(err, obj) {
-        console.log('get is called');
         res.send(JSON.stringify(obj));
     });
 })

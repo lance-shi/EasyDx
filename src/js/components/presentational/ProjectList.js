@@ -9,11 +9,20 @@ function ProjectList(props) {
 			<div className="row">
 				<h3>Existing Projects</h3>
 			</div>
-			<div className="row title-row">
-				<div className="col-sm-3">Alias</div>
-				<div className="col-sm-6">Directory</div>
+			<div className="row">
+				<table className="table table-hover">
+					<thead>
+						<tr>
+							<th>Alias</th>
+							<th>Directory</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{projectRows}
+					</tbody>
+				</table>
 			</div>
-			{projectRows}
 		</div>
 	);
 }

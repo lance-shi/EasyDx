@@ -6,7 +6,6 @@ class MenuItems extends Component {
         return (
             <nav className="navbar navbar-dark navbar-expand-lg">
                 <div className="container ">
-                    <a className="navbar-brand" href="#"><img src="img/easydxlogo.png" height="30" width="41"/></a>
                     <div className="navbar-collapse collapse" id="conFunMenu">
                         <ul className="navbar-nav mr-auto" >
                             <li className="nav-item">

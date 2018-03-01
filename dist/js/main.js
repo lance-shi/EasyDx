@@ -22097,19 +22097,40 @@ function ProjectList(props) {
 		),
 		_react2.default.createElement(
 			"div",
-			{ className: "row title-row" },
+			{ className: "row" },
 			_react2.default.createElement(
-				"div",
-				{ className: "col-sm-3" },
-				"Alias"
-			),
-			_react2.default.createElement(
-				"div",
-				{ className: "col-sm-6" },
-				"Directory"
+				"table",
+				{ className: "table table-hover" },
+				_react2.default.createElement(
+					"thead",
+					null,
+					_react2.default.createElement(
+						"tr",
+						null,
+						_react2.default.createElement(
+							"th",
+							null,
+							"Alias"
+						),
+						_react2.default.createElement(
+							"th",
+							null,
+							"Directory"
+						),
+						_react2.default.createElement(
+							"th",
+							null,
+							"Actions"
+						)
+					)
+				),
+				_react2.default.createElement(
+					"tbody",
+					null,
+					projectRows
+				)
 			)
-		),
-		projectRows
+		)
 	);
 }
 
@@ -22175,34 +22196,43 @@ var ProjectRow = function (_Component) {
 		key: "render",
 		value: function render() {
 			return _react2.default.createElement(
-				"div",
-				{ className: "row" },
+				"tr",
+				null,
 				_react2.default.createElement(
-					"div",
-					{ className: "col-sm-3" },
+					"td",
+					null,
 					this.props.project.alias
 				),
 				_react2.default.createElement(
-					"div",
-					{ className: "col-sm-5" },
+					"td",
+					null,
 					this.props.project.directory
 				),
 				_react2.default.createElement(
-					"div",
-					{ className: "col-sm-2" },
+					"td",
+					null,
 					_react2.default.createElement(
-						"a",
-						{ href: "#", onClick: this.handleSetDefault },
-						"Set as Default Project"
-					)
-				),
-				_react2.default.createElement(
-					"div",
-					{ className: "col-sm-2" },
-					_react2.default.createElement(
-						"a",
-						{ href: "#", onClick: this.handleConvertCode },
-						"Convert Code"
+						"div",
+						{ className: "btn-group" },
+						_react2.default.createElement(
+							"button",
+							{ type: "button", className: "btn btn-primary dropdown-toggle", "data-toggle": "dropdown" },
+							"Action"
+						),
+						_react2.default.createElement(
+							"div",
+							{ className: "dropdown-menu" },
+							_react2.default.createElement(
+								"a",
+								{ className: "dropdown-item", href: "#", onClick: this.handleSetDefault },
+								"Set as Default Project"
+							),
+							_react2.default.createElement(
+								"a",
+								{ className: "dropdown-item", href: "#", onClick: this.handleConvertCode },
+								"Convert Code"
+							)
+						)
 					)
 				)
 			);
@@ -22259,11 +22289,6 @@ var MenuItems = function (_Component) {
                 _react2.default.createElement(
                     "div",
                     { className: "container " },
-                    _react2.default.createElement(
-                        "a",
-                        { className: "navbar-brand", href: "#" },
-                        _react2.default.createElement("img", { src: "img/easydxlogo.png", height: "30", width: "41" })
-                    ),
                     _react2.default.createElement(
                         "div",
                         { className: "navbar-collapse collapse", id: "conFunMenu" },
