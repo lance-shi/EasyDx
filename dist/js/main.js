@@ -20553,6 +20553,8 @@ var OrgContainer = function (_Component) {
 			showDetailOrg: false,
 			showLoaidngImage: false
 		};
+
+		_this.toggleLoadingImage = _this.toggleLoadingImage.bind(_this);
 		return _this;
 	}
 
@@ -20584,6 +20586,13 @@ var OrgContainer = function (_Component) {
 			});
 		}
 	}, {
+		key: "toggleLoadingImage",
+		value: function toggleLoadingImage(displayLoadingImage) {
+			this.setState({
+				showLoaidngImage: displayLoadingImage
+			});
+		}
+	}, {
 		key: "render",
 		value: function render() {
 			return _react2.default.createElement(
@@ -20591,9 +20600,11 @@ var OrgContainer = function (_Component) {
 				null,
 				this.state.showLoaidngImage ? _react2.default.createElement(_LoadingImage2.default, null) : null,
 				_react2.default.createElement(_OrgList2.default, { orgs: this.state.nonScratchOrgs, title: "Non Scratch Orgs",
-					setDetailOrg: this.setDetailOrg.bind(this) }),
+					setDetailOrg: this.setDetailOrg.bind(this),
+					toggleLoadingImage: this.toggleLoadingImage }),
 				_react2.default.createElement(_OrgList2.default, { orgs: this.state.scratchOrgs, title: "Scratch Orgs",
-					setDetailOrg: this.setDetailOrg.bind(this) }),
+					setDetailOrg: this.setDetailOrg.bind(this),
+					toggleLoadingImage: this.toggleLoadingImage }),
 				_react2.default.createElement(
 					"button",
 					{ id: "orgInfo", type: "button", className: "btn btn-primary",
@@ -21518,7 +21529,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function OrgList(props) {
 	var orgRows = props.orgs.map(function (org) {
 		return _react2.default.createElement(_OrgRow2.default, { key: org.orgId, org: org,
-			setDetailOrg: props.setDetailOrg });
+			setDetailOrg: props.setDetailOrg, toggleLoadingImage: props.toggleLoadingImage });
 	});
 	return _react2.default.createElement(
 		"div",
@@ -21537,7 +21548,7 @@ function OrgList(props) {
 			{ className: "row" },
 			_react2.default.createElement(
 				"table",
-				{ "class": "table table-hover" },
+				{ className: "table table-hover" },
 				_react2.default.createElement(
 					"thead",
 					null,
@@ -21610,14 +21621,18 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var OrgRow = function (_Component) {
 	_inherits(OrgRow, _Component);
 
-	function OrgRow() {
+	function OrgRow(props) {
 		_classCallCheck(this, OrgRow);
 
-		var _this = _possibleConstructorReturn(this, (OrgRow.__proto__ || Object.getPrototypeOf(OrgRow)).call(this));
+		var _this = _possibleConstructorReturn(this, (OrgRow.__proto__ || Object.getPrototypeOf(OrgRow)).call(this, props));
 
 		_this.handleShowDetail = _this.handleShowDetail.bind(_this);
 		_this.handleOpenOrg = _this.handleOpenOrg.bind(_this);
 		_this.handleDefaultOrg = _this.handleDefaultOrg.bind(_this);
+
+		_this.state = {
+			defaultMarker: _this.props.org.defaultMarker
+		};
 		return _this;
 	}
 
@@ -21629,19 +21644,42 @@ var OrgRow = function (_Component) {
 	}, {
 		key: "handleOpenOrg",
 		value: function handleOpenOrg() {
+			var _this2 = this;
+
+			this.props.toggleLoadingImage(true);
 			_axios2.default.post("/api/org", {
 				username: this.props.org.username
 			}).then(function (res) {
 				if (res.status === 200) {
+					_this2.props.toggleLoadingImage(false);
 					console.log('Org opened successfully');
 				} else {
+					_this2.props.toggleLoadingImage(false);
 					console.log("Error: " + res.data.err);
 				}
 			});
 		}
 	}, {
 		key: "handleDefaultOrg",
-		value: function handleDefaultOrg() {}
+		value: function handleDefaultOrg() {
+			var _this3 = this;
+
+			this.props.toggleLoadingImage(true);
+			_axios2.default.post("api/defaultOrg", {
+				username: this.props.org.username
+			}).then(function (res) {
+				if (res.status === 200) {
+					_this3.props.toggleLoadingImage(false);
+					console.log("Default org set successfully");
+					_this3.setState({
+						defaultMarker: "(U)"
+					});
+				} else {
+					_this3.props.toggleLoadingImage(false);
+					console.log("Error: " + res.data.err);
+				}
+			});
+		}
 	}, {
 		key: "render",
 		value: function render() {
@@ -21651,7 +21689,7 @@ var OrgRow = function (_Component) {
 				_react2.default.createElement(
 					"td",
 					null,
-					this.props.org.defaultMarker
+					this.state.defaultMarker
 				),
 				_react2.default.createElement(
 					"td",
@@ -21679,17 +21717,17 @@ var OrgRow = function (_Component) {
 							{ className: "dropdown-menu" },
 							_react2.default.createElement(
 								"a",
-								{ "class": "dropdown-item", href: "#", onClick: this.handleShowDetail },
+								{ className: "dropdown-item", href: "#", onClick: this.handleShowDetail },
 								"Show Details"
 							),
 							_react2.default.createElement(
 								"a",
-								{ "class": "dropdown-item", href: "#", onClick: this.handleOpenOrg },
+								{ className: "dropdown-item", href: "#", onClick: this.handleOpenOrg },
 								"Open Org"
 							),
 							_react2.default.createElement(
 								"a",
-								{ "class": "dropdown-item", href: "#", onClick: this.handleDefaultOrg },
+								{ className: "dropdown-item", href: "#", onClick: this.handleDefaultOrg },
 								"Set as Default Org"
 							)
 						)
