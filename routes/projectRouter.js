@@ -17,6 +17,7 @@ projectRouter.route('/')
     let newProj = {};
     newProj.alias = req.body.alias;
     newProj.directory = req.body.directory;
+    newProj.isDefault = req.body.isDefault;
 
     jsonfile.readFile(projectFile, function(err, obj) {
         obj.projects.push(newProj);
