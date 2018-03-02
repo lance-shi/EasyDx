@@ -13,6 +13,7 @@ function ProjectList(props) {
 				<table className="table table-hover">
 					<thead>
 						<tr>
+							<th>Default</th>
 							<th>Alias</th>
 							<th>Directory</th>
 							<th>Actions</th>

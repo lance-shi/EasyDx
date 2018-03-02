@@ -2,24 +2,25 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const jsonfile = require('jsonfile');
 
-const projectRouter = express.Router();
-projectRouter.use(bodyParser.json());
+const defaultProjectRouter = express.Router();
+defaultProjectRouter.use(bodyParser.json());
 
 const projectFile = './data/projects.json';
 
-projectRouter.route('/')
-.get((req, res) => {
-    jsonfile.readFile(projectFile, function(err, obj) {
-        res.send(JSON.stringify(obj));
-    });
-})
+defaultProjectRouter.route('/')
 .post((req, res) => {
     let newProj = {};
     newProj.alias = req.body.alias;
     newProj.directory = req.body.directory;
 
     jsonfile.readFile(projectFile, function(err, obj) {
-        obj.projects.push(newProj);
+        for(let i = 0; i < obj.projects.length; i++) {
+            if(obj.projects[i].alias === newProj.alias) {
+                obj.projects[i].isDefault = true;
+            } else {
+                obj.projects[i].isDefault = false;
+            }
+        }
         jsonfile.writeFile(projectFile, obj, function(err) {
             if(err==null) {
                 res.send(JSON.stringify(obj));
@@ -32,4 +33,4 @@ projectRouter.route('/')
     });
 });
 
-module.exports = projectRouter;
+module.exports = defaultProjectRouter;

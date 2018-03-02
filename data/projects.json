@@ -1,9 +1,1 @@
-{
-    "defaultProject": null,
-    "projects": [  
-        {  
-           "alias":"sample proj",
-           "directory":"/user/Lance/sample"
-        }
-    ]
-}
+{"projects":[{"alias":"sample proj","directory":"/user/Lance/sample","isDefault":true}]}

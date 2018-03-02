@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import axios from 'axios';
 
 class ProjectRow extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.handleSetDefault = this.handleSetDefault.bind(this);
 		this.handleConvertCode = this.handleConvertCode.bind(this);
 	}
@@ -21,8 +21,14 @@ class ProjectRow extends Component {
 	}
 
 	render() {
+		let defaultMarker = "";
+		if(this.props.project.isDefault) {
+			defaultMarker = "(D)";
+		}
+
 		return (
 			<tr>
+				<td>{defaultMarker}</td>
 				<td>{this.props.project.alias}</td>
 				<td>{this.props.project.directory}</td>
 				<td >

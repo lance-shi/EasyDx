@@ -6,8 +6,7 @@ class ProjectContainer extends Component {
 	constructor() {
 		super();
 		this.state = {
-			projects: [],
-			defaultProject: null
+			projects: []
 		};
 		axios.get("/api/project").then((res) => {
             this.setState({
@@ -17,6 +16,19 @@ class ProjectContainer extends Component {
 	}
 
 	setDefaultProj(project) {
+		axios.post("api/defaultProject", {
+			alias: project.alias,
+			directory: project.directory
+		}).then((res) => {
+			if(res.status === 200) {
+				console.log("Default project set successfully");
+				this.setState({
+					projects: res.data.projects
+				});
+			} else {
+				console.log("Error: " + res.data.err);
+			}
+		});
 		this.setState({
 			defaultProject: project
 		})
@@ -24,7 +36,8 @@ class ProjectContainer extends Component {
 
 	render() {
 		return (
-			<ProjectList projects={this.state.projects} setDefaultProj={this.setDefaultProj.bind(this)}/>
+			<ProjectList projects={this.state.projects}
+				setDefaultProj={this.setDefaultProj.bind(this)}/>
 		)
 	}
 }

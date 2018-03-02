@@ -22027,8 +22027,7 @@ var ProjectContainer = function (_Component) {
 		var _this = _possibleConstructorReturn(this, (ProjectContainer.__proto__ || Object.getPrototypeOf(ProjectContainer)).call(this));
 
 		_this.state = {
-			projects: [],
-			defaultProject: null
+			projects: []
 		};
 		_axios2.default.get("/api/project").then(function (res) {
 			_this.setState({
@@ -22041,6 +22040,21 @@ var ProjectContainer = function (_Component) {
 	_createClass(ProjectContainer, [{
 		key: "setDefaultProj",
 		value: function setDefaultProj(project) {
+			var _this2 = this;
+
+			_axios2.default.post("api/defaultProject", {
+				alias: project.alias,
+				directory: project.directory
+			}).then(function (res) {
+				if (res.status === 200) {
+					console.log("Default project set successfully");
+					_this2.setState({
+						projects: res.data.projects
+					});
+				} else {
+					console.log("Error: " + res.data.err);
+				}
+			});
 			this.setState({
 				defaultProject: project
 			});
@@ -22048,7 +22062,8 @@ var ProjectContainer = function (_Component) {
 	}, {
 		key: "render",
 		value: function render() {
-			return _react2.default.createElement(_ProjectList2.default, { projects: this.state.projects, setDefaultProj: this.setDefaultProj.bind(this) });
+			return _react2.default.createElement(_ProjectList2.default, { projects: this.state.projects,
+				setDefaultProj: this.setDefaultProj.bind(this) });
 		}
 	}]);
 
@@ -22110,6 +22125,11 @@ function ProjectList(props) {
 						_react2.default.createElement(
 							"th",
 							null,
+							"Default"
+						),
+						_react2.default.createElement(
+							"th",
+							null,
 							"Alias"
 						),
 						_react2.default.createElement(
@@ -22168,10 +22188,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var ProjectRow = function (_Component) {
 	_inherits(ProjectRow, _Component);
 
-	function ProjectRow() {
+	function ProjectRow(props) {
 		_classCallCheck(this, ProjectRow);
 
-		var _this = _possibleConstructorReturn(this, (ProjectRow.__proto__ || Object.getPrototypeOf(ProjectRow)).call(this));
+		var _this = _possibleConstructorReturn(this, (ProjectRow.__proto__ || Object.getPrototypeOf(ProjectRow)).call(this, props));
 
 		_this.handleSetDefault = _this.handleSetDefault.bind(_this);
 		_this.handleConvertCode = _this.handleConvertCode.bind(_this);
@@ -22195,9 +22215,19 @@ var ProjectRow = function (_Component) {
 	}, {
 		key: "render",
 		value: function render() {
+			var defaultMarker = "";
+			if (this.props.project.isDefault) {
+				defaultMarker = "(D)";
+			}
+
 			return _react2.default.createElement(
 				"tr",
 				null,
+				_react2.default.createElement(
+					"td",
+					null,
+					defaultMarker
+				),
 				_react2.default.createElement(
 					"td",
 					null,
