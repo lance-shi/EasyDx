@@ -18,9 +18,16 @@ projectRouter.route('/')
     newProj.alias = req.body.alias;
     newProj.directory = req.body.directory;
     newProj.isDefault = req.body.isDefault;
+    console.log('newPro isDefault is: ' + newProj.isDefault);
 
     jsonfile.readFile(projectFile, function(err, obj) {
+        if(newProj.isDefault) {
+            for(let i = 0; i < obj.projects.length; i++) {
+                obj.projects[i].isDefault = false;
+            }
+        }
         obj.projects.push(newProj);
+
         jsonfile.writeFile(projectFile, obj, function(err) {
             if(err==null) {
                 res.send(JSON.stringify(obj));

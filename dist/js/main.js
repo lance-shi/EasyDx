@@ -22068,7 +22068,7 @@ var ProjectContainer = function (_Component) {
 			_axios2.default.post("api/project", {
 				alias: project.alias,
 				directory: project.directory,
-				isDefault: false
+				isDefault: project.isDefault
 			}).then(function (res) {
 				if (res.status === 200) {
 					console.log("Project added successfully");
@@ -22335,12 +22335,14 @@ var ProjectAdd = function (_Component) {
 
         _this.state = {
             alias: "",
-            directory: ""
+            directory: "",
+            isDefault: false
         };
 
         _this.handleAliasChange = _this.handleAliasChange.bind(_this);
         _this.handleDirectoryChange = _this.handleDirectoryChange.bind(_this);
         _this.handleAddProject = _this.handleAddProject.bind(_this);
+        _this.handleDefaultChange = _this.handleDefaultChange.bind(_this);
         return _this;
     }
 
@@ -22353,6 +22355,11 @@ var ProjectAdd = function (_Component) {
         key: "handleDirectoryChange",
         value: function handleDirectoryChange(event) {
             this.setState({ directory: event.target.value });
+        }
+    }, {
+        key: "handleDefaultChange",
+        value: function handleDefaultChange(event) {
+            this.setState({ isDefault: !this.state.isDefault });
         }
     }, {
         key: "handleAddProject",
@@ -22368,10 +22375,17 @@ var ProjectAdd = function (_Component) {
 
             var project = {
                 alias: this.state.alias,
-                directory: this.state.directory
+                directory: this.state.directory,
+                isDefault: this.state.isDefault
             };
 
             this.props.addProject(project);
+
+            this.setState({
+                alias: "",
+                directory: "",
+                isDefault: false
+            });
         }
     }, {
         key: "render",
@@ -22390,36 +22404,72 @@ var ProjectAdd = function (_Component) {
                 ),
                 _react2.default.createElement(
                     "div",
-                    { className: "row form-group align-items-center" },
+                    { className: "row" },
                     _react2.default.createElement(
-                        "div",
-                        { className: "col-sm-3" },
+                        "table",
+                        { className: "table table-hover" },
                         _react2.default.createElement(
-                            "label",
+                            "thead",
                             null,
-                            "Alias"
+                            _react2.default.createElement(
+                                "tr",
+                                null,
+                                _react2.default.createElement(
+                                    "th",
+                                    { style: { width: "8%" } },
+                                    "Default"
+                                ),
+                                _react2.default.createElement(
+                                    "th",
+                                    { style: { width: "23%" } },
+                                    "Alias"
+                                ),
+                                _react2.default.createElement(
+                                    "th",
+                                    { style: { width: "54%" } },
+                                    "Directory"
+                                ),
+                                _react2.default.createElement(
+                                    "th",
+                                    { style: { width: "15%" } },
+                                    "Actions"
+                                )
+                            )
                         ),
-                        _react2.default.createElement("input", { type: "text", className: "form-control", value: this.state.alias,
-                            onChange: this.handleAliasChange })
-                    ),
-                    _react2.default.createElement(
-                        "div",
-                        { className: "col-sm-6" },
                         _react2.default.createElement(
-                            "label",
+                            "tbody",
                             null,
-                            "Directory"
-                        ),
-                        _react2.default.createElement("input", { type: "text", className: "form-control", value: this.state.directory,
-                            onChange: this.handleDirectoryChange })
-                    ),
-                    _react2.default.createElement(
-                        "div",
-                        { className: "col-sm-3" },
-                        _react2.default.createElement(
-                            "button",
-                            { type: "button", className: "btn btn-primary", onClick: this.handleAddProject },
-                            "Add Project"
+                            _react2.default.createElement(
+                                "tr",
+                                null,
+                                _react2.default.createElement(
+                                    "td",
+                                    null,
+                                    _react2.default.createElement("input", { type: "checkbox", defaultChecked: this.state.isDefault,
+                                        onChange: this.handleDefaultChange })
+                                ),
+                                _react2.default.createElement(
+                                    "td",
+                                    null,
+                                    _react2.default.createElement("input", { type: "text", className: "form-control", value: this.state.alias,
+                                        onChange: this.handleAliasChange })
+                                ),
+                                _react2.default.createElement(
+                                    "td",
+                                    null,
+                                    _react2.default.createElement("input", { type: "text", className: "form-control", value: this.state.directory,
+                                        onChange: this.handleDirectoryChange })
+                                ),
+                                _react2.default.createElement(
+                                    "td",
+                                    null,
+                                    _react2.default.createElement(
+                                        "button",
+                                        { type: "button", className: "btn btn-primary", onClick: this.handleAddProject },
+                                        "Add Project"
+                                    )
+                                )
+                            )
                         )
                     )
                 )

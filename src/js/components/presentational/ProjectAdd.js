@@ -6,12 +6,14 @@ class ProjectAdd extends Component {
 
         this.state = {
             alias: "",
-            directory: ""
+            directory: "",
+            isDefault: false
         };
 
         this.handleAliasChange = this.handleAliasChange.bind(this);
         this.handleDirectoryChange = this.handleDirectoryChange.bind(this);
         this.handleAddProject = this.handleAddProject.bind(this);
+        this.handleDefaultChange = this.handleDefaultChange.bind(this);
     }
 
     handleAliasChange(event) {
@@ -20,6 +22,10 @@ class ProjectAdd extends Component {
 
     handleDirectoryChange(event) {
         this.setState({directory: event.target.value});
+    }
+
+    handleDefaultChange(event) {
+        this.setState({isDefault: !this.state.isDefault});
     }
 
     handleAddProject() {
@@ -34,10 +40,17 @@ class ProjectAdd extends Component {
 
         let project = {
             alias: this.state.alias,
-            directory: this.state.directory
+            directory: this.state.directory,
+            isDefault: this.state.isDefault
         };
 
         this.props.addProject(project);
+
+        this.setState({
+            alias: "",
+            directory: "",
+            isDefault: false
+        });
     }
 
     render() {
@@ -46,22 +59,38 @@ class ProjectAdd extends Component {
                 <div className="row">
                     <h3>Add a Project</h3>
                 </div>
-                <div className="row form-group align-items-center">
-                    <div className="col-sm-3">
-                        <label>Alias</label>
-                        <input type="text" className="form-control" value={this.state.alias} 
-                            onChange={this.handleAliasChange}/>
-                    </div>
-                    <div className="col-sm-6">
-                        <label>Directory</label>
-                        <input type="text" className="form-control" value={this.state.directory} 
-                            onChange={this.handleDirectoryChange}/>
-                    </div>
-                    <div className="col-sm-3">
-                        <button type="button" className="btn btn-primary" onClick={this.handleAddProject}>
-							Add Project
-						</button>
-                    </div>
+                <div className="row">
+                    <table className="table table-hover">
+                        <thead>
+                            <tr>
+                                <th style={{width: "8%"}}>Default</th>
+                                <th style={{width: "23%"}}>Alias</th>
+                                <th style={{width: "54%"}}>Directory</th>
+                                <th style={{width: "15%"}}>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" defaultChecked={this.state.isDefault} 
+                                        onChange={this.handleDefaultChange}/>
+                                </td>
+                                <td>
+                                    <input type="text" className="form-control" value={this.state.alias} 
+                                        onChange={this.handleAliasChange}/>
+                                </td>   
+                                <td>
+                                    <input type="text" className="form-control" value={this.state.directory} 
+                                        onChange={this.handleDirectoryChange}/>
+                                </td>
+                                <td>
+                                    <button type="button" className="btn btn-primary" onClick={this.handleAddProject}>
+                                        Add Project
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         );

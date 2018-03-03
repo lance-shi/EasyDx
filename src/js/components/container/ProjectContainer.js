@@ -36,7 +36,7 @@ class ProjectContainer extends Component {
 		axios.post("api/project", {
 			alias: project.alias,
 			directory: project.directory,
-			isDefault: false
+			isDefault: project.isDefault
 		}).then((res) => {
 			if(res.status === 200) {
 				console.log("Project added successfully");
