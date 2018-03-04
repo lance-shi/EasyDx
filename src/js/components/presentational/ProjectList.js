@@ -13,10 +13,10 @@ function ProjectList(props) {
 				<table className="table table-hover">
 					<thead>
 						<tr>
-							<th>Default</th>
-							<th>Alias</th>
-							<th>Directory</th>
-							<th>Actions</th>
+							<th style={{width: "8%"}}>Default</th>
+							<th style={{width: "23%"}}>Alias</th>
+							<th style={{width: "54%"}}>Directory</th>
+							<th style={{width: "15%"}}>Actions</th>
 						</tr>
 					</thead>
 					<tbody>

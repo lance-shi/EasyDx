@@ -13,11 +13,15 @@ class ProjectRow extends Component {
 	}
 
 	handleConvertCode() {
-		/*axios.post("/api/org", {
-			username: this.props.org.username	
+		axios.post("api/convertProject", {
+			directory: this.props.project.directory
 		}).then((res) => {
-			console.log('Org opened successfully');
-	    });*/
+			if(res.status === 200) {
+				console.log("Project converted successfully!");
+			} else {
+				console.log("Error: " + res.data.err);
+			}
+		});
 	}
 
 	render() {

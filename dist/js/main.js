@@ -22150,22 +22150,22 @@ function ProjectList(props) {
 						null,
 						_react2.default.createElement(
 							"th",
-							null,
+							{ style: { width: "8%" } },
 							"Default"
 						),
 						_react2.default.createElement(
 							"th",
-							null,
+							{ style: { width: "23%" } },
 							"Alias"
 						),
 						_react2.default.createElement(
 							"th",
-							null,
+							{ style: { width: "54%" } },
 							"Directory"
 						),
 						_react2.default.createElement(
 							"th",
-							null,
+							{ style: { width: "15%" } },
 							"Actions"
 						)
 					)
@@ -22232,11 +22232,15 @@ var ProjectRow = function (_Component) {
 	}, {
 		key: "handleConvertCode",
 		value: function handleConvertCode() {
-			/*axios.post("/api/org", {
-   	username: this.props.org.username	
-   }).then((res) => {
-   	console.log('Org opened successfully');
-      });*/
+			_axios2.default.post("api/convertProject", {
+				directory: this.props.project.directory
+			}).then(function (res) {
+				if (res.status === 200) {
+					console.log("Project converted successfully!");
+				} else {
+					console.log("Error: " + res.data.err);
+				}
+			});
 		}
 	}, {
 		key: "render",
