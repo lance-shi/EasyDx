@@ -4,6 +4,7 @@ import axios from 'axios';
 import OrgList from "../presentational/OrgList";
 import OrgDetails from "../presentational/OrgDetails";
 import LoadingImage from "../presentational/LoadingImage";
+import AlertMessage from "../presentational/AlertMessage";
 
 class OrgContainer extends Component {
 	constructor() {
@@ -13,10 +14,15 @@ class OrgContainer extends Component {
 			nonScratchOrgs: [],
 			detailOrg: {},
 			showDetailOrg: false,
-			showLoaidngImage: false
+			showLoaidngImage: false,
+			showAlertMessage: false,
+			alertClass: "info",
+			alertMessage: ""
 		};
 
 		this.toggleLoadingImage = this.toggleLoadingImage.bind(this);
+		this.showAlertMessage = this.showAlertMessage.bind(this);
+		this.hideAlertMessage = this.hideAlertMessage.bind(this);
 	}
 
 	handleRefreshOrgs(e) {
@@ -27,11 +33,26 @@ class OrgContainer extends Component {
 	            this.setState({
 					showLoaidngImage: false,
 		        	scratchOrgs: result.scratchOrgs,
-		        	nonScratchOrgs: result.nonScratchOrgs
-		        })
+					nonScratchOrgs: result.nonScratchOrgs
+				});
+				this.showAlertMessage("success", "Org list refreshed successfully!");
 	        } else {
-	        	console.log("Error: " + res.data.err);
+	        	this.showAlertMessage("danger", "Error:" + res.data.err);
 	        }
+		});
+	}
+	
+	showAlertMessage(alertClass, alertMessage) {
+		this.setState({
+			showAlertMessage: true,
+			alertClass: alertClass,
+			alertMessage: alertMessage
+		});
+	}
+
+	hideAlertMessage() {
+		this.setState({
+			showAlertMessage: false
 		});
 	}
 
@@ -52,14 +73,19 @@ class OrgContainer extends Component {
 		return (
 			<div>
 				{this.state.showLoaidngImage ? <LoadingImage/> : null}
+				{this.state.showAlertMessage ? <AlertMessage 
+					alertClass={this.state.alertClass}
+					message={this.state.alertMessage}/> : null}
 				<OrgList orgs={this.state.nonScratchOrgs} title="Non Scratch Orgs" 
 					setDetailOrg={this.setDetailOrg.bind(this)}
-					toggleLoadingImage={this.toggleLoadingImage}/>
+					toggleLoadingImage={this.toggleLoadingImage}
+					showAlertMessage={this.showAlertMessage}/>
 				<OrgList orgs={this.state.scratchOrgs} title="Scratch Orgs"
 					setDetailOrg={this.setDetailOrg.bind(this)}
-					toggleLoadingImage={this.toggleLoadingImage}/>
+					toggleLoadingImage={this.toggleLoadingImage}
+					showAlertMessage={this.showAlertMessage}/>
 				<button id="orgInfo" type="button" className="btn btn-primary" 
-					onClick={this.handleRefreshOrgs.bind(this)}>Get Org List</button>
+					onClick={this.handleRefreshOrgs.bind(this)}>Refresh Org List</button>
 				{this.state.showDetailOrg ? <OrgDetails org={this.state.detailOrg}/> : null}
 			</div>
 		)

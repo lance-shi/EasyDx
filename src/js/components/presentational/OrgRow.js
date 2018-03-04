@@ -24,10 +24,10 @@ class OrgRow extends Component {
 		}).then((res) => {
 			if(res.status === 200) {
 				this.props.toggleLoadingImage(false);
-				console.log('Org opened successfully');
+				this.props.showAlertMessage("success", 'Org opened successfully');
 			} else {
 				this.props.toggleLoadingImage(false);
-				console.log("Error: " + res.data.err);
+				this.props.showAlertMessage("danger", "Error:" + res.data.err);
 			}
 	    });
 	}
