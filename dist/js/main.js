@@ -25942,7 +25942,10 @@ var ProjectContainer = function (_Component) {
 		};
 		_axios2.default.get("/api/project").then(function (res) {
 			_this.setState({
-				projects: res.data.projects
+				projects: res.data.projects,
+				showAlertMessage: false,
+				alertClass: "info",
+				alertMessage: ""
 			});
 		});
 		return _this;
@@ -25958,12 +25961,13 @@ var ProjectContainer = function (_Component) {
 				directory: project.directory
 			}).then(function (res) {
 				if (res.status === 200) {
+					_this2.showAlertMessage("success", "Default project set successfully");
 					console.log("Default project set successfully");
 					_this2.setState({
 						projects: res.data.projects
 					});
 				} else {
-					console.log("Error: " + res.data.err);
+					_this2.showAlertMessage("danger", "Error:" + res.data.err);
 				}
 			});
 		}
@@ -25978,12 +25982,12 @@ var ProjectContainer = function (_Component) {
 				isDefault: project.isDefault
 			}).then(function (res) {
 				if (res.status === 200) {
-					console.log("Project added successfully");
+					_this3.showAlertMessage("success", "Project added successfully");
 					_this3.setState({
 						projects: res.data.projects
 					});
 				} else {
-					console.log("Error: " + res.data.err);
+					_this3.showAlertMessage("danger", "Error:" + res.data.err);
 				}
 			});
 		}
@@ -25993,6 +25997,9 @@ var ProjectContainer = function (_Component) {
 			return _react2.default.createElement(
 				"div",
 				null,
+				this.state.showAlertMessage ? _react2.default.createElement(AlertMessage, {
+					alertClass: this.state.alertClass,
+					message: this.state.alertMessage }) : null,
 				_react2.default.createElement(_ProjectList2.default, { projects: this.state.projects,
 					setDefaultProj: this.setDefaultProj.bind(this) }),
 				_react2.default.createElement(_ProjectAdd2.default, { addProject: this.addProject.bind(this) })

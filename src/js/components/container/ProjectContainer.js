@@ -11,7 +11,10 @@ class ProjectContainer extends Component {
 		};
 		axios.get("/api/project").then((res) => {
             this.setState({
-	        	projects: res.data.projects
+				projects: res.data.projects,
+				showAlertMessage: false,
+				alertClass: "info",
+				alertMessage: ""
 	        })
 		});
 	}
@@ -22,12 +25,13 @@ class ProjectContainer extends Component {
 			directory: project.directory
 		}).then((res) => {
 			if(res.status === 200) {
+				this.showAlertMessage("success", "Default project set successfully");
 				console.log("Default project set successfully");
 				this.setState({
 					projects: res.data.projects
 				});
 			} else {
-				console.log("Error: " + res.data.err);
+				this.showAlertMessage("danger", "Error:" + res.data.err);
 			}
 		});
 	}
@@ -39,12 +43,12 @@ class ProjectContainer extends Component {
 			isDefault: project.isDefault
 		}).then((res) => {
 			if(res.status === 200) {
-				console.log("Project added successfully");
+				this.showAlertMessage("success", "Project added successfully");
 				this.setState({
 					projects: res.data.projects
 				});
 			} else {
-				console.log("Error: " + res.data.err);
+				this.showAlertMessage("danger", "Error:" + res.data.err);
 			}
 		});
 	}
@@ -52,6 +56,9 @@ class ProjectContainer extends Component {
 	render() {
 		return (
 			<div>
+				{this.state.showAlertMessage ? <AlertMessage 
+					alertClass={this.state.alertClass}
+					message={this.state.alertMessage}/> : null}
 				<ProjectList projects={this.state.projects}
 					setDefaultProj={this.setDefaultProj.bind(this)}/>
 				<ProjectAdd addProject={this.addProject.bind(this)}/>
