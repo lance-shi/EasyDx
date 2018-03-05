@@ -5,7 +5,7 @@ class AlertMessage extends Component {
         let alertClass="alert alert-" + this.props.alertClass;
         return (
             <div className={alertClass}>
-                {this.props.message}
+                <i className="fas fa-exclamation-circle fa-lg"></i> {this.props.message}
             </div>
         );
     }

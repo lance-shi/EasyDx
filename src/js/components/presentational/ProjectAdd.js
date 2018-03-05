@@ -30,11 +30,11 @@ class ProjectAdd extends Component {
 
     handleAddProject() {
         if(this.state.alias === "") {
-            alert("Please populate the alias of the project");
+            this.props.showAlertMessage("danger", "Please populate the alias of the project");
             return;
         } 
         if(this.state.directory === "") {
-            alert("Please populate the directory of the project (Where you store your project in your local machine)");
+            this.props.showAlertMessage("danger", "Please populate the directory of the project (Where you store your project in your local machine)");
             return;
         }
 

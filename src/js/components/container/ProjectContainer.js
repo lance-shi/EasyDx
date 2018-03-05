@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from 'axios';
 import ProjectList from "../presentational/ProjectList";
 import ProjectAdd from "../presentational/ProjectAdd";
+import AlertMessage from "../presentational/AlertMessage";
 
 class ProjectContainer extends Component {
 	constructor() {
@@ -16,6 +17,23 @@ class ProjectContainer extends Component {
 				alertClass: "info",
 				alertMessage: ""
 	        })
+		});
+
+		this.showAlertMessage = this.showAlertMessage.bind(this);
+		this.hideAlertMessage = this.hideAlertMessage.bind(this);
+	}
+
+	showAlertMessage(alertClass, alertMessage) {
+		this.setState({
+			showAlertMessage: true,
+			alertClass: alertClass,
+			alertMessage: alertMessage
+		});
+	}
+
+	hideAlertMessage() {
+		this.setState({
+			showAlertMessage: false
 		});
 	}
 
@@ -61,7 +79,8 @@ class ProjectContainer extends Component {
 					message={this.state.alertMessage}/> : null}
 				<ProjectList projects={this.state.projects}
 					setDefaultProj={this.setDefaultProj.bind(this)}/>
-				<ProjectAdd addProject={this.addProject.bind(this)}/>
+				<ProjectAdd addProject={this.addProject.bind(this)}
+					showAlertMessage={this.showAlertMessage}/>
 			</div>
 		)
 	}
