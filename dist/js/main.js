@@ -20587,6 +20587,7 @@ var OrgContainer = function (_Component) {
 		_this.toggleLoadingImage = _this.toggleLoadingImage.bind(_this);
 		_this.showAlertMessage = _this.showAlertMessage.bind(_this);
 		_this.hideAlertMessage = _this.hideAlertMessage.bind(_this);
+		_this.setDefaultOrg = _this.setDefaultOrg.bind(_this);
 		return _this;
 	}
 
@@ -20612,7 +20613,48 @@ var OrgContainer = function (_Component) {
 		}
 	}, {
 		key: "setDefaultOrg",
-		value: function setDefaultOrg(defaultUserName) {}
+		value: function setDefaultOrg(defaultUserName) {
+			var _this3 = this;
+
+			if (!this.state.defaultProjectExists) {
+				this.showAlertMessage("danger", "Error: Please specify the default project first");
+				return;
+			}
+
+			this.toggleLoadingImage(true);
+			_axios2.default.post("api/defaultOrg", {
+				username: defaultUserName,
+				directory: this.state.currentProject.directory
+			}).then(function (res) {
+				if (res.status === 200) {
+					_this3.toggleLoadingImage(false);
+					_this3.showAlertMessage("success", "Default org set successfully");
+					for (var i = 0; i < _this3.state.scratchOrgs.length; i++) {
+						if (_this3.state.scratchOrgs[i].username !== defaultUserName) {
+							_this3.state.scratchOrgs[i].defaultMarker = "(U)";
+						} else {
+							_this3.state.scratchOrgs[i].defaultMarker = "";
+						}
+					}
+					for (var _i = 0; _i < _this3.state.nonScratchOrgs.length; _i++) {
+						if (_this3.state.nonScratchOrgs[_i].defaultMarker !== "(D)") {
+							if (_this3.state.nonScratchOrgs[_i].username !== defaultUserName) {
+								_this3.state.nonScratchOrgs[_i].defaultMarker = "(U)";
+							} else {
+								_this3.state.nonScratchOrgs[_i].defaultMarker = "";
+							}
+						}
+					}
+					_this3.setState({
+						scratchOrgs: _this3.state.scratchOrgs,
+						nonScratchOrgs: _this3.state.nonScratchOrgs
+					});
+				} else {
+					_this3.toggleLoadingImage(false);
+					_this3.showAlertMessage("danger", "Error:" + res.data.err);
+				}
+			});
+		}
 	}, {
 		key: "showAlertMessage",
 		value: function showAlertMessage(alertClass, alertMessage) {
@@ -20659,11 +20701,13 @@ var OrgContainer = function (_Component) {
 				_react2.default.createElement(_OrgList2.default, { orgs: this.state.nonScratchOrgs, title: "Non Scratch Orgs",
 					setDetailOrg: this.setDetailOrg.bind(this),
 					toggleLoadingImage: this.toggleLoadingImage,
-					showAlertMessage: this.showAlertMessage }),
+					showAlertMessage: this.showAlertMessage,
+					setDefaultOrg: this.setDefaultOrg }),
 				_react2.default.createElement(_OrgList2.default, { orgs: this.state.scratchOrgs, title: "Scratch Orgs",
 					setDetailOrg: this.setDetailOrg.bind(this),
 					toggleLoadingImage: this.toggleLoadingImage,
-					showAlertMessage: this.showAlertMessage }),
+					showAlertMessage: this.showAlertMessage,
+					setDefaultOrg: this.setDefaultOrg }),
 				_react2.default.createElement(
 					"button",
 					{ id: "orgInfo", type: "button", className: "btn btn-primary",
@@ -21590,7 +21634,8 @@ function OrgList(props) {
 		return _react2.default.createElement(_OrgRow2.default, { key: org.orgId, org: org,
 			setDetailOrg: props.setDetailOrg,
 			toggleLoadingImage: props.toggleLoadingImage,
-			showAlertMessage: props.showAlertMessage });
+			showAlertMessage: props.showAlertMessage,
+			setDefaultOrg: props.setDefaultOrg });
 	});
 	return _react2.default.createElement(
 		"div",
@@ -21713,7 +21758,7 @@ var OrgRow = function (_Component) {
 			}).then(function (res) {
 				if (res.status === 200) {
 					_this2.props.toggleLoadingImage(false);
-					_this2.props.showAlertMessage("success", 'Org opened successfully');
+					_this2.props.showAlertMessage("success", "Org opened successfully");
 				} else {
 					_this2.props.toggleLoadingImage(false);
 					_this2.props.showAlertMessage("danger", "Error:" + res.data.err);
@@ -21723,23 +21768,7 @@ var OrgRow = function (_Component) {
 	}, {
 		key: "handleDefaultOrg",
 		value: function handleDefaultOrg() {
-			var _this3 = this;
-
-			this.props.toggleLoadingImage(true);
-			_axios2.default.post("api/defaultOrg", {
-				username: this.props.org.username
-			}).then(function (res) {
-				if (res.status === 200) {
-					_this3.props.toggleLoadingImage(false);
-					console.log("Default org set successfully");
-					_this3.setState({
-						defaultMarker: "(U)"
-					});
-				} else {
-					_this3.props.toggleLoadingImage(false);
-					console.log("Error: " + res.data.err);
-				}
-			});
+			this.props.setDefaultOrg(this.props.org.username);
 		}
 	}, {
 		key: "render",

@@ -14,7 +14,7 @@ convertProjectRouter.route('/')
 
     cmd.get(
         `cd ${directory}
-        sfdx force:source:convert -d outputTmp/`,
+        sfdx force:source:convert -d outputTmp/ --json`,
         function(err, data, stderr) {
             if(!err) {
                 res.statusCode = 200;

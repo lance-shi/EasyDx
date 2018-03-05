@@ -24,7 +24,7 @@ class OrgRow extends Component {
 		}).then((res) => {
 			if(res.status === 200) {
 				this.props.toggleLoadingImage(false);
-				this.props.showAlertMessage("success", 'Org opened successfully');
+				this.props.showAlertMessage("success", "Org opened successfully");
 			} else {
 				this.props.toggleLoadingImage(false);
 				this.props.showAlertMessage("danger", "Error:" + res.data.err);
@@ -33,21 +33,7 @@ class OrgRow extends Component {
 	}
 
 	handleDefaultOrg() {
-		this.props.toggleLoadingImage(true);
-		axios.post("api/defaultOrg", {
-			username: this.props.org.username
-		}).then((res) => {
-			if(res.status === 200) {
-				this.props.toggleLoadingImage(false);
-				console.log("Default org set successfully");
-				this.setState({
-					defaultMarker: "(U)"
-				});
-			} else {
-				this.props.toggleLoadingImage(false);
-				console.log("Error: " + res.data.err);
-			}
-		});
+		this.props.setDefaultOrg(this.props.org.username);
 	}
 
 	render() {

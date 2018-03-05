@@ -5,7 +5,8 @@ function OrgList(props) {
 	const orgRows = props.orgs.map(org=><OrgRow key={org.orgId} org={org} 
 		setDetailOrg={props.setDetailOrg} 
 		toggleLoadingImage={props.toggleLoadingImage}
-		showAlertMessage={props.showAlertMessage}/>);
+		showAlertMessage={props.showAlertMessage}
+		setDefaultOrg={props.setDefaultOrg}/>);
 	return (
 		<div className="section-group">
 			<div className="row">

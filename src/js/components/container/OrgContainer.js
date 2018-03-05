@@ -43,6 +43,7 @@ class OrgContainer extends Component {
 		this.toggleLoadingImage = this.toggleLoadingImage.bind(this);
 		this.showAlertMessage = this.showAlertMessage.bind(this);
 		this.hideAlertMessage = this.hideAlertMessage.bind(this);
+		this.setDefaultOrg = this.setDefaultOrg.bind(this);
 	}
 
 	handleRefreshOrgs(e) {
@@ -63,7 +64,44 @@ class OrgContainer extends Component {
 	}
 
 	setDefaultOrg(defaultUserName) {
+		if(!this.state.defaultProjectExists) {
+			this.showAlertMessage("danger", "Error: Please specify the default project first");
+			return;
+		}
 
+		this.toggleLoadingImage(true);
+		axios.post("api/defaultOrg", {
+			username: defaultUserName,
+			directory: this.state.currentProject.directory
+		}).then((res) => {
+			if(res.status === 200) {
+				this.toggleLoadingImage(false);
+				this.showAlertMessage("success", "Default org set successfully");
+				for(let i = 0; i < this.state.scratchOrgs.length; i++) {
+					if(this.state.scratchOrgs[i].username !== defaultUserName) {
+						this.state.scratchOrgs[i].defaultMarker = "(U)";
+					} else {
+						this.state.scratchOrgs[i].defaultMarker = "";
+					}
+				}
+				for(let i = 0; i < this.state.nonScratchOrgs.length; i++) {
+					if(this.state.nonScratchOrgs[i].defaultMarker !== "(D)") {
+						if(this.state.nonScratchOrgs[i].username !== defaultUserName) {
+							this.state.nonScratchOrgs[i].defaultMarker = "(U)";
+						} else {
+							this.state.nonScratchOrgs[i].defaultMarker = "";
+						}
+					}
+				}
+				this.setState ({
+					scratchOrgs: this.state.scratchOrgs,
+					nonScratchOrgs: this.state.nonScratchOrgs
+				});
+			} else {
+				this.toggleLoadingImage(false);
+				this.showAlertMessage("danger", "Error:" + res.data.err);
+			}
+		});
 	}
 	
 	showAlertMessage(alertClass, alertMessage) {
@@ -105,11 +143,13 @@ class OrgContainer extends Component {
 				<OrgList orgs={this.state.nonScratchOrgs} title="Non Scratch Orgs" 
 					setDetailOrg={this.setDetailOrg.bind(this)}
 					toggleLoadingImage={this.toggleLoadingImage}
-					showAlertMessage={this.showAlertMessage}/>
+					showAlertMessage={this.showAlertMessage}
+					setDefaultOrg={this.setDefaultOrg}/>
 				<OrgList orgs={this.state.scratchOrgs} title="Scratch Orgs"
 					setDetailOrg={this.setDetailOrg.bind(this)}
 					toggleLoadingImage={this.toggleLoadingImage}
-					showAlertMessage={this.showAlertMessage}/>
+					showAlertMessage={this.showAlertMessage}
+					setDefaultOrg={this.setDefaultOrg}/>
 				<button id="orgInfo" type="button" className="btn btn-primary" 
 					onClick={this.handleRefreshOrgs.bind(this)}>Refresh Org List</button>
 				{this.state.showDetailOrg ? <OrgDetails org={this.state.detailOrg}/> : null}
