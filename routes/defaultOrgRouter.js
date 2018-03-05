@@ -15,7 +15,7 @@ defaultOrgRouter.route('/')
                 res.statusCode = 200;
                 res.send(data);
             } else {
-                res.statusCode = 400;
+                res.statusCode = 202;
                 let errObj = JSON.parse(stderr);
                 res.send({"err": errObj.message});
             }

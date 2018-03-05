@@ -30,9 +30,10 @@ projectRouter.route('/')
 
         jsonfile.writeFile(projectFile, obj, function(err) {
             if(err==null) {
+                res.statusCode = 200;
                 res.send(JSON.stringify(obj));
             } else {
-                res.statusCode = 400;
+                res.statusCode = 202;
                 res.send({result: 'error'});
                 console.log(err);
             }
