@@ -65,7 +65,7 @@ class SourceContainer extends Component {
 				{this.state.showLoaidngImage ? <LoadingImage/> : null}
 				{this.state.showAlertMessage ? <AlertMessage 
 					alertClass={this.state.alertClass}
-                    message={this.state.alertMessage}/> : null}
+					message={this.state.alertMessage}/> : null}
             </div>
         )
     }

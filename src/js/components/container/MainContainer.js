@@ -1,9 +1,11 @@
 import React, { Component } from "react";
-import OrgContainer from "./OrgContainer";
-import ProjectContainer from "./ProjectContainer";
-import MenuItems from "../presentational/MenuItems";
 import {BrowserRouter } from "react-router-dom";
 import {Switch, Route} from "react-router-dom";
+
+import OrgContainer from "./OrgContainer";
+import ProjectContainer from "./ProjectContainer";
+import SourceContainer from "./SourceContainer";
+import MenuItems from "../presentational/MenuItems";
 
 class MainContainer extends Component {
     constructor() {
@@ -39,6 +41,7 @@ class MainContainer extends Component {
                         <Switch>
                             <Route exact path="/" component={OrgContainer}/>
                             <Route path="/Project" component={ProjectContainer}/>
+                            <Route path="/Source" component={SourceContainer}/>
                         </Switch>
                     </div>
                 </div>
