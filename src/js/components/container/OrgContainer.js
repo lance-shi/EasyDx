@@ -10,7 +10,7 @@ import CurrentProjectLine from "../presentational/CurrentProjectLine";
 class OrgContainer extends Component {
 	constructor() {
 		super();
-	this.state = {
+		this.state = {
 			scratchOrgs: [],
 			nonScratchOrgs: [],
 			detailOrg: {},
@@ -141,11 +141,13 @@ class OrgContainer extends Component {
 				{this.state.defaultProjectExists ? <CurrentProjectLine 
 					project={this.state.currentProject}/> : null}
 				<OrgList orgs={this.state.nonScratchOrgs} title="Non Scratch Orgs" 
+					key="nonScratchOrgs"
 					setDetailOrg={this.setDetailOrg.bind(this)}
 					toggleLoadingImage={this.toggleLoadingImage}
 					showAlertMessage={this.showAlertMessage}
 					setDefaultOrg={this.setDefaultOrg}/>
 				<OrgList orgs={this.state.scratchOrgs} title="Scratch Orgs"
+					key="scratchOrgs"
 					setDetailOrg={this.setDetailOrg.bind(this)}
 					toggleLoadingImage={this.toggleLoadingImage}
 					showAlertMessage={this.showAlertMessage}

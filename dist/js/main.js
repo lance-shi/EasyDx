@@ -20626,7 +20626,7 @@ var _SourceContainer = __webpack_require__(114);
 
 var _SourceContainer2 = _interopRequireDefault(_SourceContainer);
 
-var _MenuItems = __webpack_require__(115);
+var _MenuItems = __webpack_require__(117);
 
 var _MenuItems2 = _interopRequireDefault(_MenuItems);
 
@@ -24573,11 +24573,13 @@ var OrgContainer = function (_Component) {
 				this.state.defaultProjectExists ? _react2.default.createElement(_CurrentProjectLine2.default, {
 					project: this.state.currentProject }) : null,
 				_react2.default.createElement(_OrgList2.default, { orgs: this.state.nonScratchOrgs, title: "Non Scratch Orgs",
+					key: "nonScratchOrgs",
 					setDetailOrg: this.setDetailOrg.bind(this),
 					toggleLoadingImage: this.toggleLoadingImage,
 					showAlertMessage: this.showAlertMessage,
 					setDefaultOrg: this.setDefaultOrg }),
 				_react2.default.createElement(_OrgList2.default, { orgs: this.state.scratchOrgs, title: "Scratch Orgs",
+					key: "scratchOrgs",
 					setDetailOrg: this.setDetailOrg.bind(this),
 					toggleLoadingImage: this.toggleLoadingImage,
 					showAlertMessage: this.showAlertMessage,
@@ -25610,9 +25612,6 @@ var OrgRow = function (_Component) {
 		_this.handleOpenOrg = _this.handleOpenOrg.bind(_this);
 		_this.handleDefaultOrg = _this.handleDefaultOrg.bind(_this);
 
-		_this.state = {
-			defaultMarker: _this.props.org.defaultMarker
-		};
 		return _this;
 	}
 
@@ -25653,7 +25652,7 @@ var OrgRow = function (_Component) {
 				_react2.default.createElement(
 					"td",
 					null,
-					this.state.defaultMarker
+					this.props.org.defaultMarker
 				),
 				_react2.default.createElement(
 					"td",
@@ -26439,7 +26438,7 @@ exports.default = ProjectAdd;
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+				value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -26464,6 +26463,10 @@ var _CurrentProjectLine = __webpack_require__(45);
 
 var _CurrentProjectLine2 = _interopRequireDefault(_CurrentProjectLine);
 
+var _SourceList = __webpack_require__(115);
+
+var _SourceList2 = _interopRequireDefault(_SourceList);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -26473,89 +26476,296 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var SourceContainer = function (_Component) {
-	_inherits(SourceContainer, _Component);
+				_inherits(SourceContainer, _Component);
 
-	function SourceContainer() {
-		_classCallCheck(this, SourceContainer);
+				function SourceContainer() {
+								_classCallCheck(this, SourceContainer);
 
-		var _this = _possibleConstructorReturn(this, (SourceContainer.__proto__ || Object.getPrototypeOf(SourceContainer)).call(this));
+								var _this = _possibleConstructorReturn(this, (SourceContainer.__proto__ || Object.getPrototypeOf(SourceContainer)).call(this));
 
-		_this.state = {
-			currentProject: {},
-			defaultProjectExists: false,
-			showLoaidngImage: false,
-			showAlertMessage: false,
-			alertClass: "info",
-			alertMessage: ""
-		};
+								_this.state = {
+												remoteChanges: [],
+												localChanges: [],
+												currentProject: {},
+												defaultProjectExists: false,
+												showLoaidngImage: false,
+												showAlertMessage: false,
+												alertClass: "info",
+												alertMessage: ""
+								};
 
-		_axios2.default.get("/api/project").then(function (res) {
-			var projects = res.data.projects;
-			var defaultExists = false;
-			var defaultProject = {};
-			for (var i = 0; i < projects.length; i++) {
-				if (projects[i].isDefault) {
-					defaultExists = true;
-					defaultProject = projects[i];
-					break;
+								_axios2.default.get("/api/project").then(function (res) {
+												var projects = res.data.projects;
+												var defaultExists = false;
+												var defaultProject = {};
+												for (var i = 0; i < projects.length; i++) {
+																if (projects[i].isDefault) {
+																				defaultExists = true;
+																				defaultProject = projects[i];
+																				break;
+																}
+												}
+												_this.setState({
+																currentProject: defaultProject,
+																defaultProjectExists: defaultExists
+												});
+								});
+
+								_this.toggleLoadingImage = _this.toggleLoadingImage.bind(_this);
+								_this.showAlertMessage = _this.showAlertMessage.bind(_this);
+								_this.hideAlertMessage = _this.hideAlertMessage.bind(_this);
+								return _this;
 				}
-			}
-			_this.setState({
-				currentProject: defaultProject,
-				defaultProjectExists: defaultExists
-			});
-		});
 
-		_this.toggleLoadingImage = _this.toggleLoadingImage.bind(_this);
-		_this.showAlertMessage = _this.showAlertMessage.bind(_this);
-		_this.hideAlertMessage = _this.hideAlertMessage.bind(_this);
-		return _this;
-	}
+				_createClass(SourceContainer, [{
+								key: "showAlertMessage",
+								value: function showAlertMessage(alertClass, alertMessage) {
+												this.setState({
+																showAlertMessage: true,
+																alertClass: alertClass,
+																alertMessage: alertMessage
+												});
+								}
+				}, {
+								key: "hideAlertMessage",
+								value: function hideAlertMessage() {
+												this.setState({
+																showAlertMessage: false
+												});
+								}
+				}, {
+								key: "toggleLoadingImage",
+								value: function toggleLoadingImage(displayLoadingImage) {
+												this.setState({
+																showLoaidngImage: displayLoadingImage
+												});
+								}
+				}, {
+								key: "handleRefreshStatus",
+								value: function handleRefreshStatus() {
+												var _this2 = this;
 
-	_createClass(SourceContainer, [{
-		key: "showAlertMessage",
-		value: function showAlertMessage(alertClass, alertMessage) {
-			this.setState({
-				showAlertMessage: true,
-				alertClass: alertClass,
-				alertMessage: alertMessage
-			});
-		}
-	}, {
-		key: "hideAlertMessage",
-		value: function hideAlertMessage() {
-			this.setState({
-				showAlertMessage: false
-			});
-		}
-	}, {
-		key: "toggleLoadingImage",
-		value: function toggleLoadingImage(displayLoadingImage) {
-			this.setState({
-				showLoaidngImage: displayLoadingImage
-			});
-		}
-	}, {
-		key: "render",
-		value: function render() {
-			return _react2.default.createElement(
-				"div",
-				null,
-				this.state.showLoaidngImage ? _react2.default.createElement(_LoadingImage2.default, null) : null,
-				this.state.showAlertMessage ? _react2.default.createElement(_AlertMessage2.default, {
-					alertClass: this.state.alertClass,
-					message: this.state.alertMessage }) : null
-			);
-		}
-	}]);
+												this.setState({ showLoaidngImage: true });
+												_axios2.default.post("/api/source", {
+																directory: this.state.currentProject.directory
+												}).then(function (res) {
+																if (res.status === 200) {
+																				var result = res.data.result;
+																				var remoteChanges = [];
+																				var localChanges = [];
 
-	return SourceContainer;
+																				for (var i = 0; i < result.length; i++) {
+																								var resultState = result[i].state;
+																								if (resultState.includes("(Conflict)")) {
+																												result[i].state = "Conflict";
+																								} else {
+																												result[i].state = "";
+																								}
+
+																								if (resultState.includes("Local Changed")) {
+																												localChanges.push(result[i]);
+																								} else {
+																												remoteChanges.push(result[i]);
+																								}
+																				}
+																				_this2.setState({
+																								showLoaidngImage: false,
+																								remoteChanges: remoteChanges,
+																								localChanges: localChanges
+																				});
+																				_this2.showAlertMessage("success", "Source status refreshed successfully!");
+																} else {
+																				_this2.showAlertMessage("danger", "Error:" + res.data.err);
+																}
+												});
+								}
+				}, {
+								key: "render",
+								value: function render() {
+												return _react2.default.createElement(
+																"div",
+																null,
+																this.state.showLoaidngImage ? _react2.default.createElement(_LoadingImage2.default, null) : null,
+																this.state.showAlertMessage ? _react2.default.createElement(_AlertMessage2.default, {
+																				alertClass: this.state.alertClass,
+																				message: this.state.alertMessage }) : null,
+																this.state.defaultProjectExists ? _react2.default.createElement(_CurrentProjectLine2.default, {
+																				project: this.state.currentProject }) : null,
+																_react2.default.createElement(_SourceList2.default, { sources: this.state.remoteChanges,
+																				title: "Remote Changes",
+																				key: "RemoteChanges" }),
+																_react2.default.createElement(_SourceList2.default, { sources: this.state.localChanges,
+																				title: "Local Changes",
+																				key: "LocalChanges" }),
+																_react2.default.createElement(
+																				"button",
+																				{ type: "button", className: "btn btn-primary",
+																								onClick: this.handleRefreshStatus.bind(this) },
+																				"Refresh Source Status"
+																)
+												);
+								}
+				}]);
+
+				return SourceContainer;
 }(_react.Component);
 
 exports.default = SourceContainer;
 
 /***/ }),
 /* 115 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _SourceRow = __webpack_require__(116);
+
+var _SourceRow2 = _interopRequireDefault(_SourceRow);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function SourceList(props) {
+	var sourceRows = props.sources.map(function (source) {
+		return _react2.default.createElement(_SourceRow2.default, { key: props.title + source.fullName, source: source });
+	});
+	return _react2.default.createElement(
+		"div",
+		{ className: "section-group" },
+		_react2.default.createElement(
+			"div",
+			{ className: "row" },
+			_react2.default.createElement(
+				"h3",
+				null,
+				props.title
+			)
+		),
+		_react2.default.createElement(
+			"div",
+			{ className: "row" },
+			_react2.default.createElement(
+				"table",
+				{ className: "table table-hover" },
+				_react2.default.createElement(
+					"thead",
+					null,
+					_react2.default.createElement(
+						"tr",
+						null,
+						_react2.default.createElement(
+							"th",
+							null,
+							"State"
+						),
+						_react2.default.createElement(
+							"th",
+							null,
+							"Full Name"
+						),
+						_react2.default.createElement(
+							"th",
+							null,
+							"Type"
+						),
+						_react2.default.createElement(
+							"th",
+							null,
+							"File Path"
+						)
+					)
+				),
+				_react2.default.createElement(
+					"tbody",
+					null,
+					sourceRows
+				)
+			)
+		)
+	);
+}
+
+exports.default = SourceList;
+
+/***/ }),
+/* 116 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SourceRow = function (_Component) {
+	_inherits(SourceRow, _Component);
+
+	function SourceRow() {
+		_classCallCheck(this, SourceRow);
+
+		return _possibleConstructorReturn(this, (SourceRow.__proto__ || Object.getPrototypeOf(SourceRow)).call(this));
+	}
+
+	_createClass(SourceRow, [{
+		key: "render",
+		value: function render() {
+			return _react2.default.createElement(
+				"tr",
+				null,
+				_react2.default.createElement(
+					"td",
+					null,
+					this.props.source.state
+				),
+				_react2.default.createElement(
+					"td",
+					null,
+					this.props.source.fullName
+				),
+				_react2.default.createElement(
+					"td",
+					null,
+					this.props.source.type
+				),
+				_react2.default.createElement(
+					"td",
+					null,
+					this.props.source.filePath
+				)
+			);
+		}
+	}]);
+
+	return SourceRow;
+}(_react.Component);
+
+exports.default = SourceRow;
+
+/***/ }),
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

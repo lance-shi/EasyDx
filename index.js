@@ -8,6 +8,7 @@ const defaultOrgRouter = require('./routes/defaultOrgRouter');
 const projectRouter = require('./routes/projectRouter');
 const defaultProjectRouter = require('./routes/defaultProjectRouter');
 const convertProjectRouter = require('./routes/convertProjectRouter');
+const sourceRouter = require('./routes/sourceRouter');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -18,6 +19,7 @@ app.use("/api/defaultOrg", defaultOrgRouter);
 app.use("/api/project", projectRouter);
 app.use("/api/defaultProject", defaultProjectRouter);
 app.use("/api/convertProject", convertProjectRouter);
+app.use("/api/source", sourceRouter);
 
 app.use(express.static('dist'));
 

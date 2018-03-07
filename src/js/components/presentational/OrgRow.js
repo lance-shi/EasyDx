@@ -8,9 +8,6 @@ class OrgRow extends Component {
 		this.handleOpenOrg = this.handleOpenOrg.bind(this);
 		this.handleDefaultOrg = this.handleDefaultOrg.bind(this);
 
-		this.state = {
-			defaultMarker: this.props.org.defaultMarker
-		}
 	}
 
 	handleShowDetail() {
@@ -39,7 +36,7 @@ class OrgRow extends Component {
 	render() {
 		return (
 			<tr>
-				<td>{this.state.defaultMarker}</td>
+				<td>{this.props.org.defaultMarker}</td>
 				<td>{this.props.org.username}</td>
 				<td>{this.props.org.alias}</td>
 				<td >
