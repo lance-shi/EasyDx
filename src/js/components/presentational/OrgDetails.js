@@ -2,13 +2,13 @@ import React, { Component } from "react";
 
 class OrgDetails extends Component {
     render() {
-        let connectionStatus = "";
+        let connectionStatus = "success";
         if(this.props.org.connectedStatus === "Connected") {
-            connectionStatus += " healthy-status";
+            connectionStatus = "success";
         } else if(this.props.org.connectedStatus === "Unknown") {
-            connectionStatus = ""
+            connectionStatus = "secondary"
         } else {
-            connectionStatus += " error-status";
+            connectionStatus = "danger";
         }
 
         return (
@@ -30,7 +30,9 @@ class OrgDetails extends Component {
                 </div>
                 <div className="row">
                     <div className="col-sm-3">Connected Status: </div>
-                    <div className={"col-sm-6" + connectionStatus}>{this.props.org.connectedStatus}</div>
+                    <div className="col-sm-6">
+                        <span className={"badge badge-" + connectionStatus}>{this.props.org.connectedStatus}</span>
+                    </div>
                 </div>
                 <div className="row">
                     <div className="col-sm-3">Instance Url: </div>

@@ -24590,7 +24590,11 @@ var OrgContainer = function (_Component) {
 						onClick: this.handleRefreshOrgs.bind(this) },
 					"Refresh Org List"
 				),
-				this.state.showDetailOrg ? _react2.default.createElement(_OrgDetails2.default, { org: this.state.detailOrg }) : null
+				_react2.default.createElement(
+					"div",
+					{ id: "orgDetailsSection" },
+					this.state.showDetailOrg ? _react2.default.createElement(_OrgDetails2.default, { org: this.state.detailOrg }) : null
+				)
 			);
 		}
 	}]);
@@ -25680,7 +25684,7 @@ var OrgRow = function (_Component) {
 							{ className: "dropdown-menu" },
 							_react2.default.createElement(
 								"a",
-								{ className: "dropdown-item", href: "#", onClick: this.handleShowDetail },
+								{ className: "dropdown-item", href: "#orgDetailsSection", onClick: this.handleShowDetail },
 								"Show Details"
 							),
 							_react2.default.createElement(
@@ -25742,13 +25746,13 @@ var OrgDetails = function (_Component) {
     _createClass(OrgDetails, [{
         key: "render",
         value: function render() {
-            var connectionStatus = "";
+            var connectionStatus = "success";
             if (this.props.org.connectedStatus === "Connected") {
-                connectionStatus += " healthy-status";
+                connectionStatus = "success";
             } else if (this.props.org.connectedStatus === "Unknown") {
-                connectionStatus = "";
+                connectionStatus = "secondary";
             } else {
-                connectionStatus += " error-status";
+                connectionStatus = "danger";
             }
 
             return _react2.default.createElement(
@@ -25815,8 +25819,12 @@ var OrgDetails = function (_Component) {
                     ),
                     _react2.default.createElement(
                         "div",
-                        { className: "col-sm-6" + connectionStatus },
-                        this.props.org.connectedStatus
+                        { className: "col-sm-6" },
+                        _react2.default.createElement(
+                            "span",
+                            { className: "badge badge-" + connectionStatus },
+                            this.props.org.connectedStatus
+                        )
                     )
                 ),
                 _react2.default.createElement(
