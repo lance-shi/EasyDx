@@ -26635,7 +26635,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function SourceList(props) {
 	var sourceRows = props.sources.map(function (source) {
-		return _react2.default.createElement(_SourceRow2.default, { key: props.title + source.fullName, source: source });
+		return _react2.default.createElement(_SourceRow2.default, { key: props.title + source.filePath, source: source });
 	});
 	return _react2.default.createElement(
 		"div",
@@ -26738,7 +26738,11 @@ var SourceRow = function (_Component) {
 				_react2.default.createElement(
 					"td",
 					null,
-					this.props.source.state
+					_react2.default.createElement(
+						"span",
+						{ className: "badge badge-danger" },
+						this.props.source.state
+					)
 				),
 				_react2.default.createElement(
 					"td",

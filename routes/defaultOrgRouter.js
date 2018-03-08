@@ -12,8 +12,7 @@ defaultOrgRouter.route('/')
     console.log("directory is: " + directory);
     console.log("user name is: " + req.body.username);
     cmd.get(
-        `cd ${directory}
-        sfdx force:config:set defaultusername=${req.body.username} --json`,
+        `cd ${directory} && sfdx force:config:set defaultusername=${req.body.username} --json`,
         function(err, data, stderr) {
             if(!err) {
                 res.statusCode = 200;

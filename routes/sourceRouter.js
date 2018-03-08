@@ -10,8 +10,7 @@ sourceRouter.route('/')
 .post((req, res) => {
     let directory = req.body.directory;
     cmd.get(
-        `cd ${directory}
-        sfdx force:source:status --json`,
+        `cd ${directory} && sfdx force:source:status --json`,
         function(err, data, stderr) {
             if(!err) {
                 res.statusCode = 200;

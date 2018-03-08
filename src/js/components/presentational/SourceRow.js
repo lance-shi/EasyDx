@@ -8,7 +8,7 @@ class SourceRow extends Component {
 	render() {
 		return (
 			<tr>
-				<td>{this.props.source.state}</td>
+				<td><span className="badge badge-danger">{this.props.source.state}</span></td>
 				<td>{this.props.source.fullName}</td>
 				<td>{this.props.source.type}</td>
 				<td>{this.props.source.filePath}</td>

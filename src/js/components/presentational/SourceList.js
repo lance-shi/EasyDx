@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import SourceRow from "./SourceRow";
 
 function SourceList(props) {
-	const sourceRows = props.sources.map(source=><SourceRow key={props.title+source.fullName} source={source}/>);
+	const sourceRows = props.sources.map(source=><SourceRow key={props.title+source.filePath} source={source}/>);
 	return (
 		<div className="section-group">
 			<div className="row">
