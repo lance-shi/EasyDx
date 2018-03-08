@@ -4,6 +4,7 @@ const Promise = require('bluebird');
 const bodyParser = require('body-parser');
 
 const orgRouter = require('./routes/orgRouter');
+const listOrgRouter = require('./routes/listOrgRouter');
 const defaultOrgRouter = require('./routes/defaultOrgRouter');
 const projectRouter = require('./routes/projectRouter');
 const defaultProjectRouter = require('./routes/defaultProjectRouter');
@@ -15,6 +16,7 @@ const port = process.env.PORT || 3000;
 app.use(bodyParser.json());
 
 app.use("/api/org", orgRouter);
+app.use("/api/listOrg", listOrgRouter);
 app.use("/api/defaultOrg", defaultOrgRouter);
 app.use("/api/project", projectRouter);
 app.use("/api/defaultProject", defaultProjectRouter);

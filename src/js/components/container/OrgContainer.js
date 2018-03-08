@@ -48,7 +48,9 @@ class OrgContainer extends Component {
 
 	handleRefreshOrgs(e) {
 		this.setState({showLoaidngImage: true});
-		axios.get("/api/org").then((res) => {
+		axios.post("/api/listOrg", {
+            directory: this.state.currentProject.directory
+        }).then((res) => {
 			if(res.status === 200) {
 				let result = res.data.result;
 	            this.setState({
@@ -79,17 +81,17 @@ class OrgContainer extends Component {
 				this.showAlertMessage("success", "Default org set successfully");
 				for(let i = 0; i < this.state.scratchOrgs.length; i++) {
 					if(this.state.scratchOrgs[i].username !== defaultUserName) {
-						this.state.scratchOrgs[i].defaultMarker = "(U)";
-					} else {
 						this.state.scratchOrgs[i].defaultMarker = "";
+					} else {
+						this.state.scratchOrgs[i].defaultMarker = "(U)";
 					}
 				}
 				for(let i = 0; i < this.state.nonScratchOrgs.length; i++) {
 					if(this.state.nonScratchOrgs[i].defaultMarker !== "(D)") {
 						if(this.state.nonScratchOrgs[i].username !== defaultUserName) {
-							this.state.nonScratchOrgs[i].defaultMarker = "(U)";
-						} else {
 							this.state.nonScratchOrgs[i].defaultMarker = "";
+						} else {
+							this.state.nonScratchOrgs[i].defaultMarker = "(U)";
 						}
 					}
 				}

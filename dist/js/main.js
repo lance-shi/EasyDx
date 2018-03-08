@@ -24471,7 +24471,9 @@ var OrgContainer = function (_Component) {
 			var _this2 = this;
 
 			this.setState({ showLoaidngImage: true });
-			_axios2.default.get("/api/org").then(function (res) {
+			_axios2.default.post("/api/listOrg", {
+				directory: this.state.currentProject.directory
+			}).then(function (res) {
 				if (res.status === 200) {
 					var result = res.data.result;
 					_this2.setState({
@@ -24505,17 +24507,17 @@ var OrgContainer = function (_Component) {
 					_this3.showAlertMessage("success", "Default org set successfully");
 					for (var i = 0; i < _this3.state.scratchOrgs.length; i++) {
 						if (_this3.state.scratchOrgs[i].username !== defaultUserName) {
-							_this3.state.scratchOrgs[i].defaultMarker = "(U)";
-						} else {
 							_this3.state.scratchOrgs[i].defaultMarker = "";
+						} else {
+							_this3.state.scratchOrgs[i].defaultMarker = "(U)";
 						}
 					}
 					for (var _i = 0; _i < _this3.state.nonScratchOrgs.length; _i++) {
 						if (_this3.state.nonScratchOrgs[_i].defaultMarker !== "(D)") {
 							if (_this3.state.nonScratchOrgs[_i].username !== defaultUserName) {
-								_this3.state.nonScratchOrgs[_i].defaultMarker = "(U)";
-							} else {
 								_this3.state.nonScratchOrgs[_i].defaultMarker = "";
+							} else {
+								_this3.state.nonScratchOrgs[_i].defaultMarker = "(U)";
 							}
 						}
 					}

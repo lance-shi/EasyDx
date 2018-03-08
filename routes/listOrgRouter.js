@@ -2,14 +2,15 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cmd = require('node-cmd');
 
-const orgRouter = express.Router();
+const listOrgRouter = express.Router();
 
-orgRouter.use(bodyParser.json());
+listOrgRouter.use(bodyParser.json());
 
-orgRouter.route('/')
+listOrgRouter.route('/')
 .post((req, res) => {
+    let directory = req.body.directory;
     cmd.get(
-        'sfdx force:org:open -u ' + req.body.username + ' --json',
+        `cd ${directory} && sfdx force:org:list --json`,
         function(err, data, stderr) {
             if(!err) {
                 res.statusCode = 200;
@@ -23,4 +24,4 @@ orgRouter.route('/')
     );
 });
 
-module.exports = orgRouter;
+module.exports = listOrgRouter;
