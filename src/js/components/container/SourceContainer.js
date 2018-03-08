@@ -40,6 +40,7 @@ class SourceContainer extends Component {
 		this.toggleLoadingImage = this.toggleLoadingImage.bind(this);
 		this.showAlertMessage = this.showAlertMessage.bind(this);
 		this.hideAlertMessage = this.hideAlertMessage.bind(this);
+		this.pushChanges = this.pushChanges.bind(this);
     }
 
     showAlertMessage(alertClass, alertMessage) {
@@ -96,7 +97,32 @@ class SourceContainer extends Component {
 	        	this.showAlertMessage("danger", "Error:" + res.data.err);
 	        }
 		});
-    }
+	}
+	
+	handlePushChanges() {
+		this.pushChanges(false);
+	}
+
+	handleForcePushChanges() {
+		this.pushChanges(true);
+	}
+
+	pushChanges(forceOption) {
+		this.setState({showLoaidngImage: true});
+		axios.post("/api/pushSource", {
+			directory: this.state.currentProject.directory,
+			force: forceOption
+        }).then((res) => {
+			if(res.status === 200) {
+                let result = res.data.result;
+
+	            this.toggleLoadingImage(false);
+				this.showAlertMessage("success", "Source status pushed successfully!");
+	        } else {
+	        	this.showAlertMessage("danger", "Error:" + res.data.err);
+	        }
+		});
+	} 
 
     render() {
         return (
@@ -113,8 +139,18 @@ class SourceContainer extends Component {
                 <SourceList sources={this.state.localChanges}
                     title="Local Changes" 
                     key="LocalChanges"/>
-                <button type="button" className="btn btn-primary" 
-					onClick={this.handleRefreshStatus.bind(this)}>Refresh Source Status</button>
+				<div class="row">
+					<button type="button" className="btn btn-primary" 
+						onClick={this.handleRefreshStatus.bind(this)}>Refresh Source Status</button>
+					<button type="button" className="btn btn-primary" 
+						onClick={this.handlePushChanges.bind(this)}>Push Changes</button>
+					<button type="button" className="btn btn-primary" 
+						onClick={this.handleForcePushChanges.bind(this)}>Force Push Changes</button>
+					<button type="button" className="btn btn-primary" 
+						onClick={this.handlePullChanges.bind(this)}>Pull Changes</button>
+					<button type="button" className="btn btn-primary" 
+						onClick={this.handleForcePullChanges.bind(this)}>Force Pull Changes</button>
+				</div>
             </div>
         )
     }
