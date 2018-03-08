@@ -25687,7 +25687,7 @@ var OrgRow = function (_Component) {
 							_react2.default.createElement(
 								"a",
 								{ className: "dropdown-item", href: "#orgDetailsSection", onClick: this.handleShowDetail },
-								"Show Details"
+								"Display Org Details"
 							),
 							_react2.default.createElement(
 								"a",

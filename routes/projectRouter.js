@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const jsonfile = require('jsonfile');
+const fs = require('fs');
 
 const projectRouter = express.Router();
 projectRouter.use(bodyParser.json());
@@ -19,24 +20,39 @@ projectRouter.route('/')
     newProj.directory = req.body.directory;
     newProj.isDefault = req.body.isDefault;
     console.log('newPro isDefault is: ' + newProj.isDefault);
+    const sfdxProjFileName = 'sfdx-project.json';
+    const isWin = process.platform === "win32";
+    let directoryDelimeter = "/";
+    if(isWin) {
+        directoryDelimeter = "\\";
+    }
 
-    jsonfile.readFile(projectFile, function(err, obj) {
-        if(newProj.isDefault) {
-            for(let i = 0; i < obj.projects.length; i++) {
-                obj.projects[i].isDefault = false;
-            }
+    fs.access(newProj.directory + directoryDelimeter + sfdxProjFileName, (err) => {
+        if(err) {
+            res.statusCode = 202;
+            res.send({err: 'The filepath doesnot exist or doesnot contain a valid sfdx project!'});
+            console.log(err);
+            return;
         }
-        obj.projects.push(newProj);
 
-        jsonfile.writeFile(projectFile, obj, function(err) {
-            if(err==null) {
-                res.statusCode = 200;
-                res.send(JSON.stringify(obj));
-            } else {
-                res.statusCode = 202;
-                res.send({result: 'error'});
-                console.log(err);
+        jsonfile.readFile(projectFile, function(readErr, obj) {
+            if(newProj.isDefault) {
+                for(let i = 0; i < obj.projects.length; i++) {
+                    obj.projects[i].isDefault = false;
+                }
             }
+            obj.projects.push(newProj);
+    
+            jsonfile.writeFile(projectFile, obj, function(error) {
+                if(error==null) {
+                    res.statusCode = 200;
+                    res.send(JSON.stringify(obj));
+                } else {
+                    res.statusCode = 202;
+                    res.send({err: 'Failed to write to data file. Please try again. '});
+                    console.log(error);
+                }
+            });
         });
     });
 });
