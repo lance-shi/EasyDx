@@ -156,6 +156,8 @@ class OrgContainer extends Component {
 					setDefaultOrg={this.setDefaultOrg}/>
 				<button id="orgInfo" type="button" className="btn btn-primary" 
 					onClick={this.handleRefreshOrgs.bind(this)}>Refresh Org List</button>
+				<button id="orgInfo" type="button" className="btn btn-primary" 
+					onClick={this.handleRefreshOrgs.bind(this)}>Refresh Org List</button>
 				<div id="orgDetailsSection">
 					{this.state.showDetailOrg ? <OrgDetails org={this.state.detailOrg}/> : null}
 				</div>

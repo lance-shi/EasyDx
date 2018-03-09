@@ -147,7 +147,7 @@ class SourceContainer extends Component {
                 <SourceList sources={this.state.localChanges}
                     title="Local Changes" 
                     key="LocalChanges"/>
-				<div class="row">
+				<div className="row">
 					<button type="button" className="btn btn-primary" 
 						onClick={this.handleRefreshStatus.bind(this)}>Refresh Source Status</button>
 					<button type="button" className="btn btn-primary" 

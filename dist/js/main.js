@@ -20665,48 +20665,56 @@ var MainContainer = function (_Component) {
                 null,
                 _react2.default.createElement(
                     "div",
-                    null,
-                    _react2.default.createElement(_MenuItems2.default, { activePanel: this.state.activePanel, setActivePanel: this.setActivePanel.bind(this) }),
+                    { className: "container-fluid", id: "wrapper" },
                     _react2.default.createElement(
                         "div",
-                        { className: "jumbotron" },
+                        { className: "row" },
+                        _react2.default.createElement(_MenuItems2.default, { activePanel: this.state.activePanel, setActivePanel: this.setActivePanel.bind(this) }),
                         _react2.default.createElement(
-                            "div",
-                            { className: "container" },
+                            "main",
+                            { className: "col-sm-8 offset-sm-4 col-lg-9 offset-lg-3 col-xl-10 offset-xl-2 pt-3 pl-4" },
                             _react2.default.createElement(
                                 "div",
-                                { className: "row" },
+                                { className: "jumbotron" },
                                 _react2.default.createElement(
                                     "div",
-                                    { className: "col-sm-1 icon-div" },
-                                    _react2.default.createElement("span", { className: "far fa-file-alt fa-lg" })
-                                ),
-                                _react2.default.createElement(
-                                    "div",
-                                    { className: "col-sm-6" },
+                                    { className: "container" },
                                     _react2.default.createElement(
-                                        "h1",
-                                        { className: "display-4" },
-                                        "Easy DX "
-                                    ),
-                                    _react2.default.createElement(
-                                        "p",
-                                        null,
-                                        "UI Interface for Salesforce DX"
+                                        "div",
+                                        { className: "row" },
+                                        _react2.default.createElement(
+                                            "div",
+                                            { className: "col-sm-1 icon-div" },
+                                            _react2.default.createElement("span", { className: "far fa-file-alt fa-lg" })
+                                        ),
+                                        _react2.default.createElement(
+                                            "div",
+                                            { className: "col-sm-6" },
+                                            _react2.default.createElement(
+                                                "h1",
+                                                { className: "display-4" },
+                                                "Easy DX "
+                                            ),
+                                            _react2.default.createElement(
+                                                "p",
+                                                null,
+                                                "UI Interface for Salesforce DX"
+                                            )
+                                        )
                                     )
                                 )
+                            ),
+                            _react2.default.createElement(
+                                "div",
+                                { className: "container" },
+                                _react2.default.createElement(
+                                    _reactRouterDom.Switch,
+                                    null,
+                                    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: "/", component: _OrgContainer2.default }),
+                                    _react2.default.createElement(_reactRouterDom.Route, { path: "/Project", component: _ProjectContainer2.default }),
+                                    _react2.default.createElement(_reactRouterDom.Route, { path: "/Source", component: _SourceContainer2.default })
+                                )
                             )
-                        )
-                    ),
-                    _react2.default.createElement(
-                        "div",
-                        { className: "container" },
-                        _react2.default.createElement(
-                            _reactRouterDom.Switch,
-                            null,
-                            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: "/", component: _OrgContainer2.default }),
-                            _react2.default.createElement(_reactRouterDom.Route, { path: "/Project", component: _ProjectContainer2.default }),
-                            _react2.default.createElement(_reactRouterDom.Route, { path: "/Source", component: _SourceContainer2.default })
                         )
                     )
                 )
@@ -24593,6 +24601,12 @@ var OrgContainer = function (_Component) {
 					"Refresh Org List"
 				),
 				_react2.default.createElement(
+					"button",
+					{ id: "orgInfo", type: "button", className: "btn btn-primary",
+						onClick: this.handleRefreshOrgs.bind(this) },
+					"Refresh Org List"
+				),
+				_react2.default.createElement(
 					"div",
 					{ id: "orgDetailsSection" },
 					this.state.showDetailOrg ? _react2.default.createElement(_OrgDetails2.default, { org: this.state.detailOrg }) : null
@@ -26679,7 +26693,7 @@ var SourceContainer = function (_Component) {
 					key: "LocalChanges" }),
 				_react2.default.createElement(
 					"div",
-					{ "class": "row" },
+					{ className: "row" },
 					_react2.default.createElement(
 						"button",
 						{ type: "button", className: "btn btn-primary",
@@ -26917,46 +26931,48 @@ var MenuItems = function (_Component) {
         value: function render() {
             return _react2.default.createElement(
                 "nav",
-                { className: "navbar navbar-dark navbar-expand-lg" },
+                { className: "sidebar col-sm-4 col-lg-3 col-xl-2 bg-faded" },
                 _react2.default.createElement(
-                    "div",
-                    { className: "container " },
+                    "h1",
+                    { className: "site-title" },
                     _react2.default.createElement(
-                        "div",
-                        { className: "navbar-collapse collapse", id: "conFunMenu" },
+                        "a",
+                        { href: "#" },
+                        _react2.default.createElement("span", { className: "fa fa-rocket" }),
+                        " Easy DX"
+                    )
+                ),
+                _react2.default.createElement(
+                    "ul",
+                    { className: "nav nav-pills flex-column sidebar-nav" },
+                    _react2.default.createElement(
+                        "li",
+                        { className: "nav-item" },
                         _react2.default.createElement(
-                            "ul",
-                            { className: "navbar-nav mr-auto" },
-                            _react2.default.createElement(
-                                "li",
-                                { className: "nav-item" },
-                                _react2.default.createElement(
-                                    _reactRouterDom.NavLink,
-                                    { to: "/", exact: true, activeClassName: "active", className: "nav-link" },
-                                    _react2.default.createElement("span", { className: "fa fa-home fa-lg" }),
-                                    " Org"
-                                )
-                            ),
-                            _react2.default.createElement(
-                                "li",
-                                { className: "nav-item" },
-                                _react2.default.createElement(
-                                    _reactRouterDom.NavLink,
-                                    { to: "/Project", activeClassName: "active", className: "nav-link" },
-                                    _react2.default.createElement("span", { className: "fas fa-cloud-download-alt fa-lg" }),
-                                    " Project"
-                                )
-                            ),
-                            _react2.default.createElement(
-                                "li",
-                                { className: "nav-item" },
-                                _react2.default.createElement(
-                                    _reactRouterDom.NavLink,
-                                    { to: "/Source", activeClassName: "active", className: "nav-link" },
-                                    _react2.default.createElement("span", { className: "fas fa-code fa-lg" }),
-                                    " Code"
-                                )
-                            )
+                            _reactRouterDom.NavLink,
+                            { to: "/", exact: true, activeClassName: "active", className: "nav-link" },
+                            _react2.default.createElement("span", { className: "fa fa-home fa-lg" }),
+                            " Org"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        "li",
+                        { className: "nav-item" },
+                        _react2.default.createElement(
+                            _reactRouterDom.NavLink,
+                            { to: "/Project", activeClassName: "active", className: "nav-link" },
+                            _react2.default.createElement("span", { className: "fas fa-cloud-download-alt fa-lg" }),
+                            " Project"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        "li",
+                        { className: "nav-item" },
+                        _react2.default.createElement(
+                            _reactRouterDom.NavLink,
+                            { to: "/Source", activeClassName: "active", className: "nav-link" },
+                            _react2.default.createElement("span", { className: "fas fa-code fa-lg" }),
+                            " Code"
                         )
                     )
                 )
