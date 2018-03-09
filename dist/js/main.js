@@ -25691,12 +25691,12 @@ var OrgRow = function (_Component) {
 							),
 							_react2.default.createElement(
 								"a",
-								{ className: "dropdown-item", href: "#", onClick: this.handleOpenOrg },
+								{ className: "dropdown-item", href: "#/", onClick: this.handleOpenOrg },
 								"Open Org"
 							),
 							_react2.default.createElement(
 								"a",
-								{ className: "dropdown-item", href: "#", onClick: this.handleDefaultOrg },
+								{ className: "dropdown-item", href: "#/", onClick: this.handleDefaultOrg },
 								"Set as Default Org"
 							)
 						)
@@ -25971,6 +25971,7 @@ var ProjectContainer = function (_Component) {
 
 		_this.showAlertMessage = _this.showAlertMessage.bind(_this);
 		_this.hideAlertMessage = _this.hideAlertMessage.bind(_this);
+		_this.removeProject = _this.removeProject.bind(_this);
 		return _this;
 	}
 
@@ -26031,6 +26032,25 @@ var ProjectContainer = function (_Component) {
 			});
 		}
 	}, {
+		key: "removeProject",
+		value: function removeProject(project) {
+			var _this4 = this;
+
+			_axios2.default.post("api/removeProject", {
+				alias: project.alias,
+				directory: project.directory
+			}).then(function (res) {
+				if (res.status === 200) {
+					_this4.showAlertMessage("success", "Project removed successfully");
+					_this4.setState({
+						projects: res.data.projects
+					});
+				} else {
+					_this4.showAlertMessage("danger", "Error:" + res.data.err);
+				}
+			});
+		}
+	}, {
 		key: "render",
 		value: function render() {
 			return _react2.default.createElement(
@@ -26040,7 +26060,8 @@ var ProjectContainer = function (_Component) {
 					alertClass: this.state.alertClass,
 					message: this.state.alertMessage }) : null,
 				_react2.default.createElement(_ProjectList2.default, { projects: this.state.projects,
-					setDefaultProj: this.setDefaultProj.bind(this) }),
+					setDefaultProj: this.setDefaultProj.bind(this),
+					removeProject: this.removeProject }),
 				_react2.default.createElement(_ProjectAdd2.default, { addProject: this.addProject.bind(this),
 					showAlertMessage: this.showAlertMessage })
 			);
@@ -26076,7 +26097,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function ProjectList(props) {
 	var projectRows = props.projects.map(function (project) {
 		return _react2.default.createElement(_ProjectRow2.default, { key: project.directory, project: project,
-			setDefaultProj: props.setDefaultProj });
+			setDefaultProj: props.setDefaultProj,
+			removeProject: props.removeProject });
 	});
 	return _react2.default.createElement(
 		"div",
@@ -26175,6 +26197,7 @@ var ProjectRow = function (_Component) {
 
 		_this.handleSetDefault = _this.handleSetDefault.bind(_this);
 		_this.handleConvertCode = _this.handleConvertCode.bind(_this);
+		_this.handleRemoveProject = _this.handleRemoveProject.bind(_this);
 		return _this;
 	}
 
@@ -26195,6 +26218,11 @@ var ProjectRow = function (_Component) {
 					console.log("Error: " + res.data.err);
 				}
 			});
+		}
+	}, {
+		key: "handleRemoveProject",
+		value: function handleRemoveProject() {
+			this.props.removeProject(this.props.project);
 		}
 	}, {
 		key: "render",
@@ -26238,13 +26266,18 @@ var ProjectRow = function (_Component) {
 							{ className: "dropdown-menu" },
 							_react2.default.createElement(
 								"a",
-								{ className: "dropdown-item", href: "#", onClick: this.handleSetDefault },
+								{ className: "dropdown-item", href: "#/", onClick: this.handleSetDefault },
 								"Set as Default Project"
 							),
 							_react2.default.createElement(
 								"a",
-								{ className: "dropdown-item", href: "#", onClick: this.handleConvertCode },
+								{ className: "dropdown-item", href: "#/", onClick: this.handleConvertCode },
 								"Convert Code"
+							),
+							_react2.default.createElement(
+								"a",
+								{ className: "dropdown-item", href: "#/", onClick: this.handleRemoveProject },
+								"Remove Project"
 							)
 						)
 					)
@@ -26448,7 +26481,7 @@ exports.default = ProjectAdd;
 
 
 Object.defineProperty(exports, "__esModule", {
-				value: true
+	value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -26486,138 +26519,203 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var SourceContainer = function (_Component) {
-				_inherits(SourceContainer, _Component);
+	_inherits(SourceContainer, _Component);
 
-				function SourceContainer() {
-								_classCallCheck(this, SourceContainer);
+	function SourceContainer() {
+		_classCallCheck(this, SourceContainer);
 
-								var _this = _possibleConstructorReturn(this, (SourceContainer.__proto__ || Object.getPrototypeOf(SourceContainer)).call(this));
+		var _this = _possibleConstructorReturn(this, (SourceContainer.__proto__ || Object.getPrototypeOf(SourceContainer)).call(this));
 
-								_this.state = {
-												remoteChanges: [],
-												localChanges: [],
-												currentProject: {},
-												defaultProjectExists: false,
-												showLoaidngImage: false,
-												showAlertMessage: false,
-												alertClass: "info",
-												alertMessage: ""
-								};
+		_this.state = {
+			remoteChanges: [],
+			localChanges: [],
+			currentProject: {},
+			defaultProjectExists: false,
+			showLoaidngImage: false,
+			showAlertMessage: false,
+			alertClass: "info",
+			alertMessage: ""
+		};
 
-								_axios2.default.get("/api/project").then(function (res) {
-												var projects = res.data.projects;
-												var defaultExists = false;
-												var defaultProject = {};
-												for (var i = 0; i < projects.length; i++) {
-																if (projects[i].isDefault) {
-																				defaultExists = true;
-																				defaultProject = projects[i];
-																				break;
-																}
-												}
-												_this.setState({
-																currentProject: defaultProject,
-																defaultProjectExists: defaultExists
-												});
-								});
-
-								_this.toggleLoadingImage = _this.toggleLoadingImage.bind(_this);
-								_this.showAlertMessage = _this.showAlertMessage.bind(_this);
-								_this.hideAlertMessage = _this.hideAlertMessage.bind(_this);
-								return _this;
+		_axios2.default.get("/api/project").then(function (res) {
+			var projects = res.data.projects;
+			var defaultExists = false;
+			var defaultProject = {};
+			for (var i = 0; i < projects.length; i++) {
+				if (projects[i].isDefault) {
+					defaultExists = true;
+					defaultProject = projects[i];
+					break;
 				}
+			}
+			_this.setState({
+				currentProject: defaultProject,
+				defaultProjectExists: defaultExists
+			});
+		});
 
-				_createClass(SourceContainer, [{
-								key: "showAlertMessage",
-								value: function showAlertMessage(alertClass, alertMessage) {
-												this.setState({
-																showAlertMessage: true,
-																alertClass: alertClass,
-																alertMessage: alertMessage
-												});
-								}
-				}, {
-								key: "hideAlertMessage",
-								value: function hideAlertMessage() {
-												this.setState({
-																showAlertMessage: false
-												});
-								}
-				}, {
-								key: "toggleLoadingImage",
-								value: function toggleLoadingImage(displayLoadingImage) {
-												this.setState({
-																showLoaidngImage: displayLoadingImage
-												});
-								}
-				}, {
-								key: "handleRefreshStatus",
-								value: function handleRefreshStatus() {
-												var _this2 = this;
+		_this.toggleLoadingImage = _this.toggleLoadingImage.bind(_this);
+		_this.showAlertMessage = _this.showAlertMessage.bind(_this);
+		_this.hideAlertMessage = _this.hideAlertMessage.bind(_this);
+		_this.pushChanges = _this.pushChanges.bind(_this);
+		return _this;
+	}
 
-												this.setState({ showLoaidngImage: true });
-												_axios2.default.post("/api/source", {
-																directory: this.state.currentProject.directory
-												}).then(function (res) {
-																if (res.status === 200) {
-																				var result = res.data.result;
-																				var remoteChanges = [];
-																				var localChanges = [];
+	_createClass(SourceContainer, [{
+		key: "showAlertMessage",
+		value: function showAlertMessage(alertClass, alertMessage) {
+			this.setState({
+				showAlertMessage: true,
+				alertClass: alertClass,
+				alertMessage: alertMessage
+			});
+		}
+	}, {
+		key: "hideAlertMessage",
+		value: function hideAlertMessage() {
+			this.setState({
+				showAlertMessage: false
+			});
+		}
+	}, {
+		key: "toggleLoadingImage",
+		value: function toggleLoadingImage(displayLoadingImage) {
+			this.setState({
+				showLoaidngImage: displayLoadingImage
+			});
+		}
+	}, {
+		key: "handleRefreshStatus",
+		value: function handleRefreshStatus() {
+			var _this2 = this;
 
-																				for (var i = 0; i < result.length; i++) {
-																								var resultState = result[i].state;
-																								if (resultState.includes("(Conflict)")) {
-																												result[i].state = "Conflict";
-																								} else {
-																												result[i].state = "";
-																								}
+			this.setState({ showLoaidngImage: true });
+			_axios2.default.post("/api/source", {
+				directory: this.state.currentProject.directory
+			}).then(function (res) {
+				if (res.status === 200) {
+					var result = res.data.result;
+					var remoteChanges = [];
+					var localChanges = [];
 
-																								if (resultState.includes("Local Changed")) {
-																												localChanges.push(result[i]);
-																								} else {
-																												remoteChanges.push(result[i]);
-																								}
-																				}
-																				_this2.setState({
-																								showLoaidngImage: false,
-																								remoteChanges: remoteChanges,
-																								localChanges: localChanges
-																				});
-																				_this2.showAlertMessage("success", "Source status refreshed successfully!");
-																} else {
-																				_this2.showAlertMessage("danger", "Error:" + res.data.err);
-																}
-												});
-								}
-				}, {
-								key: "render",
-								value: function render() {
-												return _react2.default.createElement(
-																"div",
-																null,
-																this.state.showLoaidngImage ? _react2.default.createElement(_LoadingImage2.default, null) : null,
-																this.state.showAlertMessage ? _react2.default.createElement(_AlertMessage2.default, {
-																				alertClass: this.state.alertClass,
-																				message: this.state.alertMessage }) : null,
-																this.state.defaultProjectExists ? _react2.default.createElement(_CurrentProjectLine2.default, {
-																				project: this.state.currentProject }) : null,
-																_react2.default.createElement(_SourceList2.default, { sources: this.state.remoteChanges,
-																				title: "Remote Changes",
-																				key: "RemoteChanges" }),
-																_react2.default.createElement(_SourceList2.default, { sources: this.state.localChanges,
-																				title: "Local Changes",
-																				key: "LocalChanges" }),
-																_react2.default.createElement(
-																				"button",
-																				{ type: "button", className: "btn btn-primary",
-																								onClick: this.handleRefreshStatus.bind(this) },
-																				"Refresh Source Status"
-																)
-												);
-								}
-				}]);
+					for (var i = 0; i < result.length; i++) {
+						var resultState = result[i].state;
+						if (resultState.includes("(Conflict)")) {
+							result[i].state = "Conflict";
+						} else {
+							result[i].state = "";
+						}
 
-				return SourceContainer;
+						if (resultState.includes("Local Changed")) {
+							localChanges.push(result[i]);
+						} else {
+							remoteChanges.push(result[i]);
+						}
+					}
+					_this2.setState({
+						showLoaidngImage: false,
+						remoteChanges: remoteChanges,
+						localChanges: localChanges
+					});
+					_this2.showAlertMessage("success", "Source status refreshed successfully!");
+				} else {
+					_this2.showAlertMessage("danger", "Error:" + res.data.err);
+				}
+			});
+		}
+	}, {
+		key: "handlePushChanges",
+		value: function handlePushChanges() {
+			this.pushChanges(false);
+		}
+	}, {
+		key: "handleForcePushChanges",
+		value: function handleForcePushChanges() {
+			this.pushChanges(true);
+		}
+	}, {
+		key: "pushChanges",
+		value: function pushChanges(forceOption) {
+			var _this3 = this;
+
+			this.setState({ showLoaidngImage: true });
+			_axios2.default.post("/api/pushSource", {
+				directory: this.state.currentProject.directory,
+				force: forceOption
+			}).then(function (res) {
+				if (res.status === 200) {
+					var result = res.data.result;
+
+					_this3.toggleLoadingImage(false);
+					_this3.showAlertMessage("success", "Source status pushed successfully!");
+				} else {
+					_this3.showAlertMessage("danger", "Error:" + res.data.err);
+				}
+			});
+		}
+	}, {
+		key: "handlePullChanges",
+		value: function handlePullChanges() {}
+	}, {
+		key: "handleForcePullChanges",
+		value: function handleForcePullChanges() {}
+	}, {
+		key: "render",
+		value: function render() {
+			return _react2.default.createElement(
+				"div",
+				null,
+				this.state.showLoaidngImage ? _react2.default.createElement(_LoadingImage2.default, null) : null,
+				this.state.showAlertMessage ? _react2.default.createElement(_AlertMessage2.default, {
+					alertClass: this.state.alertClass,
+					message: this.state.alertMessage }) : null,
+				this.state.defaultProjectExists ? _react2.default.createElement(_CurrentProjectLine2.default, {
+					project: this.state.currentProject }) : null,
+				_react2.default.createElement(_SourceList2.default, { sources: this.state.remoteChanges,
+					title: "Remote Changes",
+					key: "RemoteChanges" }),
+				_react2.default.createElement(_SourceList2.default, { sources: this.state.localChanges,
+					title: "Local Changes",
+					key: "LocalChanges" }),
+				_react2.default.createElement(
+					"div",
+					{ "class": "row" },
+					_react2.default.createElement(
+						"button",
+						{ type: "button", className: "btn btn-primary",
+							onClick: this.handleRefreshStatus.bind(this) },
+						"Refresh Source Status"
+					),
+					_react2.default.createElement(
+						"button",
+						{ type: "button", className: "btn btn-primary",
+							onClick: this.handlePushChanges.bind(this) },
+						"Push Changes"
+					),
+					_react2.default.createElement(
+						"button",
+						{ type: "button", className: "btn btn-primary",
+							onClick: this.handleForcePushChanges.bind(this) },
+						"Force Push Changes"
+					),
+					_react2.default.createElement(
+						"button",
+						{ type: "button", className: "btn btn-primary",
+							onClick: this.handlePullChanges.bind(this) },
+						"Pull Changes"
+					),
+					_react2.default.createElement(
+						"button",
+						{ type: "button", className: "btn btn-primary",
+							onClick: this.handleForcePullChanges.bind(this) },
+						"Force Pull Changes"
+					)
+				)
+			);
+		}
+	}]);
+
+	return SourceContainer;
 }(_react.Component);
 
 exports.default = SourceContainer;

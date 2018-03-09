@@ -6,6 +6,7 @@ class ProjectRow extends Component {
 		super(props);
 		this.handleSetDefault = this.handleSetDefault.bind(this);
 		this.handleConvertCode = this.handleConvertCode.bind(this);
+		this.handleRemoveProject = this.handleRemoveProject.bind(this);
 	}
 
 	handleSetDefault() {
@@ -22,6 +23,10 @@ class ProjectRow extends Component {
 				console.log("Error: " + res.data.err);
 			}
 		});
+	}
+
+	handleRemoveProject() {
+		this.props.removeProject(this.props.project);
 	}
 
 	render() {
@@ -41,8 +46,9 @@ class ProjectRow extends Component {
 							Action
 						</button>
 						<div className="dropdown-menu">
-							<a className="dropdown-item" href="#" onClick={this.handleSetDefault}>Set as Default Project</a>
-							<a className="dropdown-item" href="#" onClick={this.handleConvertCode}>Convert Code</a>
+							<a className="dropdown-item" href="#/" onClick={this.handleSetDefault}>Set as Default Project</a>
+							<a className="dropdown-item" href="#/" onClick={this.handleConvertCode}>Convert Code</a>
+							<a className="dropdown-item" href="#/" onClick={this.handleRemoveProject}>Remove Project</a>
 						</div>
 					</div>
 				</td>

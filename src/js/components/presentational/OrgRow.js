@@ -46,8 +46,8 @@ class OrgRow extends Component {
 						</button>
 						<div className="dropdown-menu">
 							<a className="dropdown-item" href="#orgDetailsSection" onClick={this.handleShowDetail}>Display Org Details</a>
-							<a className="dropdown-item" href="#" onClick={this.handleOpenOrg}>Open Org</a>
-							<a className="dropdown-item" href="#" onClick={this.handleDefaultOrg}>Set as Default Org</a>
+							<a className="dropdown-item" href="#/" onClick={this.handleOpenOrg}>Open Org</a>
+							<a className="dropdown-item" href="#/" onClick={this.handleDefaultOrg}>Set as Default Org</a>
 						</div>
 					</div>
 				</td>

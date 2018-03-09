@@ -21,6 +21,7 @@ class ProjectContainer extends Component {
 
 		this.showAlertMessage = this.showAlertMessage.bind(this);
 		this.hideAlertMessage = this.hideAlertMessage.bind(this);
+		this.removeProject = this.removeProject.bind(this);
 	}
 
 	showAlertMessage(alertClass, alertMessage) {
@@ -71,6 +72,22 @@ class ProjectContainer extends Component {
 		});
 	}
 
+	removeProject(project) {
+		axios.post("api/removeProject", {
+			alias: project.alias, 
+			directory: project.directory
+		}).then((res) => {
+			if(res.status === 200) {
+				this.showAlertMessage("success", "Project removed successfully");
+				this.setState({
+					projects: res.data.projects
+				});
+			} else {
+				this.showAlertMessage("danger", "Error:" + res.data.err);
+			}
+		});
+	}
+
 	render() {
 		return (
 			<div>
@@ -78,7 +95,8 @@ class ProjectContainer extends Component {
 					alertClass={this.state.alertClass}
 					message={this.state.alertMessage}/> : null}
 				<ProjectList projects={this.state.projects}
-					setDefaultProj={this.setDefaultProj.bind(this)}/>
+					setDefaultProj={this.setDefaultProj.bind(this)}
+					removeProject={this.removeProject}/>
 				<ProjectAdd addProject={this.addProject.bind(this)}
 					showAlertMessage={this.showAlertMessage}/>
 			</div>

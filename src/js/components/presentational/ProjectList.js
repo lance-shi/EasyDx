@@ -3,7 +3,8 @@ import ProjectRow from "./ProjectRow";
 
 function ProjectList(props) {
 	const projectRows = props.projects.map(project=><ProjectRow key={project.directory} project={project}
-        setDefaultProj={props.setDefaultProj}/>);
+        setDefaultProj={props.setDefaultProj}
+		removeProject={props.removeProject}/>);
 	return (
 		<div className="section-group">
 			<div className="row">

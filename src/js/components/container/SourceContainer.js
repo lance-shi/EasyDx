@@ -124,6 +124,14 @@ class SourceContainer extends Component {
 		});
 	} 
 
+	handlePullChanges() {
+
+	}
+
+	handleForcePullChanges() {
+		
+	}
+
     render() {
         return (
 			<div>
