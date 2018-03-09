@@ -91,6 +91,7 @@ class ProjectContainer extends Component {
 	render() {
 		return (
 			<div>
+				<PageHeader title="Project"/>
 				{this.state.showAlertMessage ? <AlertMessage 
 					alertClass={this.state.alertClass}
 					message={this.state.alertMessage}/> : null}

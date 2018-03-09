@@ -26,13 +26,11 @@ class MainContainer extends Component {
                     <div className="row">
                         <MenuItems activePanel={this.state.activePanel} setActivePanel={this.setActivePanel.bind(this)}/>
                         <main className="col-sm-8 offset-sm-4 col-lg-9 offset-lg-3 col-xl-10 offset-xl-2 pt-3 pl-4">
-                            <div className="container">
-                                <Switch>
-                                    <Route exact path="/" component={OrgContainer}/>
-                                    <Route path="/Project" component={ProjectContainer}/>
-                                    <Route path="/Source" component={SourceContainer}/>
-                                </Switch>
-                            </div>
+                            <Switch>
+                                <Route exact path="/" component={OrgContainer}/>
+                                <Route path="/Project" component={ProjectContainer}/>
+                                <Route path="/Source" component={SourceContainer}/>
+                            </Switch>
                         </main>
                     </div>
                 </div>

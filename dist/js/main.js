@@ -20674,15 +20674,11 @@ var MainContainer = function (_Component) {
                             "main",
                             { className: "col-sm-8 offset-sm-4 col-lg-9 offset-lg-3 col-xl-10 offset-xl-2 pt-3 pl-4" },
                             _react2.default.createElement(
-                                "div",
-                                { className: "container" },
-                                _react2.default.createElement(
-                                    _reactRouterDom.Switch,
-                                    null,
-                                    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: "/", component: _OrgContainer2.default }),
-                                    _react2.default.createElement(_reactRouterDom.Route, { path: "/Project", component: _ProjectContainer2.default }),
-                                    _react2.default.createElement(_reactRouterDom.Route, { path: "/Source", component: _SourceContainer2.default })
-                                )
+                                _reactRouterDom.Switch,
+                                null,
+                                _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: "/", component: _OrgContainer2.default }),
+                                _react2.default.createElement(_reactRouterDom.Route, { path: "/Project", component: _ProjectContainer2.default }),
+                                _react2.default.createElement(_reactRouterDom.Route, { path: "/Source", component: _SourceContainer2.default })
                             )
                         )
                     )
@@ -24550,6 +24546,7 @@ var OrgContainer = function (_Component) {
 				"div",
 				null,
 				this.state.showLoaidngImage ? _react2.default.createElement(_LoadingImage2.default, null) : null,
+				_react2.default.createElement(_PageHeader2.default, { title: "Org" }),
 				this.state.showAlertMessage ? _react2.default.createElement(_AlertMessage2.default, {
 					alertClass: this.state.alertClass,
 					message: this.state.alertMessage }) : null,
@@ -25915,7 +25912,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function PageHeader(props) {
   return _react2.default.createElement(
     "header",
-    { "class": "page-header row justify-center" },
+    { "class": "page-header row" },
     _react2.default.createElement(
       "div",
       { "class": "col-md-6 col-lg-8" },
@@ -26078,6 +26075,7 @@ var ProjectContainer = function (_Component) {
 			return _react2.default.createElement(
 				"div",
 				null,
+				_react2.default.createElement(PageHeader, { title: "Project" }),
 				this.state.showAlertMessage ? _react2.default.createElement(_AlertMessage2.default, {
 					alertClass: this.state.alertClass,
 					message: this.state.alertMessage }) : null,
@@ -26688,6 +26686,7 @@ var SourceContainer = function (_Component) {
 				"div",
 				null,
 				this.state.showLoaidngImage ? _react2.default.createElement(_LoadingImage2.default, null) : null,
+				_react2.default.createElement(PageHeader, { title: "Source" }),
 				this.state.showAlertMessage ? _react2.default.createElement(_AlertMessage2.default, {
 					alertClass: this.state.alertClass,
 					message: this.state.alertMessage }) : null,

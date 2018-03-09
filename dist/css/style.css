@@ -39,3 +39,11 @@
     left: 240px;
     z-index: 100;
 }
+
+.bg-danger {
+    background-color: #d9534f!important;
+}
+
+.bg-success {
+    background-color: #5cb85c!important;
+}
