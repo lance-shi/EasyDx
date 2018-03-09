@@ -6,6 +6,7 @@ import OrgDetails from "../presentational/OrgDetails";
 import LoadingImage from "../presentational/LoadingImage";
 import AlertMessage from "../presentational/AlertMessage";
 import CurrentProjectLine from "../presentational/CurrentProjectLine";
+import PageHeader from "../presentational/PageHeader";
 
 class OrgContainer extends Component {
 	constructor() {

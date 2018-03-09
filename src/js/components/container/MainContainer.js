@@ -26,19 +26,6 @@ class MainContainer extends Component {
                     <div className="row">
                         <MenuItems activePanel={this.state.activePanel} setActivePanel={this.setActivePanel.bind(this)}/>
                         <main className="col-sm-8 offset-sm-4 col-lg-9 offset-lg-3 col-xl-10 offset-xl-2 pt-3 pl-4">
-                            <div className="jumbotron">
-                                <div className="container">
-                                    <div className="row">
-                                        <div className="col-sm-1 icon-div">
-                                            <span className="far fa-file-alt fa-lg"></span>
-                                        </div>
-                                        <div className="col-sm-6">
-                                            <h1 className="display-4">Easy DX </h1>
-                                            <p>UI Interface for Salesforce DX</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             <div className="container">
                                 <Switch>
                                     <Route exact path="/" component={OrgContainer}/>

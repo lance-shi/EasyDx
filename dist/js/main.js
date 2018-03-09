@@ -2001,7 +2001,7 @@ var AlertMessage = function (_Component) {
     _createClass(AlertMessage, [{
         key: "render",
         value: function render() {
-            var alertClass = "alert alert-" + this.props.alertClass;
+            var alertClass = "alert bg-" + this.props.alertClass;
             return _react2.default.createElement(
                 "div",
                 { className: alertClass },
@@ -20618,15 +20618,15 @@ var _OrgContainer = __webpack_require__(88);
 
 var _OrgContainer2 = _interopRequireDefault(_OrgContainer);
 
-var _ProjectContainer = __webpack_require__(110);
+var _ProjectContainer = __webpack_require__(111);
 
 var _ProjectContainer2 = _interopRequireDefault(_ProjectContainer);
 
-var _SourceContainer = __webpack_require__(114);
+var _SourceContainer = __webpack_require__(115);
 
 var _SourceContainer2 = _interopRequireDefault(_SourceContainer);
 
-var _MenuItems = __webpack_require__(117);
+var _MenuItems = __webpack_require__(118);
 
 var _MenuItems2 = _interopRequireDefault(_MenuItems);
 
@@ -20673,37 +20673,6 @@ var MainContainer = function (_Component) {
                         _react2.default.createElement(
                             "main",
                             { className: "col-sm-8 offset-sm-4 col-lg-9 offset-lg-3 col-xl-10 offset-xl-2 pt-3 pl-4" },
-                            _react2.default.createElement(
-                                "div",
-                                { className: "jumbotron" },
-                                _react2.default.createElement(
-                                    "div",
-                                    { className: "container" },
-                                    _react2.default.createElement(
-                                        "div",
-                                        { className: "row" },
-                                        _react2.default.createElement(
-                                            "div",
-                                            { className: "col-sm-1 icon-div" },
-                                            _react2.default.createElement("span", { className: "far fa-file-alt fa-lg" })
-                                        ),
-                                        _react2.default.createElement(
-                                            "div",
-                                            { className: "col-sm-6" },
-                                            _react2.default.createElement(
-                                                "h1",
-                                                { className: "display-4" },
-                                                "Easy DX "
-                                            ),
-                                            _react2.default.createElement(
-                                                "p",
-                                                null,
-                                                "UI Interface for Salesforce DX"
-                                            )
-                                        )
-                                    )
-                                )
-                            ),
                             _react2.default.createElement(
                                 "div",
                                 { className: "container" },
@@ -24420,6 +24389,10 @@ var _CurrentProjectLine = __webpack_require__(45);
 
 var _CurrentProjectLine2 = _interopRequireDefault(_CurrentProjectLine);
 
+var _PageHeader = __webpack_require__(110);
+
+var _PageHeader2 = _interopRequireDefault(_PageHeader);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -25930,6 +25903,41 @@ exports.default = OrgDetails;
 
 
 Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function PageHeader(props) {
+  return _react2.default.createElement(
+    "header",
+    { "class": "page-header row justify-center" },
+    _react2.default.createElement(
+      "div",
+      { "class": "col-md-6 col-lg-8" },
+      _react2.default.createElement(
+        "h1",
+        { "class": "float-left text-center text-md-left" },
+        props.title
+      )
+    )
+  );
+}
+
+exports.default = PageHeader;
+
+/***/ }),
+/* 111 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
@@ -25943,11 +25951,11 @@ var _axios = __webpack_require__(11);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _ProjectList = __webpack_require__(111);
+var _ProjectList = __webpack_require__(112);
 
 var _ProjectList2 = _interopRequireDefault(_ProjectList);
 
-var _ProjectAdd = __webpack_require__(113);
+var _ProjectAdd = __webpack_require__(114);
 
 var _ProjectAdd2 = _interopRequireDefault(_ProjectAdd);
 
@@ -26088,7 +26096,7 @@ var ProjectContainer = function (_Component) {
 exports.default = ProjectContainer;
 
 /***/ }),
-/* 111 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26102,7 +26110,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _ProjectRow = __webpack_require__(112);
+var _ProjectRow = __webpack_require__(113);
 
 var _ProjectRow2 = _interopRequireDefault(_ProjectRow);
 
@@ -26173,7 +26181,7 @@ function ProjectList(props) {
 exports.default = ProjectList;
 
 /***/ }),
-/* 112 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26306,7 +26314,7 @@ var ProjectRow = function (_Component) {
 exports.default = ProjectRow;
 
 /***/ }),
-/* 113 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26488,7 +26496,7 @@ var ProjectAdd = function (_Component) {
 exports.default = ProjectAdd;
 
 /***/ }),
-/* 114 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26520,7 +26528,7 @@ var _CurrentProjectLine = __webpack_require__(45);
 
 var _CurrentProjectLine2 = _interopRequireDefault(_CurrentProjectLine);
 
-var _SourceList = __webpack_require__(115);
+var _SourceList = __webpack_require__(116);
 
 var _SourceList2 = _interopRequireDefault(_SourceList);
 
@@ -26735,7 +26743,7 @@ var SourceContainer = function (_Component) {
 exports.default = SourceContainer;
 
 /***/ }),
-/* 115 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26749,7 +26757,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _SourceRow = __webpack_require__(116);
+var _SourceRow = __webpack_require__(117);
 
 var _SourceRow2 = _interopRequireDefault(_SourceRow);
 
@@ -26818,7 +26826,7 @@ function SourceList(props) {
 exports.default = SourceList;
 
 /***/ }),
-/* 116 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26891,7 +26899,7 @@ var SourceRow = function (_Component) {
 exports.default = SourceRow;
 
 /***/ }),
-/* 117 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
