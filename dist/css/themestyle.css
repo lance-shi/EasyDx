@@ -557,10 +557,6 @@ body {
     background: #fff;
     color: #444444; }
   
-  input[type=checkbox]:checked + label {
-    text-decoration: line-through;
-    color: #a0a0a0; }
-  
   .todo-list-item:hover, a.todo-list-item:focus {
     text-decoration: none;
     background-color: #f7f7f7; }

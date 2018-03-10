@@ -7,6 +7,7 @@ import LoadingImage from "../presentational/LoadingImage";
 import AlertMessage from "../presentational/AlertMessage";
 import CurrentProjectLine from "../presentational/CurrentProjectLine";
 import PageHeader from "../presentational/PageHeader";
+import OrgConnect from "../presentational/OrgConnect";
 
 class OrgContainer extends Component {
 	constructor() {
@@ -158,8 +159,7 @@ class OrgContainer extends Component {
 					setDefaultOrg={this.setDefaultOrg}/>
 				<button id="orgInfo" type="button" className="btn btn-primary" 
 					onClick={this.handleRefreshOrgs.bind(this)}>Refresh Org List</button>
-				<button id="orgInfo" type="button" className="btn btn-primary" 
-					onClick={this.handleRefreshOrgs.bind(this)}>Refresh Org List</button>
+				<OrgConnect/>
 				<div id="orgDetailsSection">
 					{this.state.showDetailOrg ? <OrgDetails org={this.state.detailOrg}/> : null}
 				</div>
