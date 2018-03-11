@@ -8,6 +8,7 @@ import AlertMessage from "../presentational/AlertMessage";
 import CurrentProjectLine from "../presentational/CurrentProjectLine";
 import PageHeader from "../presentational/PageHeader";
 import OrgConnect from "../presentational/OrgConnect";
+import OrgCreate from "../presentational/OrgCreate";
 
 class OrgContainer extends Component {
 	constructor() {
@@ -47,6 +48,7 @@ class OrgContainer extends Component {
 		this.hideAlertMessage = this.hideAlertMessage.bind(this);
 		this.setDefaultOrg = this.setDefaultOrg.bind(this);
 		this.connectOrg = this.connectOrg.bind(this);
+		this.createOrg = this.createOrg.bind(this);
 	}
 
 	handleRefreshOrgs(e) {
@@ -85,6 +87,10 @@ class OrgContainer extends Component {
 	        	this.showAlertMessage("danger", "Error:" + res.data.err);
 	        }
 		});
+	}
+
+	createOrg(isDefault, alias) {
+
 	}
 
 	setDefaultOrg(defaultUserName) {
@@ -180,6 +186,7 @@ class OrgContainer extends Component {
 				<button id="orgInfo" type="button" className="btn btn-primary" 
 					onClick={this.handleRefreshOrgs.bind(this)}>Refresh Org List</button>
 				<OrgConnect connectOrg={this.connectOrg}/>
+				<OrgCreate createOrg={this.createOrg}/>
 				<div id="orgDetailsSection">
 					{this.state.showDetailOrg ? <OrgDetails org={this.state.detailOrg}/> : null}
 				</div>

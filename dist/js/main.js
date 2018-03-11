@@ -20653,15 +20653,15 @@ var _OrgContainer = __webpack_require__(89);
 
 var _OrgContainer2 = _interopRequireDefault(_OrgContainer);
 
-var _ProjectContainer = __webpack_require__(112);
+var _ProjectContainer = __webpack_require__(113);
 
 var _ProjectContainer2 = _interopRequireDefault(_ProjectContainer);
 
-var _SourceContainer = __webpack_require__(116);
+var _SourceContainer = __webpack_require__(117);
 
 var _SourceContainer2 = _interopRequireDefault(_SourceContainer);
 
-var _MenuItems = __webpack_require__(119);
+var _MenuItems = __webpack_require__(120);
 
 var _MenuItems2 = _interopRequireDefault(_MenuItems);
 
@@ -24428,6 +24428,10 @@ var _OrgConnect = __webpack_require__(111);
 
 var _OrgConnect2 = _interopRequireDefault(_OrgConnect);
 
+var _OrgCreate = __webpack_require__(112);
+
+var _OrgCreate2 = _interopRequireDefault(_OrgCreate);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -24479,6 +24483,7 @@ var OrgContainer = function (_Component) {
 		_this.hideAlertMessage = _this.hideAlertMessage.bind(_this);
 		_this.setDefaultOrg = _this.setDefaultOrg.bind(_this);
 		_this.connectOrg = _this.connectOrg.bind(_this);
+		_this.createOrg = _this.createOrg.bind(_this);
 		return _this;
 	}
 
@@ -24526,6 +24531,9 @@ var OrgContainer = function (_Component) {
 				}
 			});
 		}
+	}, {
+		key: "createOrg",
+		value: function createOrg(isDefault, alias) {}
 	}, {
 		key: "setDefaultOrg",
 		value: function setDefaultOrg(defaultUserName) {
@@ -24633,6 +24641,7 @@ var OrgContainer = function (_Component) {
 					"Refresh Org List"
 				),
 				_react2.default.createElement(_OrgConnect2.default, { connectOrg: this.connectOrg }),
+				_react2.default.createElement(_OrgCreate2.default, { createOrg: this.createOrg }),
 				_react2.default.createElement(
 					"div",
 					{ id: "orgDetailsSection" },
@@ -26105,6 +26114,132 @@ exports.default = OrgConnect;
 
 
 Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var OrgCreate = function (_Component) {
+    _inherits(OrgCreate, _Component);
+
+    function OrgCreate() {
+        _classCallCheck(this, OrgCreate);
+
+        var _this = _possibleConstructorReturn(this, (OrgCreate.__proto__ || Object.getPrototypeOf(OrgCreate)).call(this));
+
+        _this.state = {
+            alias: "",
+            isDefault: false
+        };
+
+        _this.handleAliasChange = _this.handleAliasChange.bind(_this);
+        _this.handleDefaultChange = _this.handleDefaultChange.bind(_this);
+        _this.handleCreateOrg = _this.handleCreateOrg.bind(_this);
+        return _this;
+    }
+
+    _createClass(OrgCreate, [{
+        key: "handleAliasChange",
+        value: function handleAliasChange(event) {
+            this.setState({ alias: event.target.value });
+        }
+    }, {
+        key: "handleDefaultChange",
+        value: function handleDefaultChange(event) {
+            this.setState({ isDefault: !this.state.isDefault });
+        }
+    }, {
+        key: "handleCreateOrg",
+        value: function handleCreateOrg() {
+            this.props.createOrg(this.state.isDefault, this.state.alias);
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            return _react2.default.createElement(
+                "div",
+                { className: "card mb-4" },
+                _react2.default.createElement(
+                    "div",
+                    { className: "card-body" },
+                    _react2.default.createElement(
+                        "h3",
+                        { className: "card-title" },
+                        "Create Org"
+                    ),
+                    _react2.default.createElement(
+                        "h6",
+                        { className: "card-subtitle mb-2 text-muted" },
+                        "Connect a Scratch Org"
+                    ),
+                    _react2.default.createElement(
+                        "ul",
+                        { className: "mt-2 pl-0" },
+                        _react2.default.createElement(
+                            "li",
+                            { className: "todo-list-item" },
+                            _react2.default.createElement(
+                                "div",
+                                { className: "form-check" },
+                                _react2.default.createElement("input", { type: "checkbox", defaultChecked: this.state.isDefault,
+                                    onChange: this.handleDevHubChange }),
+                                _react2.default.createElement(
+                                    "label",
+                                    null,
+                                    "Is it the default org?"
+                                )
+                            )
+                        )
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "card-footer todo-list-footer" },
+                        _react2.default.createElement(
+                            "div",
+                            { className: "input-group" },
+                            _react2.default.createElement("input", { type: "text", className: "form-control input-md", placeholder: "Alias", value: this.state.alias,
+                                onChange: this.handleAliasChange }),
+                            _react2.default.createElement(
+                                "span",
+                                { className: "input-group-btn" },
+                                _react2.default.createElement(
+                                    "button",
+                                    { className: "btn btn-primary btn-md", onClick: this.handleCreateOrg },
+                                    "Connect"
+                                )
+                            )
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return OrgCreate;
+}(_react.Component);
+
+exports.default = OrgCreate;
+
+/***/ }),
+/* 113 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
@@ -26118,11 +26253,11 @@ var _axios = __webpack_require__(11);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _ProjectList = __webpack_require__(113);
+var _ProjectList = __webpack_require__(114);
 
 var _ProjectList2 = _interopRequireDefault(_ProjectList);
 
-var _ProjectAdd = __webpack_require__(115);
+var _ProjectAdd = __webpack_require__(116);
 
 var _ProjectAdd2 = _interopRequireDefault(_ProjectAdd);
 
@@ -26268,7 +26403,7 @@ var ProjectContainer = function (_Component) {
 exports.default = ProjectContainer;
 
 /***/ }),
-/* 113 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26282,7 +26417,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _ProjectRow = __webpack_require__(114);
+var _ProjectRow = __webpack_require__(115);
 
 var _ProjectRow2 = _interopRequireDefault(_ProjectRow);
 
@@ -26353,7 +26488,7 @@ function ProjectList(props) {
 exports.default = ProjectList;
 
 /***/ }),
-/* 114 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26486,7 +26621,7 @@ var ProjectRow = function (_Component) {
 exports.default = ProjectRow;
 
 /***/ }),
-/* 115 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26668,7 +26803,7 @@ var ProjectAdd = function (_Component) {
 exports.default = ProjectAdd;
 
 /***/ }),
-/* 116 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26700,7 +26835,7 @@ var _CurrentProjectLine = __webpack_require__(46);
 
 var _CurrentProjectLine2 = _interopRequireDefault(_CurrentProjectLine);
 
-var _SourceList = __webpack_require__(117);
+var _SourceList = __webpack_require__(118);
 
 var _SourceList2 = _interopRequireDefault(_SourceList);
 
@@ -26920,7 +27055,7 @@ var SourceContainer = function (_Component) {
 exports.default = SourceContainer;
 
 /***/ }),
-/* 117 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26934,7 +27069,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _SourceRow = __webpack_require__(118);
+var _SourceRow = __webpack_require__(119);
 
 var _SourceRow2 = _interopRequireDefault(_SourceRow);
 
@@ -27003,7 +27138,7 @@ function SourceList(props) {
 exports.default = SourceList;
 
 /***/ }),
-/* 118 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27076,7 +27211,7 @@ var SourceRow = function (_Component) {
 exports.default = SourceRow;
 
 /***/ }),
-/* 119 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
