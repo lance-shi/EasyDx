@@ -46,6 +46,7 @@ class OrgContainer extends Component {
 		this.showAlertMessage = this.showAlertMessage.bind(this);
 		this.hideAlertMessage = this.hideAlertMessage.bind(this);
 		this.setDefaultOrg = this.setDefaultOrg.bind(this);
+		this.connectOrg = this.connectOrg.bind(this);
 	}
 
 	handleRefreshOrgs(e) {
@@ -61,6 +62,25 @@ class OrgContainer extends Component {
 					nonScratchOrgs: result.nonScratchOrgs
 				});
 				this.showAlertMessage("success", "Org list refreshed successfully!");
+	        } else {
+	        	this.showAlertMessage("danger", "Error:" + res.data.err);
+	        }
+		});
+	}
+
+	connectOrg(isDevHub, isSandbox, alias) {
+		this.setState({showLoaidngImage: true});
+		axios.post("/api/connectOrg", {
+			isDevHub: isDevHub,
+			isSandbox: isSandbox,
+			alias: alias
+        }).then((res) => {
+			if(res.status === 200) {
+				let result = res.data.result;
+	            this.setState({
+					showLoaidngImage: false
+				});
+				this.showAlertMessage("success", "Org connected successfully!");
 	        } else {
 	        	this.showAlertMessage("danger", "Error:" + res.data.err);
 	        }
@@ -159,7 +179,7 @@ class OrgContainer extends Component {
 					setDefaultOrg={this.setDefaultOrg}/>
 				<button id="orgInfo" type="button" className="btn btn-primary" 
 					onClick={this.handleRefreshOrgs.bind(this)}>Refresh Org List</button>
-				<OrgConnect/>
+				<OrgConnect connectOrg={this.connectOrg}/>
 				<div id="orgDetailsSection">
 					{this.state.showDetailOrg ? <OrgDetails org={this.state.detailOrg}/> : null}
 				</div>

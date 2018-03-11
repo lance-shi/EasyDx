@@ -13,6 +13,7 @@ class OrgConnect extends Component {
         this.handleSandboxChange = this.handleSandboxChange.bind(this);
         this.handleDevHubChange = this.handleDevHubChange.bind(this);
         this.handleAliasChange = this.handleAliasChange.bind(this);
+        this.handleConnectOrg = this.handleConnectOrg.bind(this);
     }
 
     handleAliasChange(event) {
@@ -25,6 +26,10 @@ class OrgConnect extends Component {
 
     handleSandboxChange(event) {
         this.setState({isSandbox: !this.state.isSandbox});
+    }
+
+    handleConnectOrg() {
+        this.props.connectOrg(this.state.isDevhub, this.state.isSandbox, this.state.alias);
     }
 
     render() {
@@ -54,7 +59,7 @@ class OrgConnect extends Component {
                             <input type="text" className="form-control input-md" placeholder="Alias" value={this.state.alias} 
                                 onChange={this.handleAliasChange}/>
                             <span className="input-group-btn">
-                                <button className="btn btn-primary btn-md">Connect</button>
+                                <button className="btn btn-primary btn-md" onClick={this.handleConnectOrg}>Connect</button>
                             </span>
                         </div>
                     </div>

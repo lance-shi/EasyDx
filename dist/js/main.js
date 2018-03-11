@@ -24478,6 +24478,7 @@ var OrgContainer = function (_Component) {
 		_this.showAlertMessage = _this.showAlertMessage.bind(_this);
 		_this.hideAlertMessage = _this.hideAlertMessage.bind(_this);
 		_this.setDefaultOrg = _this.setDefaultOrg.bind(_this);
+		_this.connectOrg = _this.connectOrg.bind(_this);
 		return _this;
 	}
 
@@ -24504,9 +24505,31 @@ var OrgContainer = function (_Component) {
 			});
 		}
 	}, {
+		key: "connectOrg",
+		value: function connectOrg(isDevHub, isSandbox, alias) {
+			var _this3 = this;
+
+			this.setState({ showLoaidngImage: true });
+			_axios2.default.post("/api/connectOrg", {
+				isDevHub: isDevHub,
+				isSandbox: isSandbox,
+				alias: alias
+			}).then(function (res) {
+				if (res.status === 200) {
+					var result = res.data.result;
+					_this3.setState({
+						showLoaidngImage: false
+					});
+					_this3.showAlertMessage("success", "Org connected successfully!");
+				} else {
+					_this3.showAlertMessage("danger", "Error:" + res.data.err);
+				}
+			});
+		}
+	}, {
 		key: "setDefaultOrg",
 		value: function setDefaultOrg(defaultUserName) {
-			var _this3 = this;
+			var _this4 = this;
 
 			if (!this.state.defaultProjectExists) {
 				this.showAlertMessage("danger", "Error: Please specify the default project first");
@@ -24519,31 +24542,31 @@ var OrgContainer = function (_Component) {
 				directory: this.state.currentProject.directory
 			}).then(function (res) {
 				if (res.status === 200) {
-					_this3.toggleLoadingImage(false);
-					_this3.showAlertMessage("success", "Default org set successfully");
-					for (var i = 0; i < _this3.state.scratchOrgs.length; i++) {
-						if (_this3.state.scratchOrgs[i].username !== defaultUserName) {
-							_this3.state.scratchOrgs[i].defaultMarker = "";
+					_this4.toggleLoadingImage(false);
+					_this4.showAlertMessage("success", "Default org set successfully");
+					for (var i = 0; i < _this4.state.scratchOrgs.length; i++) {
+						if (_this4.state.scratchOrgs[i].username !== defaultUserName) {
+							_this4.state.scratchOrgs[i].defaultMarker = "";
 						} else {
-							_this3.state.scratchOrgs[i].defaultMarker = "(U)";
+							_this4.state.scratchOrgs[i].defaultMarker = "(U)";
 						}
 					}
-					for (var _i = 0; _i < _this3.state.nonScratchOrgs.length; _i++) {
-						if (_this3.state.nonScratchOrgs[_i].defaultMarker !== "(D)") {
-							if (_this3.state.nonScratchOrgs[_i].username !== defaultUserName) {
-								_this3.state.nonScratchOrgs[_i].defaultMarker = "";
+					for (var _i = 0; _i < _this4.state.nonScratchOrgs.length; _i++) {
+						if (_this4.state.nonScratchOrgs[_i].defaultMarker !== "(D)") {
+							if (_this4.state.nonScratchOrgs[_i].username !== defaultUserName) {
+								_this4.state.nonScratchOrgs[_i].defaultMarker = "";
 							} else {
-								_this3.state.nonScratchOrgs[_i].defaultMarker = "(U)";
+								_this4.state.nonScratchOrgs[_i].defaultMarker = "(U)";
 							}
 						}
 					}
-					_this3.setState({
-						scratchOrgs: _this3.state.scratchOrgs,
-						nonScratchOrgs: _this3.state.nonScratchOrgs
+					_this4.setState({
+						scratchOrgs: _this4.state.scratchOrgs,
+						nonScratchOrgs: _this4.state.nonScratchOrgs
 					});
 				} else {
-					_this3.toggleLoadingImage(false);
-					_this3.showAlertMessage("danger", "Error:" + res.data.err);
+					_this4.toggleLoadingImage(false);
+					_this4.showAlertMessage("danger", "Error:" + res.data.err);
 				}
 			});
 		}
@@ -24609,7 +24632,7 @@ var OrgContainer = function (_Component) {
 						onClick: this.handleRefreshOrgs.bind(this) },
 					"Refresh Org List"
 				),
-				_react2.default.createElement(_OrgConnect2.default, null),
+				_react2.default.createElement(_OrgConnect2.default, { connectOrg: this.connectOrg }),
 				_react2.default.createElement(
 					"div",
 					{ id: "orgDetailsSection" },
@@ -25968,6 +25991,7 @@ var OrgConnect = function (_Component) {
         _this.handleSandboxChange = _this.handleSandboxChange.bind(_this);
         _this.handleDevHubChange = _this.handleDevHubChange.bind(_this);
         _this.handleAliasChange = _this.handleAliasChange.bind(_this);
+        _this.handleConnectOrg = _this.handleConnectOrg.bind(_this);
         return _this;
     }
 
@@ -25985,6 +26009,11 @@ var OrgConnect = function (_Component) {
         key: "handleSandboxChange",
         value: function handleSandboxChange(event) {
             this.setState({ isSandbox: !this.state.isSandbox });
+        }
+    }, {
+        key: "handleConnectOrg",
+        value: function handleConnectOrg() {
+            this.props.connectOrg(this.state.isDevhub, this.state.isSandbox, this.state.alias);
         }
     }, {
         key: "render",
@@ -26052,7 +26081,7 @@ var OrgConnect = function (_Component) {
                                 { className: "input-group-btn" },
                                 _react2.default.createElement(
                                     "button",
-                                    { className: "btn btn-primary btn-md" },
+                                    { className: "btn btn-primary btn-md", onClick: this.handleConnectOrg },
                                     "Connect"
                                 )
                             )
