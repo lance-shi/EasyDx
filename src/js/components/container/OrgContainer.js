@@ -65,6 +65,7 @@ class OrgContainer extends Component {
 				});
 				this.showAlertMessage("success", "Org list refreshed successfully!");
 	        } else {
+				this.toggleLoadingImage(false);
 	        	this.showAlertMessage("danger", "Error:" + res.data.err);
 	        }
 		});
@@ -84,6 +85,7 @@ class OrgContainer extends Component {
 				});
 				this.showAlertMessage("success", "Org connected successfully!");
 	        } else {
+				this.toggleLoadingImage(false);
 	        	this.showAlertMessage("danger", "Error:" + res.data.err);
 	        }
 		});
@@ -169,27 +171,33 @@ class OrgContainer extends Component {
 				{this.state.showAlertMessage ? <AlertMessage 
 					alertClass={this.state.alertClass}
 					message={this.state.alertMessage}/> : null}
-				{this.state.defaultProjectExists ? <CurrentProjectLine 
-					project={this.state.currentProject}/> : null}
-				<OrgList orgs={this.state.nonScratchOrgs} title="Non Scratch Orgs" 
-					key="nonScratchOrgs"
-					setDetailOrg={this.setDetailOrg.bind(this)}
-					toggleLoadingImage={this.toggleLoadingImage}
-					showAlertMessage={this.showAlertMessage}
-					setDefaultOrg={this.setDefaultOrg}/>
-				<OrgList orgs={this.state.scratchOrgs} title="Scratch Orgs"
-					key="scratchOrgs"
-					setDetailOrg={this.setDetailOrg.bind(this)}
-					toggleLoadingImage={this.toggleLoadingImage}
-					showAlertMessage={this.showAlertMessage}
-					setDefaultOrg={this.setDefaultOrg}/>
-				<button id="orgInfo" type="button" className="btn btn-primary" 
-					onClick={this.handleRefreshOrgs.bind(this)}>Refresh Org List</button>
-				<OrgConnect connectOrg={this.connectOrg}/>
-				<OrgCreate createOrg={this.createOrg}/>
-				<div id="orgDetailsSection">
-					{this.state.showDetailOrg ? <OrgDetails org={this.state.detailOrg}/> : null}
-				</div>
+				<section className="row">
+					<div className="col-md-12 col-lg-8">
+						{this.state.defaultProjectExists ? <CurrentProjectLine 
+							project={this.state.currentProject}/> : null}
+						<OrgList orgs={this.state.nonScratchOrgs} title="Non Scratch Orgs" 
+							key="nonScratchOrgs"
+							setDetailOrg={this.setDetailOrg.bind(this)}
+							toggleLoadingImage={this.toggleLoadingImage}
+							showAlertMessage={this.showAlertMessage}
+							setDefaultOrg={this.setDefaultOrg}/>
+						<OrgList orgs={this.state.scratchOrgs} title="Scratch Orgs"
+							key="scratchOrgs"
+							setDetailOrg={this.setDetailOrg.bind(this)}
+							toggleLoadingImage={this.toggleLoadingImage}
+							showAlertMessage={this.showAlertMessage}
+							setDefaultOrg={this.setDefaultOrg}/>
+						<button id="orgInfo" type="button" className="btn btn-primary" 
+							onClick={this.handleRefreshOrgs.bind(this)}>Refresh Org List</button>
+					</div>
+					<div className="col-md-12 col-lg-4">
+						<div id="orgDetailsSection">
+							{this.state.showDetailOrg ? <OrgDetails org={this.state.detailOrg}/> : null}
+						</div>
+						<OrgConnect connectOrg={this.connectOrg}/>
+						<OrgCreate createOrg={this.createOrg}/>
+					</div>
+				</section>
 			</div>
 		)
 	}

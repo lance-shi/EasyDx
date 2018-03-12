@@ -3237,68 +3237,39 @@ var CurrentProjectLine = function (_Component) {
         value: function render() {
             return _react2.default.createElement(
                 "div",
-                { className: "section-group" },
+                { className: "jumbotron" },
                 _react2.default.createElement(
-                    "div",
-                    { className: "row" },
-                    _react2.default.createElement(
-                        "h3",
-                        null,
-                        "Current Project"
-                    )
+                    "h1",
+                    { className: "mb-4" },
+                    "Current Project"
                 ),
                 _react2.default.createElement(
-                    "div",
-                    { className: "row" },
+                    "p",
+                    null,
                     _react2.default.createElement(
-                        "table",
-                        { className: "table table-hover" },
-                        _react2.default.createElement(
-                            "thead",
-                            null,
-                            _react2.default.createElement(
-                                "tr",
-                                null,
-                                _react2.default.createElement(
-                                    "th",
-                                    null,
-                                    "Alias"
-                                ),
-                                _react2.default.createElement(
-                                    "th",
-                                    null,
-                                    "Directory"
-                                ),
-                                _react2.default.createElement("th", null)
-                            )
-                        ),
-                        _react2.default.createElement(
-                            "tbody",
-                            null,
-                            _react2.default.createElement(
-                                "tr",
-                                null,
-                                _react2.default.createElement(
-                                    "td",
-                                    null,
-                                    this.props.project.alias
-                                ),
-                                _react2.default.createElement(
-                                    "td",
-                                    null,
-                                    this.props.project.directory
-                                ),
-                                _react2.default.createElement(
-                                    "td",
-                                    null,
-                                    _react2.default.createElement(
-                                        _reactRouterDom.Link,
-                                        { to: "/Project" },
-                                        "Change"
-                                    )
-                                )
-                            )
-                        )
+                        "strong",
+                        null,
+                        "Alias: "
+                    ),
+                    this.props.project.alias
+                ),
+                _react2.default.createElement(
+                    "p",
+                    null,
+                    _react2.default.createElement(
+                        "strong",
+                        null,
+                        "Directory: "
+                    ),
+                    this.props.project.directory
+                ),
+                _react2.default.createElement(
+                    "p",
+                    { "class": "lead" },
+                    _react2.default.createElement(
+                        _reactRouterDom.Link,
+                        { to: "/Project", className: "btn btn-primary btn-md mt-2" },
+                        "Change"
                     )
                 )
             );
@@ -24505,6 +24476,7 @@ var OrgContainer = function (_Component) {
 					});
 					_this2.showAlertMessage("success", "Org list refreshed successfully!");
 				} else {
+					_this2.toggleLoadingImage(false);
 					_this2.showAlertMessage("danger", "Error:" + res.data.err);
 				}
 			});
@@ -24527,6 +24499,7 @@ var OrgContainer = function (_Component) {
 					});
 					_this3.showAlertMessage("success", "Org connected successfully!");
 				} else {
+					_this3.toggleLoadingImage(false);
 					_this3.showAlertMessage("danger", "Error:" + res.data.err);
 				}
 			});
@@ -24620,32 +24593,44 @@ var OrgContainer = function (_Component) {
 				this.state.showAlertMessage ? _react2.default.createElement(_AlertMessage2.default, {
 					alertClass: this.state.alertClass,
 					message: this.state.alertMessage }) : null,
-				this.state.defaultProjectExists ? _react2.default.createElement(_CurrentProjectLine2.default, {
-					project: this.state.currentProject }) : null,
-				_react2.default.createElement(_OrgList2.default, { orgs: this.state.nonScratchOrgs, title: "Non Scratch Orgs",
-					key: "nonScratchOrgs",
-					setDetailOrg: this.setDetailOrg.bind(this),
-					toggleLoadingImage: this.toggleLoadingImage,
-					showAlertMessage: this.showAlertMessage,
-					setDefaultOrg: this.setDefaultOrg }),
-				_react2.default.createElement(_OrgList2.default, { orgs: this.state.scratchOrgs, title: "Scratch Orgs",
-					key: "scratchOrgs",
-					setDetailOrg: this.setDetailOrg.bind(this),
-					toggleLoadingImage: this.toggleLoadingImage,
-					showAlertMessage: this.showAlertMessage,
-					setDefaultOrg: this.setDefaultOrg }),
 				_react2.default.createElement(
-					"button",
-					{ id: "orgInfo", type: "button", className: "btn btn-primary",
-						onClick: this.handleRefreshOrgs.bind(this) },
-					"Refresh Org List"
-				),
-				_react2.default.createElement(_OrgConnect2.default, { connectOrg: this.connectOrg }),
-				_react2.default.createElement(_OrgCreate2.default, { createOrg: this.createOrg }),
-				_react2.default.createElement(
-					"div",
-					{ id: "orgDetailsSection" },
-					this.state.showDetailOrg ? _react2.default.createElement(_OrgDetails2.default, { org: this.state.detailOrg }) : null
+					"section",
+					{ className: "row" },
+					_react2.default.createElement(
+						"div",
+						{ className: "col-md-12 col-lg-8" },
+						this.state.defaultProjectExists ? _react2.default.createElement(_CurrentProjectLine2.default, {
+							project: this.state.currentProject }) : null,
+						_react2.default.createElement(_OrgList2.default, { orgs: this.state.nonScratchOrgs, title: "Non Scratch Orgs",
+							key: "nonScratchOrgs",
+							setDetailOrg: this.setDetailOrg.bind(this),
+							toggleLoadingImage: this.toggleLoadingImage,
+							showAlertMessage: this.showAlertMessage,
+							setDefaultOrg: this.setDefaultOrg }),
+						_react2.default.createElement(_OrgList2.default, { orgs: this.state.scratchOrgs, title: "Scratch Orgs",
+							key: "scratchOrgs",
+							setDetailOrg: this.setDetailOrg.bind(this),
+							toggleLoadingImage: this.toggleLoadingImage,
+							showAlertMessage: this.showAlertMessage,
+							setDefaultOrg: this.setDefaultOrg }),
+						_react2.default.createElement(
+							"button",
+							{ id: "orgInfo", type: "button", className: "btn btn-primary",
+								onClick: this.handleRefreshOrgs.bind(this) },
+							"Refresh Org List"
+						)
+					),
+					_react2.default.createElement(
+						"div",
+						{ className: "col-md-12 col-lg-4" },
+						_react2.default.createElement(
+							"div",
+							{ id: "orgDetailsSection" },
+							this.state.showDetailOrg ? _react2.default.createElement(_OrgDetails2.default, { org: this.state.detailOrg }) : null
+						),
+						_react2.default.createElement(_OrgConnect2.default, { connectOrg: this.connectOrg }),
+						_react2.default.createElement(_OrgCreate2.default, { createOrg: this.createOrg })
+					)
 				)
 			);
 		}

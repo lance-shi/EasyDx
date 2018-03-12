@@ -4,28 +4,16 @@ import { Link } from "react-router-dom";
 class CurrentProjectLine extends Component {
     render() {
         return (
-            <div className="section-group">
-                <div className="row">
-                    <h3>Current Project</h3>
-                </div>
-                <div className="row">
-                    <table className="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Alias</th>
-                                <th>Directory</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{this.props.project.alias}</td>
-                                <td>{this.props.project.directory}</td>
-                                <td><Link to="/Project">Change</Link></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+            <div className="jumbotron">
+                <h1 className="mb-4">Current Project</h1>
+                <p>
+                    <strong>Alias: </strong>{this.props.project.alias}
+                </p>
+                <p>
+                    <strong>Directory: </strong>{this.props.project.directory}
+                </p>
+                
+                <p class="lead"><Link to="/Project" className="btn btn-primary btn-md mt-2">Change</Link></p>
             </div>
         );
     }
