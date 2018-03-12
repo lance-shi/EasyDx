@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
 
-import OrgList from "../presentational/OrgList";
+import OrgListCard from "../presentational/OrgListCard";
 import OrgDetails from "../presentational/OrgDetails";
 import LoadingImage from "../presentational/LoadingImage";
 import AlertMessage from "../presentational/AlertMessage";
@@ -175,27 +175,20 @@ class OrgContainer extends Component {
 					<div className="col-md-12 col-lg-8">
 						{this.state.defaultProjectExists ? <CurrentProjectLine 
 							project={this.state.currentProject}/> : null}
-						<OrgList orgs={this.state.nonScratchOrgs} title="Non Scratch Orgs" 
-							key="nonScratchOrgs"
+						<OrgListCard scratchOrgs={this.state.scratchOrgs} 
+							nonScratchOrgs={this.state.nonScratchOrgs}
 							setDetailOrg={this.setDetailOrg.bind(this)}
 							toggleLoadingImage={this.toggleLoadingImage}
 							showAlertMessage={this.showAlertMessage}
-							setDefaultOrg={this.setDefaultOrg}/>
-						<OrgList orgs={this.state.scratchOrgs} title="Scratch Orgs"
-							key="scratchOrgs"
-							setDetailOrg={this.setDetailOrg.bind(this)}
-							toggleLoadingImage={this.toggleLoadingImage}
-							showAlertMessage={this.showAlertMessage}
-							setDefaultOrg={this.setDefaultOrg}/>
-						<button id="orgInfo" type="button" className="btn btn-primary" 
-							onClick={this.handleRefreshOrgs.bind(this)}>Refresh Org List</button>
+							setDefaultOrg={this.setDefaultOrg}
+							handleRefreshOrgs={this.handleRefreshOrgs.bind(this)}/>
 					</div>
 					<div className="col-md-12 col-lg-4">
+						<OrgConnect connectOrg={this.connectOrg}/>
+						<OrgCreate createOrg={this.createOrg}/>
 						<div id="orgDetailsSection">
 							{this.state.showDetailOrg ? <OrgDetails org={this.state.detailOrg}/> : null}
 						</div>
-						<OrgConnect connectOrg={this.connectOrg}/>
-						<OrgCreate createOrg={this.createOrg}/>
 					</div>
 				</section>
 			</div>

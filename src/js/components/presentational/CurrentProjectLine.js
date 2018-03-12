@@ -12,8 +12,7 @@ class CurrentProjectLine extends Component {
                 <p>
                     <strong>Directory: </strong>{this.props.project.directory}
                 </p>
-                
-                <p class="lead"><Link to="/Project" className="btn btn-primary btn-md mt-2">Change</Link></p>
+                <p className="lead"><Link to="/Project" className="btn btn-primary btn-md mt-2">Change</Link></p>
             </div>
         );
     }

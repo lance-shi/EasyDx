@@ -11,7 +11,7 @@ function ProjectList(props) {
 				<h3>Existing Projects</h3>
 			</div>
 			<div className="row">
-				<table className="table table-hover">
+				<table className="table table-striped">
 					<thead>
 						<tr>
 							<th style={{width: "8%"}}>Default</th>

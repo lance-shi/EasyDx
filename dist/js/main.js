@@ -3265,7 +3265,7 @@ var CurrentProjectLine = function (_Component) {
                 ),
                 _react2.default.createElement(
                     "p",
-                    { "class": "lead" },
+                    { className: "lead" },
                     _react2.default.createElement(
                         _reactRouterDom.Link,
                         { to: "/Project", className: "btn btn-primary btn-md mt-2" },
@@ -20624,15 +20624,15 @@ var _OrgContainer = __webpack_require__(89);
 
 var _OrgContainer2 = _interopRequireDefault(_OrgContainer);
 
-var _ProjectContainer = __webpack_require__(113);
+var _ProjectContainer = __webpack_require__(114);
 
 var _ProjectContainer2 = _interopRequireDefault(_ProjectContainer);
 
-var _SourceContainer = __webpack_require__(117);
+var _SourceContainer = __webpack_require__(118);
 
 var _SourceContainer2 = _interopRequireDefault(_SourceContainer);
 
-var _MenuItems = __webpack_require__(120);
+var _MenuItems = __webpack_require__(121);
 
 var _MenuItems2 = _interopRequireDefault(_MenuItems);
 
@@ -24371,11 +24371,11 @@ var _axios = __webpack_require__(11);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _OrgList = __webpack_require__(108);
+var _OrgListCard = __webpack_require__(108);
 
-var _OrgList2 = _interopRequireDefault(_OrgList);
+var _OrgListCard2 = _interopRequireDefault(_OrgListCard);
 
-var _OrgDetails = __webpack_require__(110);
+var _OrgDetails = __webpack_require__(111);
 
 var _OrgDetails2 = _interopRequireDefault(_OrgDetails);
 
@@ -24395,11 +24395,11 @@ var _PageHeader = __webpack_require__(26);
 
 var _PageHeader2 = _interopRequireDefault(_PageHeader);
 
-var _OrgConnect = __webpack_require__(111);
+var _OrgConnect = __webpack_require__(112);
 
 var _OrgConnect2 = _interopRequireDefault(_OrgConnect);
 
-var _OrgCreate = __webpack_require__(112);
+var _OrgCreate = __webpack_require__(113);
 
 var _OrgCreate2 = _interopRequireDefault(_OrgCreate);
 
@@ -24601,35 +24601,24 @@ var OrgContainer = function (_Component) {
 						{ className: "col-md-12 col-lg-8" },
 						this.state.defaultProjectExists ? _react2.default.createElement(_CurrentProjectLine2.default, {
 							project: this.state.currentProject }) : null,
-						_react2.default.createElement(_OrgList2.default, { orgs: this.state.nonScratchOrgs, title: "Non Scratch Orgs",
-							key: "nonScratchOrgs",
+						_react2.default.createElement(_OrgListCard2.default, { scratchOrgs: this.state.scratchOrgs,
+							nonScratchOrgs: this.state.nonScratchOrgs,
 							setDetailOrg: this.setDetailOrg.bind(this),
 							toggleLoadingImage: this.toggleLoadingImage,
 							showAlertMessage: this.showAlertMessage,
-							setDefaultOrg: this.setDefaultOrg }),
-						_react2.default.createElement(_OrgList2.default, { orgs: this.state.scratchOrgs, title: "Scratch Orgs",
-							key: "scratchOrgs",
-							setDetailOrg: this.setDetailOrg.bind(this),
-							toggleLoadingImage: this.toggleLoadingImage,
-							showAlertMessage: this.showAlertMessage,
-							setDefaultOrg: this.setDefaultOrg }),
-						_react2.default.createElement(
-							"button",
-							{ id: "orgInfo", type: "button", className: "btn btn-primary",
-								onClick: this.handleRefreshOrgs.bind(this) },
-							"Refresh Org List"
-						)
+							setDefaultOrg: this.setDefaultOrg,
+							handleRefreshOrgs: this.handleRefreshOrgs.bind(this) })
 					),
 					_react2.default.createElement(
 						"div",
 						{ className: "col-md-12 col-lg-4" },
+						_react2.default.createElement(_OrgConnect2.default, { connectOrg: this.connectOrg }),
+						_react2.default.createElement(_OrgCreate2.default, { createOrg: this.createOrg }),
 						_react2.default.createElement(
 							"div",
 							{ id: "orgDetailsSection" },
 							this.state.showDetailOrg ? _react2.default.createElement(_OrgDetails2.default, { org: this.state.detailOrg }) : null
-						),
-						_react2.default.createElement(_OrgConnect2.default, { connectOrg: this.connectOrg }),
-						_react2.default.createElement(_OrgCreate2.default, { createOrg: this.createOrg })
+						)
 					)
 				)
 			);
@@ -25533,6 +25522,82 @@ module.exports = function spread(callback) {
 
 
 Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _OrgList = __webpack_require__(109);
+
+var _OrgList2 = _interopRequireDefault(_OrgList);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var OrgListCard = function (_Component) {
+    _inherits(OrgListCard, _Component);
+
+    function OrgListCard() {
+        _classCallCheck(this, OrgListCard);
+
+        return _possibleConstructorReturn(this, (OrgListCard.__proto__ || Object.getPrototypeOf(OrgListCard)).call(this));
+    }
+
+    _createClass(OrgListCard, [{
+        key: "render",
+        value: function render() {
+            return _react2.default.createElement(
+                "div",
+                { className: "card mb-4" },
+                _react2.default.createElement(
+                    "div",
+                    { className: "card-body" },
+                    _react2.default.createElement(_OrgList2.default, { orgs: this.props.nonScratchOrgs, title: "Non Scratch Orgs",
+                        key: "nonScratchOrgs",
+                        setDetailOrg: this.props.setDetailOrg,
+                        toggleLoadingImage: this.props.toggleLoadingImage,
+                        showAlertMessage: this.props.showAlertMessage,
+                        setDefaultOrg: this.props.setDefaultOrg }),
+                    _react2.default.createElement("div", { className: "divider" }),
+                    _react2.default.createElement(_OrgList2.default, { orgs: this.props.scratchOrgs, title: "Scratch Orgs",
+                        key: "scratchOrgs",
+                        setDetailOrg: this.props.setDetailOrg,
+                        toggleLoadingImage: this.props.toggleLoadingImage,
+                        showAlertMessage: this.props.showAlertMessage,
+                        setDefaultOrg: this.props.setDefaultOrg }),
+                    _react2.default.createElement(
+                        "button",
+                        { id: "orgInfo", type: "button", className: "btn btn-primary",
+                            onClick: this.props.handleRefreshOrgs },
+                        "Refresh Org List"
+                    )
+                )
+            );
+        }
+    }]);
+
+    return OrgListCard;
+}(_react.Component);
+
+exports.default = OrgListCard;
+
+/***/ }),
+/* 109 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
@@ -25540,7 +25605,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _OrgRow = __webpack_require__(109);
+var _OrgRow = __webpack_require__(110);
 
 var _OrgRow2 = _interopRequireDefault(_OrgRow);
 
@@ -25556,55 +25621,47 @@ function OrgList(props) {
 	});
 	return _react2.default.createElement(
 		"div",
-		{ className: "section-group" },
+		null,
 		_react2.default.createElement(
-			"div",
-			{ className: "row" },
-			_react2.default.createElement(
-				"h3",
-				null,
-				props.title
-			)
+			"h3",
+			{ className: "card-title" },
+			props.title
 		),
 		_react2.default.createElement(
-			"div",
-			{ className: "row" },
+			"table",
+			{ className: "table table-striped" },
 			_react2.default.createElement(
-				"table",
-				{ className: "table table-hover" },
+				"thead",
+				null,
 				_react2.default.createElement(
-					"thead",
+					"tr",
 					null,
 					_react2.default.createElement(
-						"tr",
+						"th",
 						null,
-						_react2.default.createElement(
-							"th",
-							null,
-							"Default"
-						),
-						_react2.default.createElement(
-							"th",
-							null,
-							"User Name"
-						),
-						_react2.default.createElement(
-							"th",
-							null,
-							"Alias"
-						),
-						_react2.default.createElement(
-							"th",
-							null,
-							"Action"
-						)
+						"Default"
+					),
+					_react2.default.createElement(
+						"th",
+						null,
+						"User Name"
+					),
+					_react2.default.createElement(
+						"th",
+						null,
+						"Alias"
+					),
+					_react2.default.createElement(
+						"th",
+						null,
+						"Action"
 					)
-				),
-				_react2.default.createElement(
-					"tbody",
-					null,
-					orgRows
 				)
+			),
+			_react2.default.createElement(
+				"tbody",
+				null,
+				orgRows
 			)
 		)
 	);
@@ -25613,7 +25670,7 @@ function OrgList(props) {
 exports.default = OrgList;
 
 /***/ }),
-/* 109 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25747,7 +25804,7 @@ var OrgRow = function (_Component) {
 exports.default = OrgRow;
 
 /***/ }),
-/* 110 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25794,144 +25851,144 @@ var OrgDetails = function (_Component) {
 
             return _react2.default.createElement(
                 "div",
-                { className: "section-group" },
+                { className: "card mb-4" },
                 _react2.default.createElement(
                     "div",
-                    { className: "row" },
+                    { className: "card-body" },
                     _react2.default.createElement(
                         "h3",
-                        null,
+                        { className: "card-title" },
                         this.props.org.alias ? this.props.org.alias : "Anonymous"
-                    )
-                ),
-                _react2.default.createElement(
-                    "div",
-                    { className: "row" },
-                    _react2.default.createElement(
-                        "div",
-                        { className: "col-sm-3" },
-                        "User Name: "
                     ),
                     _react2.default.createElement(
                         "div",
-                        { className: "col-sm-6" },
-                        this.props.org.username
-                    )
-                ),
-                _react2.default.createElement(
-                    "div",
-                    { className: "row" },
-                    _react2.default.createElement(
-                        "div",
-                        { className: "col-sm-3" },
-                        "Alias: "
-                    ),
-                    _react2.default.createElement(
-                        "div",
-                        { className: "col-sm-6" },
-                        this.props.org.alias
-                    )
-                ),
-                _react2.default.createElement(
-                    "div",
-                    { className: "row" },
-                    _react2.default.createElement(
-                        "div",
-                        { className: "col-sm-3" },
-                        "Org Id: "
-                    ),
-                    _react2.default.createElement(
-                        "div",
-                        { className: "col-sm-6" },
-                        this.props.org.orgId
-                    )
-                ),
-                _react2.default.createElement(
-                    "div",
-                    { className: "row" },
-                    _react2.default.createElement(
-                        "div",
-                        { className: "col-sm-3" },
-                        "Connected Status: "
-                    ),
-                    _react2.default.createElement(
-                        "div",
-                        { className: "col-sm-6" },
+                        { className: "row" },
                         _react2.default.createElement(
-                            "span",
-                            { className: "badge badge-" + connectionStatus },
-                            this.props.org.connectedStatus
+                            "div",
+                            { className: "col-sm-3" },
+                            "User Name: "
+                        ),
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col-sm-6" },
+                            this.props.org.username
                         )
-                    )
-                ),
-                _react2.default.createElement(
-                    "div",
-                    { className: "row" },
-                    _react2.default.createElement(
-                        "div",
-                        { className: "col-sm-3" },
-                        "Instance Url: "
                     ),
                     _react2.default.createElement(
                         "div",
-                        { className: "col-sm-6" },
-                        this.props.org.instanceUrl
-                    )
-                ),
-                _react2.default.createElement(
-                    "div",
-                    { className: "row" },
-                    _react2.default.createElement(
-                        "div",
-                        { className: "col-sm-3" },
-                        "Login Url: "
+                        { className: "row" },
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col-sm-3" },
+                            "Alias: "
+                        ),
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col-sm-6" },
+                            this.props.org.alias
+                        )
                     ),
                     _react2.default.createElement(
                         "div",
-                        { className: "col-sm-6" },
-                        this.props.org.loginUrl
-                    )
-                ),
-                _react2.default.createElement(
-                    "div",
-                    { className: "row" },
-                    _react2.default.createElement(
-                        "div",
-                        { className: "col-sm-3" },
-                        "Last Used: "
+                        { className: "row" },
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col-sm-3" },
+                            "Org Id: "
+                        ),
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col-sm-6" },
+                            this.props.org.orgId
+                        )
                     ),
                     _react2.default.createElement(
                         "div",
-                        { className: "col-sm-6" },
-                        this.props.org.lastUsed
-                    )
-                ),
-                _react2.default.createElement(
-                    "div",
-                    { className: "row" },
-                    _react2.default.createElement(
-                        "div",
-                        { className: "col-sm-3" },
-                        "Expiration Date: "
+                        { className: "row" },
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col-sm-3" },
+                            "Connected Status: "
+                        ),
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col-sm-6" },
+                            _react2.default.createElement(
+                                "span",
+                                { className: "badge badge-" + connectionStatus },
+                                this.props.org.connectedStatus
+                            )
+                        )
                     ),
                     _react2.default.createElement(
                         "div",
-                        { className: "col-sm-6" },
-                        this.props.org.expirationDate
-                    )
-                ),
-                _react2.default.createElement(
-                    "div",
-                    { className: "row" },
-                    _react2.default.createElement(
-                        "div",
-                        { className: "col-sm-3" },
-                        "DevHub User Name: "
+                        { className: "row" },
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col-sm-3" },
+                            "Instance Url: "
+                        ),
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col-sm-6" },
+                            this.props.org.instanceUrl
+                        )
                     ),
                     _react2.default.createElement(
                         "div",
-                        { className: "col-sm-6" },
-                        this.props.org.devHubUsername
+                        { className: "row" },
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col-sm-3" },
+                            "Login Url: "
+                        ),
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col-sm-6" },
+                            this.props.org.loginUrl
+                        )
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "row" },
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col-sm-3" },
+                            "Last Used: "
+                        ),
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col-sm-6" },
+                            this.props.org.lastUsed
+                        )
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "row" },
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col-sm-3" },
+                            "Expiration Date: "
+                        ),
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col-sm-6" },
+                            this.props.org.expirationDate
+                        )
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "row" },
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col-sm-3" },
+                            "DevHub User Name: "
+                        ),
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col-sm-6" },
+                            this.props.org.devHubUsername
+                        )
                     )
                 )
             );
@@ -25944,7 +26001,7 @@ var OrgDetails = function (_Component) {
 exports.default = OrgDetails;
 
 /***/ }),
-/* 111 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26092,7 +26149,7 @@ var OrgConnect = function (_Component) {
 exports.default = OrgConnect;
 
 /***/ }),
-/* 112 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26218,7 +26275,7 @@ var OrgCreate = function (_Component) {
 exports.default = OrgCreate;
 
 /***/ }),
-/* 113 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26238,11 +26295,11 @@ var _axios = __webpack_require__(11);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _ProjectList = __webpack_require__(114);
+var _ProjectList = __webpack_require__(115);
 
 var _ProjectList2 = _interopRequireDefault(_ProjectList);
 
-var _ProjectAdd = __webpack_require__(116);
+var _ProjectAdd = __webpack_require__(117);
 
 var _ProjectAdd2 = _interopRequireDefault(_ProjectAdd);
 
@@ -26388,7 +26445,7 @@ var ProjectContainer = function (_Component) {
 exports.default = ProjectContainer;
 
 /***/ }),
-/* 114 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26402,7 +26459,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _ProjectRow = __webpack_require__(115);
+var _ProjectRow = __webpack_require__(116);
 
 var _ProjectRow2 = _interopRequireDefault(_ProjectRow);
 
@@ -26431,7 +26488,7 @@ function ProjectList(props) {
 			{ className: "row" },
 			_react2.default.createElement(
 				"table",
-				{ className: "table table-hover" },
+				{ className: "table table-striped" },
 				_react2.default.createElement(
 					"thead",
 					null,
@@ -26473,7 +26530,7 @@ function ProjectList(props) {
 exports.default = ProjectList;
 
 /***/ }),
-/* 115 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26606,7 +26663,7 @@ var ProjectRow = function (_Component) {
 exports.default = ProjectRow;
 
 /***/ }),
-/* 116 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26788,7 +26845,7 @@ var ProjectAdd = function (_Component) {
 exports.default = ProjectAdd;
 
 /***/ }),
-/* 117 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26820,7 +26877,7 @@ var _CurrentProjectLine = __webpack_require__(46);
 
 var _CurrentProjectLine2 = _interopRequireDefault(_CurrentProjectLine);
 
-var _SourceList = __webpack_require__(118);
+var _SourceList = __webpack_require__(119);
 
 var _SourceList2 = _interopRequireDefault(_SourceList);
 
@@ -27040,7 +27097,7 @@ var SourceContainer = function (_Component) {
 exports.default = SourceContainer;
 
 /***/ }),
-/* 118 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27054,7 +27111,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _SourceRow = __webpack_require__(119);
+var _SourceRow = __webpack_require__(120);
 
 var _SourceRow2 = _interopRequireDefault(_SourceRow);
 
@@ -27123,7 +27180,7 @@ function SourceList(props) {
 exports.default = SourceList;
 
 /***/ }),
-/* 119 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27196,7 +27253,7 @@ var SourceRow = function (_Component) {
 exports.default = SourceRow;
 
 /***/ }),
-/* 120 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
