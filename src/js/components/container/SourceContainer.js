@@ -4,7 +4,8 @@ import axios from 'axios';
 import LoadingImage from "../presentational/LoadingImage";
 import AlertMessage from "../presentational/AlertMessage";
 import CurrentProjectLine from "../presentational/CurrentProjectLine";
-import SourceList from "../presentational/SourceList";
+import SourceListCard from "../presentational/SourceListCard";
+import SourcePush from "../presentational/SourcePush";
 import PageHeader from "../presentational/PageHeader";
 
 class SourceContainer extends Component {
@@ -95,24 +96,17 @@ class SourceContainer extends Component {
 				});
 				this.showAlertMessage("success", "Source status refreshed successfully!");
 	        } else {
+				toggleLoadingImage(false);
 	        	this.showAlertMessage("danger", "Error:" + res.data.err);
 	        }
 		});
 	}
-	
-	handlePushChanges() {
-		this.pushChanges(false);
-	}
 
-	handleForcePushChanges() {
-		this.pushChanges(true);
-	}
-
-	pushChanges(forceOption) {
+	pushChanges(forcePush, otherOrg, alias) {
 		this.setState({showLoaidngImage: true});
 		axios.post("/api/pushSource", {
 			directory: this.state.currentProject.directory,
-			force: forceOption
+			force: forcePush
         }).then((res) => {
 			if(res.status === 200) {
                 let result = res.data.result;
@@ -123,14 +117,6 @@ class SourceContainer extends Component {
 	        	this.showAlertMessage("danger", "Error:" + res.data.err);
 	        }
 		});
-	} 
-
-	handlePullChanges() {
-
-	}
-
-	handleForcePullChanges() {
-		
 	}
 
     render() {
@@ -140,27 +126,19 @@ class SourceContainer extends Component {
 				<PageHeader title="Source"/>
 				{this.state.showAlertMessage ? <AlertMessage 
 					alertClass={this.state.alertClass}
-                    message={this.state.alertMessage}/> : null}
-                {this.state.defaultProjectExists ? <CurrentProjectLine 
-					project={this.state.currentProject}/> : null}
-                <SourceList sources={this.state.remoteChanges}
-                    title="Remote Changes" 
-                    key="RemoteChanges"/>
-                <SourceList sources={this.state.localChanges}
-                    title="Local Changes" 
-                    key="LocalChanges"/>
-				<div className="row">
-					<button type="button" className="btn btn-primary" 
-						onClick={this.handleRefreshStatus.bind(this)}>Refresh Source Status</button>
-					<button type="button" className="btn btn-primary" 
-						onClick={this.handlePushChanges.bind(this)}>Push Changes</button>
-					<button type="button" className="btn btn-primary" 
-						onClick={this.handleForcePushChanges.bind(this)}>Force Push Changes</button>
-					<button type="button" className="btn btn-primary" 
-						onClick={this.handlePullChanges.bind(this)}>Pull Changes</button>
-					<button type="button" className="btn btn-primary" 
-						onClick={this.handleForcePullChanges.bind(this)}>Force Pull Changes</button>
-				</div>
+					message={this.state.alertMessage}/> : null}
+				<section className="row">
+					<div className="col-md-12 col-lg-8">
+						{this.state.defaultProjectExists ? <CurrentProjectLine 
+							project={this.state.currentProject}/> : null}
+						<SourceListCard remoteChanges={this.state.remoteChanges}
+							localChanges={this.state.localChanges}
+							handleRefreshStatus={this.handleRefreshStatus.bind(this)}/>
+					</div>
+					<div className="col-md-12 col-lg-4">
+						<SourcePush pushChanges={this.pushChanges}/>
+					</div>
+				</section>
             </div>
         )
     }

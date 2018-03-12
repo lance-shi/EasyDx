@@ -20632,7 +20632,7 @@ var _SourceContainer = __webpack_require__(118);
 
 var _SourceContainer2 = _interopRequireDefault(_SourceContainer);
 
-var _MenuItems = __webpack_require__(121);
+var _MenuItems = __webpack_require__(123);
 
 var _MenuItems2 = _interopRequireDefault(_MenuItems);
 
@@ -26897,9 +26897,13 @@ var _CurrentProjectLine = __webpack_require__(46);
 
 var _CurrentProjectLine2 = _interopRequireDefault(_CurrentProjectLine);
 
-var _SourceList = __webpack_require__(119);
+var _SourceListCard = __webpack_require__(119);
 
-var _SourceList2 = _interopRequireDefault(_SourceList);
+var _SourceListCard2 = _interopRequireDefault(_SourceListCard);
+
+var _SourcePush = __webpack_require__(122);
+
+var _SourcePush2 = _interopRequireDefault(_SourcePush);
 
 var _PageHeader = __webpack_require__(26);
 
@@ -27014,29 +27018,20 @@ var SourceContainer = function (_Component) {
 					});
 					_this2.showAlertMessage("success", "Source status refreshed successfully!");
 				} else {
+					toggleLoadingImage(false);
 					_this2.showAlertMessage("danger", "Error:" + res.data.err);
 				}
 			});
 		}
 	}, {
-		key: "handlePushChanges",
-		value: function handlePushChanges() {
-			this.pushChanges(false);
-		}
-	}, {
-		key: "handleForcePushChanges",
-		value: function handleForcePushChanges() {
-			this.pushChanges(true);
-		}
-	}, {
 		key: "pushChanges",
-		value: function pushChanges(forceOption) {
+		value: function pushChanges(forcePush, otherOrg, alias) {
 			var _this3 = this;
 
 			this.setState({ showLoaidngImage: true });
 			_axios2.default.post("/api/pushSource", {
 				directory: this.state.currentProject.directory,
-				force: forceOption
+				force: forcePush
 			}).then(function (res) {
 				if (res.status === 200) {
 					var result = res.data.result;
@@ -27049,12 +27044,6 @@ var SourceContainer = function (_Component) {
 			});
 		}
 	}, {
-		key: "handlePullChanges",
-		value: function handlePullChanges() {}
-	}, {
-		key: "handleForcePullChanges",
-		value: function handleForcePullChanges() {}
-	}, {
 		key: "render",
 		value: function render() {
 			return _react2.default.createElement(
@@ -27065,46 +27054,22 @@ var SourceContainer = function (_Component) {
 				this.state.showAlertMessage ? _react2.default.createElement(_AlertMessage2.default, {
 					alertClass: this.state.alertClass,
 					message: this.state.alertMessage }) : null,
-				this.state.defaultProjectExists ? _react2.default.createElement(_CurrentProjectLine2.default, {
-					project: this.state.currentProject }) : null,
-				_react2.default.createElement(_SourceList2.default, { sources: this.state.remoteChanges,
-					title: "Remote Changes",
-					key: "RemoteChanges" }),
-				_react2.default.createElement(_SourceList2.default, { sources: this.state.localChanges,
-					title: "Local Changes",
-					key: "LocalChanges" }),
 				_react2.default.createElement(
-					"div",
+					"section",
 					{ className: "row" },
 					_react2.default.createElement(
-						"button",
-						{ type: "button", className: "btn btn-primary",
-							onClick: this.handleRefreshStatus.bind(this) },
-						"Refresh Source Status"
+						"div",
+						{ className: "col-md-12 col-lg-8" },
+						this.state.defaultProjectExists ? _react2.default.createElement(_CurrentProjectLine2.default, {
+							project: this.state.currentProject }) : null,
+						_react2.default.createElement(_SourceListCard2.default, { remoteChanges: this.state.remoteChanges,
+							localChanges: this.state.localChanges,
+							handleRefreshStatus: this.handleRefreshStatus.bind(this) })
 					),
 					_react2.default.createElement(
-						"button",
-						{ type: "button", className: "btn btn-primary",
-							onClick: this.handlePushChanges.bind(this) },
-						"Push Changes"
-					),
-					_react2.default.createElement(
-						"button",
-						{ type: "button", className: "btn btn-primary",
-							onClick: this.handleForcePushChanges.bind(this) },
-						"Force Push Changes"
-					),
-					_react2.default.createElement(
-						"button",
-						{ type: "button", className: "btn btn-primary",
-							onClick: this.handlePullChanges.bind(this) },
-						"Pull Changes"
-					),
-					_react2.default.createElement(
-						"button",
-						{ type: "button", className: "btn btn-primary",
-							onClick: this.handleForcePullChanges.bind(this) },
-						"Force Pull Changes"
+						"div",
+						{ className: "col-md-12 col-lg-4" },
+						_react2.default.createElement(_SourcePush2.default, { pushChanges: this.pushChanges })
 					)
 				)
 			);
@@ -27124,6 +27089,53 @@ exports.default = SourceContainer;
 
 
 Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _SourceList = __webpack_require__(120);
+
+var _SourceList2 = _interopRequireDefault(_SourceList);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function SourceListCard(props) {
+    return _react2.default.createElement(
+        "div",
+        { className: "card mb-4" },
+        _react2.default.createElement(
+            "div",
+            { className: "card-body" },
+            _react2.default.createElement(_SourceList2.default, { sources: props.remoteChanges,
+                title: "Remote Changes",
+                key: "RemoteChanges" }),
+            _react2.default.createElement("div", { className: "divider" }),
+            _react2.default.createElement(_SourceList2.default, { sources: props.localChanges,
+                title: "Local Changes",
+                key: "LocalChanges" }),
+            _react2.default.createElement(
+                "button",
+                { type: "button", className: "btn btn-primary",
+                    onClick: props.handleRefreshStatus },
+                "Refresh Source Status"
+            )
+        )
+    );
+}
+
+exports.default = SourceListCard;
+
+/***/ }),
+/* 120 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
@@ -27131,7 +27143,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _SourceRow = __webpack_require__(120);
+var _SourceRow = __webpack_require__(121);
 
 var _SourceRow2 = _interopRequireDefault(_SourceRow);
 
@@ -27145,53 +27157,45 @@ function SourceList(props) {
 		"div",
 		{ className: "section-group" },
 		_react2.default.createElement(
-			"div",
-			{ className: "row" },
-			_react2.default.createElement(
-				"h3",
-				null,
-				props.title
-			)
+			"h3",
+			{ className: "card-title" },
+			props.title
 		),
 		_react2.default.createElement(
-			"div",
-			{ className: "row" },
+			"table",
+			{ className: "table table-striped" },
 			_react2.default.createElement(
-				"table",
-				{ className: "table table-hover" },
+				"thead",
+				null,
 				_react2.default.createElement(
-					"thead",
+					"tr",
 					null,
 					_react2.default.createElement(
-						"tr",
+						"th",
 						null,
-						_react2.default.createElement(
-							"th",
-							null,
-							"State"
-						),
-						_react2.default.createElement(
-							"th",
-							null,
-							"Full Name"
-						),
-						_react2.default.createElement(
-							"th",
-							null,
-							"Type"
-						),
-						_react2.default.createElement(
-							"th",
-							null,
-							"File Path"
-						)
+						"State"
+					),
+					_react2.default.createElement(
+						"th",
+						null,
+						"Full Name"
+					),
+					_react2.default.createElement(
+						"th",
+						null,
+						"Type"
+					),
+					_react2.default.createElement(
+						"th",
+						null,
+						"File Path"
 					)
-				),
-				_react2.default.createElement(
-					"tbody",
-					null,
-					sourceRows
 				)
+			),
+			_react2.default.createElement(
+				"tbody",
+				null,
+				sourceRows
 			)
 		)
 	);
@@ -27200,7 +27204,7 @@ function SourceList(props) {
 exports.default = SourceList;
 
 /***/ }),
-/* 120 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27273,7 +27277,153 @@ var SourceRow = function (_Component) {
 exports.default = SourceRow;
 
 /***/ }),
-/* 121 */
+/* 122 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SourcePush = function (_Component) {
+    _inherits(SourcePush, _Component);
+
+    function SourcePush() {
+        _classCallCheck(this, SourcePush);
+
+        var _this = _possibleConstructorReturn(this, (SourcePush.__proto__ || Object.getPrototypeOf(SourcePush)).call(this));
+
+        _this.state = {
+            alias: "",
+            forcePush: false,
+            OtherOrg: false
+        };
+
+        _this.handleForcePushChange = _this.handleForcePushChange.bind(_this);
+        _this.handleOtherOrgChange = _this.handleOtherOrgChange.bind(_this);
+        _this.handleAliasChange = _this.handleAliasChange.bind(_this);
+        _this.handlePushSource = _this.handlePushSource.bind(_this);
+        return _this;
+    }
+
+    _createClass(SourcePush, [{
+        key: "handleAliasChange",
+        value: function handleAliasChange(event) {
+            this.setState({ alias: event.target.value });
+        }
+    }, {
+        key: "handleOtherOrgChange",
+        value: function handleOtherOrgChange(event) {
+            this.setState({ OtherOrg: !this.state.OtherOrg });
+        }
+    }, {
+        key: "handleForcePushChange",
+        value: function handleForcePushChange(event) {
+            this.setState({ forcePush: !this.state.forcePush });
+        }
+    }, {
+        key: "handlePushSource",
+        value: function handlePushSource() {
+            this.props.pushChanges(this.state.forcePush, this.state.OtherOrg, this.state.alias);
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            return _react2.default.createElement(
+                "div",
+                { className: "card mb-4" },
+                _react2.default.createElement(
+                    "div",
+                    { className: "card-body" },
+                    _react2.default.createElement(
+                        "h3",
+                        { className: "card-title" },
+                        "Connect Org"
+                    ),
+                    _react2.default.createElement(
+                        "h6",
+                        { className: "card-subtitle mb-2 text-muted" },
+                        "Connect to a production org or sandbox"
+                    ),
+                    _react2.default.createElement(
+                        "ul",
+                        { className: "mt-2 pl-0" },
+                        _react2.default.createElement(
+                            "li",
+                            { className: "todo-list-item" },
+                            _react2.default.createElement(
+                                "div",
+                                { className: "form-check" },
+                                _react2.default.createElement("input", { type: "checkbox", defaultChecked: this.state.forcePush,
+                                    onChange: this.handleForcePushChange }),
+                                _react2.default.createElement(
+                                    "label",
+                                    null,
+                                    "Is it a force push?"
+                                )
+                            )
+                        ),
+                        _react2.default.createElement(
+                            "li",
+                            { className: "todo-list-item" },
+                            _react2.default.createElement(
+                                "div",
+                                { className: "form-check" },
+                                _react2.default.createElement("input", { type: "checkbox", defaultChecked: this.state.isDevhub,
+                                    onChange: this.handleDevHubChange }),
+                                _react2.default.createElement(
+                                    "label",
+                                    null,
+                                    "Do you want to push to non-default org?"
+                                )
+                            )
+                        ),
+                        _react2.default.createElement(
+                            "li",
+                            { className: "todo-list-item" },
+                            _react2.default.createElement(
+                                "label",
+                                null,
+                                "Please specify the org's alias"
+                            ),
+                            _react2.default.createElement("input", { type: "text", className: "form-control", value: this.state.alias,
+                                onChange: this.handleAliasChange })
+                        )
+                    ),
+                    _react2.default.createElement(
+                        "button",
+                        { type: "button", className: "btn btn-primary",
+                            onClick: this.handlePushSource },
+                        "Push Changes"
+                    )
+                )
+            );
+        }
+    }]);
+
+    return SourcePush;
+}(_react.Component);
+
+exports.default = SourcePush;
+
+/***/ }),
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
