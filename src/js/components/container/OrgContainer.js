@@ -92,7 +92,23 @@ class OrgContainer extends Component {
 	}
 
 	createOrg(isDefault, alias) {
-
+		this.setState({showLoaidngImage: true});
+		axios.post("/api/createOrg", {
+			isDefault: isDefault,
+			directory: this.state.currentProject.directory,
+			alias: alias
+        }).then((res) => {
+			if(res.status === 200) {
+				let result = res.data.result;
+	            this.setState({
+					showLoaidngImage: false
+				});
+				this.showAlertMessage("success", "Scratch org created successfully!");
+	        } else {
+				this.toggleLoadingImage(false);
+	        	this.showAlertMessage("danger", "Error:" + res.data.err);
+	        }
+		});
 	}
 
 	setDefaultOrg(defaultUserName) {

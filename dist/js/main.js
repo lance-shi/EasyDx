@@ -24506,11 +24506,31 @@ var OrgContainer = function (_Component) {
 		}
 	}, {
 		key: "createOrg",
-		value: function createOrg(isDefault, alias) {}
+		value: function createOrg(isDefault, alias) {
+			var _this4 = this;
+
+			this.setState({ showLoaidngImage: true });
+			_axios2.default.post("/api/createOrg", {
+				isDefault: isDefault,
+				directory: this.state.currentProject.directory,
+				alias: alias
+			}).then(function (res) {
+				if (res.status === 200) {
+					var result = res.data.result;
+					_this4.setState({
+						showLoaidngImage: false
+					});
+					_this4.showAlertMessage("success", "Scratch org created successfully!");
+				} else {
+					_this4.toggleLoadingImage(false);
+					_this4.showAlertMessage("danger", "Error:" + res.data.err);
+				}
+			});
+		}
 	}, {
 		key: "setDefaultOrg",
 		value: function setDefaultOrg(defaultUserName) {
-			var _this4 = this;
+			var _this5 = this;
 
 			if (!this.state.defaultProjectExists) {
 				this.showAlertMessage("danger", "Error: Please specify the default project first");
@@ -24523,31 +24543,31 @@ var OrgContainer = function (_Component) {
 				directory: this.state.currentProject.directory
 			}).then(function (res) {
 				if (res.status === 200) {
-					_this4.toggleLoadingImage(false);
-					_this4.showAlertMessage("success", "Default org set successfully");
-					for (var i = 0; i < _this4.state.scratchOrgs.length; i++) {
-						if (_this4.state.scratchOrgs[i].username !== defaultUserName) {
-							_this4.state.scratchOrgs[i].defaultMarker = "";
+					_this5.toggleLoadingImage(false);
+					_this5.showAlertMessage("success", "Default org set successfully");
+					for (var i = 0; i < _this5.state.scratchOrgs.length; i++) {
+						if (_this5.state.scratchOrgs[i].username !== defaultUserName) {
+							_this5.state.scratchOrgs[i].defaultMarker = "";
 						} else {
-							_this4.state.scratchOrgs[i].defaultMarker = "(U)";
+							_this5.state.scratchOrgs[i].defaultMarker = "(U)";
 						}
 					}
-					for (var _i = 0; _i < _this4.state.nonScratchOrgs.length; _i++) {
-						if (_this4.state.nonScratchOrgs[_i].defaultMarker !== "(D)") {
-							if (_this4.state.nonScratchOrgs[_i].username !== defaultUserName) {
-								_this4.state.nonScratchOrgs[_i].defaultMarker = "";
+					for (var _i = 0; _i < _this5.state.nonScratchOrgs.length; _i++) {
+						if (_this5.state.nonScratchOrgs[_i].defaultMarker !== "(D)") {
+							if (_this5.state.nonScratchOrgs[_i].username !== defaultUserName) {
+								_this5.state.nonScratchOrgs[_i].defaultMarker = "";
 							} else {
-								_this4.state.nonScratchOrgs[_i].defaultMarker = "(U)";
+								_this5.state.nonScratchOrgs[_i].defaultMarker = "(U)";
 							}
 						}
 					}
-					_this4.setState({
-						scratchOrgs: _this4.state.scratchOrgs,
-						nonScratchOrgs: _this4.state.nonScratchOrgs
+					_this5.setState({
+						scratchOrgs: _this5.state.scratchOrgs,
+						nonScratchOrgs: _this5.state.nonScratchOrgs
 					});
 				} else {
-					_this4.toggleLoadingImage(false);
-					_this4.showAlertMessage("danger", "Error:" + res.data.err);
+					_this5.toggleLoadingImage(false);
+					_this5.showAlertMessage("danger", "Error:" + res.data.err);
 				}
 			});
 		}
