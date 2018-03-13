@@ -6,11 +6,9 @@ function ProjectList(props) {
         setDefaultProj={props.setDefaultProj}
 		removeProject={props.removeProject}/>);
 	return (
-		<div className="section-group">
-			<div className="row">
-				<h3>Existing Projects</h3>
-			</div>
-			<div className="row">
+		<div className="card mb-4">
+            <div className="card-body">
+				<h3 className="card-title">Existing Projects</h3>
 				<table className="table table-striped">
 					<thead>
 						<tr>

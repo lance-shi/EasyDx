@@ -26366,7 +26366,7 @@ var OrgCreate = function (_Component) {
                                 _react2.default.createElement(
                                     "button",
                                     { className: "btn btn-primary btn-md", onClick: this.handleCreateOrg },
-                                    "Connect"
+                                    "Create"
                                 )
                             )
                         )
@@ -26537,11 +26537,23 @@ var ProjectContainer = function (_Component) {
 				this.state.showAlertMessage ? _react2.default.createElement(_AlertMessage2.default, {
 					alertClass: this.state.alertClass,
 					message: this.state.alertMessage }) : null,
-				_react2.default.createElement(_ProjectList2.default, { projects: this.state.projects,
-					setDefaultProj: this.setDefaultProj.bind(this),
-					removeProject: this.removeProject }),
-				_react2.default.createElement(_ProjectAdd2.default, { addProject: this.addProject.bind(this),
-					showAlertMessage: this.showAlertMessage })
+				_react2.default.createElement(
+					"section",
+					{ className: "row" },
+					_react2.default.createElement(
+						"div",
+						{ className: "col-md-12 col-lg-8" },
+						_react2.default.createElement(_ProjectList2.default, { projects: this.state.projects,
+							setDefaultProj: this.setDefaultProj.bind(this),
+							removeProject: this.removeProject })
+					),
+					_react2.default.createElement(
+						"div",
+						{ className: "col-md-12 col-lg-4" },
+						_react2.default.createElement(_ProjectAdd2.default, { addProject: this.addProject.bind(this),
+							showAlertMessage: this.showAlertMessage })
+					)
+				)
 			);
 		}
 	}]);
@@ -26580,19 +26592,15 @@ function ProjectList(props) {
 	});
 	return _react2.default.createElement(
 		"div",
-		{ className: "section-group" },
+		{ className: "card mb-4" },
 		_react2.default.createElement(
 			"div",
-			{ className: "row" },
+			{ className: "card-body" },
 			_react2.default.createElement(
 				"h3",
-				null,
+				{ className: "card-title" },
 				"Existing Projects"
-			)
-		),
-		_react2.default.createElement(
-			"div",
-			{ className: "row" },
+			),
 			_react2.default.createElement(
 				"table",
 				{ className: "table table-striped" },
@@ -26861,82 +26869,65 @@ var ProjectAdd = function (_Component) {
         value: function render() {
             return _react2.default.createElement(
                 "div",
-                { className: "section-group" },
+                { className: "card mb-4" },
                 _react2.default.createElement(
                     "div",
-                    { className: "row" },
+                    { className: "card-body" },
                     _react2.default.createElement(
                         "h3",
-                        null,
+                        { className: "card-title" },
                         "Add a Project"
-                    )
-                ),
-                _react2.default.createElement(
-                    "div",
-                    { className: "row" },
+                    ),
                     _react2.default.createElement(
-                        "table",
-                        { className: "table table-hover" },
+                        "h6",
+                        { className: "card-subtitle mb-2 text-muted" },
+                        "Connect to a production org or sandbox"
+                    ),
+                    _react2.default.createElement(
+                        "ul",
+                        { className: "mt-2 pl-0" },
                         _react2.default.createElement(
-                            "thead",
-                            null,
+                            "li",
+                            { className: "todo-list-item" },
                             _react2.default.createElement(
-                                "tr",
-                                null,
+                                "div",
+                                { className: "form-check" },
+                                _react2.default.createElement("input", { type: "checkbox", defaultChecked: this.state.isDefault,
+                                    onChange: this.handleDefaultChange }),
                                 _react2.default.createElement(
-                                    "th",
-                                    { style: { width: "8%" } },
-                                    "Default"
-                                ),
-                                _react2.default.createElement(
-                                    "th",
-                                    { style: { width: "23%" } },
-                                    "Alias"
-                                ),
-                                _react2.default.createElement(
-                                    "th",
-                                    { style: { width: "54%" } },
-                                    "Directory"
-                                ),
-                                _react2.default.createElement(
-                                    "th",
-                                    { style: { width: "15%" } },
-                                    "Actions"
+                                    "label",
+                                    null,
+                                    "Is it default project?"
                                 )
                             )
                         ),
                         _react2.default.createElement(
-                            "tbody",
-                            null,
+                            "li",
+                            { className: "todo-list-item" },
                             _react2.default.createElement(
-                                "tr",
+                                "label",
                                 null,
+                                "Please specify the project's directory"
+                            ),
+                            _react2.default.createElement("input", { type: "text", className: "form-control input-md", placeholder: "Directory", value: this.state.directory,
+                                onChange: this.handleDirectoryChange })
+                        )
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "card-footer todo-list-footer" },
+                        _react2.default.createElement(
+                            "div",
+                            { className: "input-group" },
+                            _react2.default.createElement("input", { type: "text", className: "form-control input-md", placeholder: "Alias", value: this.state.alias,
+                                onChange: this.handleAliasChange }),
+                            _react2.default.createElement(
+                                "span",
+                                { className: "input-group-btn" },
                                 _react2.default.createElement(
-                                    "td",
-                                    null,
-                                    _react2.default.createElement("input", { type: "checkbox", defaultChecked: this.state.isDefault,
-                                        onChange: this.handleDefaultChange })
-                                ),
-                                _react2.default.createElement(
-                                    "td",
-                                    null,
-                                    _react2.default.createElement("input", { type: "text", className: "form-control", value: this.state.alias,
-                                        onChange: this.handleAliasChange })
-                                ),
-                                _react2.default.createElement(
-                                    "td",
-                                    null,
-                                    _react2.default.createElement("input", { type: "text", className: "form-control", value: this.state.directory,
-                                        onChange: this.handleDirectoryChange })
-                                ),
-                                _react2.default.createElement(
-                                    "td",
-                                    null,
-                                    _react2.default.createElement(
-                                        "button",
-                                        { type: "button", className: "btn btn-primary", onClick: this.handleAddProject },
-                                        "Add Project"
-                                    )
+                                    "button",
+                                    { type: "button", className: "btn btn-primary btn-md", onClick: this.handleAddProject },
+                                    "Add Project"
                                 )
                             )
                         )
@@ -27100,7 +27091,15 @@ var SourceContainer = function (_Component) {
 							result[i].state = "";
 						}
 
-						if (resultState.includes("Local Changed")) {
+						if (resultState.includes("Add")) {
+							result[i].operation = "Add";
+						} else if (resultState.includes("Delete")) {
+							result[i].operation = "Delete";
+						} else {
+							result[i].operation = "Change";
+						}
+
+						if (resultState.includes("Local")) {
 							localChanges.push(result[i]);
 						} else {
 							remoteChanges.push(result[i]);
@@ -27277,6 +27276,11 @@ function SourceList(props) {
 					_react2.default.createElement(
 						"th",
 						null,
+						"Operation"
+					),
+					_react2.default.createElement(
+						"th",
+						null,
 						"Full Name"
 					),
 					_react2.default.createElement(
@@ -27350,6 +27354,11 @@ var SourceRow = function (_Component) {
 						{ className: "badge badge-danger" },
 						this.props.source.state
 					)
+				),
+				_react2.default.createElement(
+					"td",
+					null,
+					this.props.source.operation
 				),
 				_react2.default.createElement(
 					"td",

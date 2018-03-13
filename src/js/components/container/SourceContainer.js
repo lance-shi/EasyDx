@@ -86,7 +86,15 @@ class SourceContainer extends Component {
                         result[i].state = "Conflict";
                     } else {
                         result[i].state = "";
-                    }
+					}
+					
+					if(resultState.includes("Add")) {
+						result[i].operation = "Add";
+					} else if(resultState.includes("Delete")) {
+						result[i].operation = "Delete";
+					} else {
+						result[i].operation = "Change";
+					}
 
                     if(resultState.includes("Local")) {
                         localChanges.push(result[i]);

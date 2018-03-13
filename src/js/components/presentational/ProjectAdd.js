@@ -55,42 +55,35 @@ class ProjectAdd extends Component {
 
     render() {
         return (
-            <div className="section-group">
-                <div className="row">
-                    <h3>Add a Project</h3>
-                </div>
-                <div className="row">
-                    <table className="table table-hover">
-                        <thead>
-                            <tr>
-                                <th style={{width: "8%"}}>Default</th>
-                                <th style={{width: "23%"}}>Alias</th>
-                                <th style={{width: "54%"}}>Directory</th>
-                                <th style={{width: "15%"}}>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" defaultChecked={this.state.isDefault} 
-                                        onChange={this.handleDefaultChange}/>
-                                </td>
-                                <td>
-                                    <input type="text" className="form-control" value={this.state.alias} 
-                                        onChange={this.handleAliasChange}/>
-                                </td>   
-                                <td>
-                                    <input type="text" className="form-control" value={this.state.directory} 
-                                        onChange={this.handleDirectoryChange}/>
-                                </td>
-                                <td>
-                                    <button type="button" className="btn btn-primary" onClick={this.handleAddProject}>
-                                        Add Project
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <div className="card mb-4">
+                <div className="card-body">
+                    <h3 className="card-title">Add a Project</h3>
+                    <h6 className="card-subtitle mb-2 text-muted">Connect to a production org or sandbox</h6>
+                    <ul className="mt-2 pl-0">
+                        <li className="todo-list-item">
+                            <div className="form-check">
+                                <input type="checkbox" defaultChecked={this.state.isDefault} 
+                                    onChange={this.handleDefaultChange}/>
+                                <label>Is it default project?</label>
+                            </div>
+                        </li>
+                        <li className="todo-list-item">
+                            <label>Please specify the project's directory</label>
+                            <input type="text" className="form-control input-md" placeholder="Directory" value={this.state.directory} 
+                                onChange={this.handleDirectoryChange}/>
+                        </li>
+                    </ul>
+                    <div className="card-footer todo-list-footer">
+                        <div className="input-group">
+                            <input type="text" className="form-control input-md" placeholder="Alias" value={this.state.alias} 
+                                onChange={this.handleAliasChange}/>
+                            <span className="input-group-btn">
+                                <button type="button" className="btn btn-primary btn-md" onClick={this.handleAddProject}>
+                                    Add Project
+                                </button>
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
         );

@@ -10,6 +10,7 @@ function SourceList(props) {
 				<thead>
 					<tr>
 						<th>State</th>
+						<th>Operation</th>
 						<th>Full Name</th>
 						<th>Type</th>
 						<th>File Path</th>

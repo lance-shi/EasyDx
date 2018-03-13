@@ -46,7 +46,7 @@ class OrgCreate extends Component {
                             <input type="text" className="form-control input-md" placeholder="Alias" value={this.state.alias} 
                                 onChange={this.handleAliasChange}/>
                             <span className="input-group-btn">
-                                <button className="btn btn-primary btn-md" onClick={this.handleCreateOrg}>Connect</button>
+                                <button className="btn btn-primary btn-md" onClick={this.handleCreateOrg}>Create</button>
                             </span>
                         </div>
                     </div>
