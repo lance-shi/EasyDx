@@ -1,20 +1,15 @@
 import React, { Component } from "react";
-import SourceList from "./SourceList";
+import SourcePushResultList from "./SourceList";
 
-function SourceListCard(props) {
+function SourcePushResultCard(props) {
 	return (
 		<div className="card mb-4">
             <div className="card-body">
-                <SourceList sources={props.remoteChanges}
-                    title="Remote Changes" 
-                    key="RemoteChanges"/>
+                <SourcePushResultList changes={props.pushResult}/>
                 <div className="divider"></div>
-                <SourceList sources={props.localChanges}
-                    title="Local Changes" 
-                    key="LocalChanges"/>
             </div>
         </div>
 	);
 }
 
-export default SourceListCard;
+export default SourcePushResultCard;
