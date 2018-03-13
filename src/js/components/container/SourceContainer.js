@@ -88,7 +88,7 @@ class SourceContainer extends Component {
                         result[i].state = "";
                     }
 
-                    if(resultState.includes("Local Changed")) {
+                    if(resultState.includes("Local")) {
                         localChanges.push(result[i]);
                     } else {
                         remoteChanges.push(result[i]);
