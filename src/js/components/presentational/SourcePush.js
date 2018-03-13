@@ -36,7 +36,7 @@ class SourcePush extends Component {
         return (
             <div className="card mb-4">
                 <div className="card-body">
-                    <h3 className="card-title">Connect Org</h3>
+                    <h3 className="card-title">Push Changes</h3>
                     <h6 className="card-subtitle mb-2 text-muted">Connect to a production org or sandbox</h6>
                     <ul className="mt-2 pl-0">
                         <li className="todo-list-item">

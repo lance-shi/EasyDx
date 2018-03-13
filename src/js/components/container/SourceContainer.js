@@ -4,6 +4,7 @@ import axios from 'axios';
 import LoadingImage from "../presentational/LoadingImage";
 import AlertMessage from "../presentational/AlertMessage";
 import CurrentProjectLine from "../presentational/CurrentProjectLine";
+import CurrentProjectNotExist from "../presentational/CurrentProjectNotExist";
 import SourceListCard from "../presentational/SourceListCard";
 import SourcePush from "../presentational/SourcePush";
 import PageHeader from "../presentational/PageHeader";
@@ -66,6 +67,10 @@ class SourceContainer extends Component {
     }
     
     handleRefreshStatus() {
+		if(!this.state.defaultProjectExists) {
+			this.showAlertMessage("danger", "Error: Please specify a default project first");
+			return;
+		}
         this.setState({showLoaidngImage: true});
 		axios.post("/api/source", {
             directory: this.state.currentProject.directory
@@ -103,6 +108,10 @@ class SourceContainer extends Component {
 	}
 
 	pushChanges(forcePush, otherOrg, alias) {
+		if(!this.state.defaultProjectExists) {
+			this.showAlertMessage("danger", "Error: Please specify a default project first");
+			return;
+		}
 		this.setState({showLoaidngImage: true});
 		axios.post("/api/pushSource", {
 			directory: this.state.currentProject.directory,
@@ -130,7 +139,7 @@ class SourceContainer extends Component {
 				<section className="row">
 					<div className="col-md-12 col-lg-8">
 						{this.state.defaultProjectExists ? <CurrentProjectLine 
-							project={this.state.currentProject}/> : null}
+							project={this.state.currentProject}/> : <CurrentProjectNotExist/>}
 						<SourceListCard remoteChanges={this.state.remoteChanges}
 							localChanges={this.state.localChanges}
 							handleRefreshStatus={this.handleRefreshStatus.bind(this)}/>

@@ -6,6 +6,7 @@ import OrgDetails from "../presentational/OrgDetails";
 import LoadingImage from "../presentational/LoadingImage";
 import AlertMessage from "../presentational/AlertMessage";
 import CurrentProjectLine from "../presentational/CurrentProjectLine";
+import CurrentProjectNotExist from "../presentational/CurrentProjectNotExist";
 import PageHeader from "../presentational/PageHeader";
 import OrgConnect from "../presentational/OrgConnect";
 import OrgCreate from "../presentational/OrgCreate";
@@ -52,6 +53,10 @@ class OrgContainer extends Component {
 	}
 
 	handleRefreshOrgs(e) {
+		if(!this.state.defaultProjectExists) {
+			this.showAlertMessage("danger", "Error: Please specify a default project first");
+			return;
+		}
 		this.setState({showLoaidngImage: true});
 		axios.post("/api/listOrg", {
             directory: this.state.currentProject.directory
@@ -92,6 +97,10 @@ class OrgContainer extends Component {
 	}
 
 	createOrg(isDefault, alias) {
+		if(!this.state.defaultProjectExists) {
+			this.showAlertMessage("danger", "Error: Please specify a default project first");
+			return;
+		}
 		this.setState({showLoaidngImage: true});
 		axios.post("/api/createOrg", {
 			isDefault: isDefault,
@@ -190,7 +199,7 @@ class OrgContainer extends Component {
 				<section className="row">
 					<div className="col-md-12 col-lg-8">
 						{this.state.defaultProjectExists ? <CurrentProjectLine 
-							project={this.state.currentProject}/> : null}
+							project={this.state.currentProject}/> : <CurrentProjectNotExist/>}
 						<OrgListCard scratchOrgs={this.state.scratchOrgs} 
 							nonScratchOrgs={this.state.nonScratchOrgs}
 							setDetailOrg={this.setDetailOrg.bind(this)}
