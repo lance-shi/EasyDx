@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class ProjectAdd extends Component {
+class ProjectCreate extends Component {
 	constructor() {
         super();
 
@@ -12,7 +12,7 @@ class ProjectAdd extends Component {
 
         this.handleAliasChange = this.handleAliasChange.bind(this);
         this.handleDirectoryChange = this.handleDirectoryChange.bind(this);
-        this.handleAddProject = this.handleAddProject.bind(this);
+        this.handleCreateProject = this.handleCreateProject.bind(this);
         this.handleDefaultChange = this.handleDefaultChange.bind(this);
     }
 
@@ -28,13 +28,13 @@ class ProjectAdd extends Component {
         this.setState({isDefault: !this.state.isDefault});
     }
 
-    handleAddProject() {
+    handleCreateProject() {
         if(this.state.alias === "") {
             this.props.showAlertMessage("danger", "Please populate the alias of the project");
             return;
         } 
         if(this.state.directory === "") {
-            this.props.showAlertMessage("danger", "Please populate the directory of the project (Where you store your project in your local machine)");
+            this.props.showAlertMessage("danger", "Please populate the directory to create the project");
             return;
         }
 
@@ -44,7 +44,7 @@ class ProjectAdd extends Component {
             isDefault: this.state.isDefault
         };
 
-        this.props.addProject(project);
+        this.props.createProject(project);
 
         this.setState({
             alias: "",
@@ -57,8 +57,8 @@ class ProjectAdd extends Component {
         return (
             <div className="card mb-4">
                 <div className="card-body">
-                    <h3 className="card-title">Add a Project</h3>
-                    <h6 className="card-subtitle mb-2 text-muted">Add an existing project into Easy DX</h6>
+                    <h3 className="card-title">Create a new Project</h3>
+                    <h6 className="card-subtitle mb-2 text-muted">Create a new Salesforce DX project</h6>
                     <ul className="mt-2 pl-0">
                         <li className="todo-list-item">
                             <div className="form-check">
@@ -78,8 +78,8 @@ class ProjectAdd extends Component {
                             <input type="text" className="form-control input-md" placeholder="Alias" value={this.state.alias} 
                                 onChange={this.handleAliasChange}/>
                             <span className="input-group-btn">
-                                <button type="button" className="btn btn-primary btn-md" onClick={this.handleAddProject}>
-                                    Add Project
+                                <button type="button" className="btn btn-primary btn-md" onClick={this.handleCreateProject}>
+                                    Create a new Project
                                 </button>
                             </span>
                         </div>
@@ -90,4 +90,4 @@ class ProjectAdd extends Component {
     }
 }
 
-export default ProjectAdd;
+export default ProjectCreate;
