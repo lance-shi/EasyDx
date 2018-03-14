@@ -139,7 +139,24 @@ class SourceContainer extends Component {
 	}
 
 	retrieveMetadata(otherOrg, alias, packageName) {
-
+		if(!this.state.defaultProjectExists) {
+			this.showAlertMessage("danger", "Error: Please specify a default project first");
+			return;
+		}
+		this.setState({showLoaidngImage: true});
+		axios.post("/api/retrieveSource", {
+			directory: this.state.currentProject.directory,
+			otherOrg: otherOrg,
+			alias: alias,
+			packageName: packageName
+        }).then((res) => {
+			if(res.status === 200) {
+	            this.toggleLoadingImage(false);
+				this.showAlertMessage("success", "Metadata retrieved successfully at inputTmp!");
+	        } else {
+	        	this.showAlertMessage("danger", "Error:" + res.data.err);
+	        }
+		});
 	}
 
     render() {

@@ -15,6 +15,7 @@ const defaultProjectRouter = require('./routes/defaultProjectRouter');
 const convertProjectRouter = require('./routes/convertProjectRouter');
 const sourceRouter = require('./routes/sourceRouter');
 const pushSourceRouter = require('./routes/pushSourceRouter');
+const retrieveSourceRouter = require('./routes/retrieveSourceRouter');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -32,6 +33,7 @@ app.use("/api/convertProject", convertProjectRouter);
 app.use("/api/removeProject", removeProjectRouter);
 app.use("/api/source", sourceRouter);
 app.use("/api/pushSource", pushSourceRouter);
+app.use("/api/retrieveSource", retrieveSourceRouter);
 
 app.use(express.static('dist'));
 

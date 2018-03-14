@@ -27420,7 +27420,28 @@ var SourceContainer = function (_Component) {
 		}
 	}, {
 		key: "retrieveMetadata",
-		value: function retrieveMetadata(otherOrg, alias, packageName) {}
+		value: function retrieveMetadata(otherOrg, alias, packageName) {
+			var _this4 = this;
+
+			if (!this.state.defaultProjectExists) {
+				this.showAlertMessage("danger", "Error: Please specify a default project first");
+				return;
+			}
+			this.setState({ showLoaidngImage: true });
+			_axios2.default.post("/api/retrieveSource", {
+				directory: this.state.currentProject.directory,
+				otherOrg: otherOrg,
+				alias: alias,
+				packageName: packageName
+			}).then(function (res) {
+				if (res.status === 200) {
+					_this4.toggleLoadingImage(false);
+					_this4.showAlertMessage("success", "Metadata retrieved successfully at inputTmp!");
+				} else {
+					_this4.showAlertMessage("danger", "Error:" + res.data.err);
+				}
+			});
+		}
 	}, {
 		key: "render",
 		value: function render() {
