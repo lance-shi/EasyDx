@@ -1,20 +1,20 @@
 import React, { Component } from "react";
 import AliasInput from "./AliasInput";
 
-class SourcePush extends Component {
+class SourceRetrieve extends Component {
     constructor() {
         super();
 
         this.state = {
             alias: "",
-            forcePush: false,
+            packageName: "",
             OtherOrg: false
         };
 
-        this.handleForcePushChange = this.handleForcePushChange.bind(this);
         this.handleOtherOrgChange = this.handleOtherOrgChange.bind(this);
         this.changeAlias = this.changeAlias.bind(this);
-        this.handlePushSource = this.handlePushSource.bind(this);
+        this.handleRetrieveMetadata = this.handleRetrieveMetadata.bind(this);
+        this.handlePackageChange = this.handlePackageChange.bind(this);
     }
 
     changeAlias(alias) {
@@ -25,38 +25,37 @@ class SourcePush extends Component {
         this.setState({OtherOrg: !this.state.OtherOrg});
     }
 
-    handleForcePushChange(event) {
-        this.setState({forcePush: !this.state.forcePush});
+    handlePackageChange(event) {
+        this.setState({packageName: event.target.value});
     }
 
-    handlePushSource() {
-        this.props.pushChanges(this.state.forcePush, this.state.OtherOrg, this.state.alias);
+    handleRetrieveMetadata() {
+        this.props.retrieveMetadata(this.state.OtherOrg, this.state.alias, this.state.packageName);
     }
 
     render() {
         return (
             <div className="card mb-4">
                 <div className="card-body">
-                    <h3 className="card-title">Retrieve Source</h3>
+                    <h3 className="card-title">Retrieve Metadata</h3>
+                    <h6 className="card-subtitle mb-2 text-muted">Retrieve a .zip file from target Org's package</h6>
                     <ul className="mt-2 pl-0">
-                        <li className="todo-list-item">
-                            <div className="form-check">
-                                <input type="checkbox" defaultChecked={this.state.forcePush} 
-                                    onChange={this.handleForcePushChange}/>
-                                <label>Is it a force push?</label>
-                            </div>
-                        </li>
                         <li className="todo-list-item">
                             <div className="form-check">
                                 <input type="checkbox" defaultChecked={this.state.OtherOrg} 
                                     onChange={this.handleOtherOrgChange}/>
-                                <label>Push to a non-default org?</label>
+                                <label>Retrieve from a non-default org?</label>
                             </div>
                         </li>
                         {this.state.OtherOrg? <AliasInput alias={this.state.alias} changeAlias={this.changeAlias}/>: null}
+                        <li className="todo-list-item">
+                            <label>Please specify the package's name</label>
+                            <input type="text" className="form-control" value={this.state.packageName} 
+                                onChange={this.handlePackageChange}/>
+                        </li>
                     </ul>
                     <button type="button" className="btn btn-primary" 
-					    onClick={this.handlePushSource}>Push Changes</button>
+					    onClick={this.handleRetrieveMetadata}>Retrieve metadata</button>
                 </div>
             </div>
         );
@@ -64,4 +63,4 @@ class SourcePush extends Component {
     
 }
 
-export default SourcePush;
+export default SourceRetrieve;

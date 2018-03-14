@@ -7,6 +7,7 @@ import CurrentProjectLine from "../presentational/CurrentProjectLine";
 import CurrentProjectNotExist from "../presentational/CurrentProjectNotExist";
 import SourceListCard from "../presentational/SourceListCard";
 import SourcePush from "../presentational/SourcePush";
+import SourceRetrieve from "../presentational/SourceRetrieve";
 import PageHeader from "../presentational/PageHeader";
 
 class SourceContainer extends Component {
@@ -44,6 +45,7 @@ class SourceContainer extends Component {
 		this.showAlertMessage = this.showAlertMessage.bind(this);
 		this.hideAlertMessage = this.hideAlertMessage.bind(this);
 		this.pushChanges = this.pushChanges.bind(this);
+		this.retrieveMetadata = this.retrieveMetadata.bind(this);
     }
 
     showAlertMessage(alertClass, alertMessage) {
@@ -136,6 +138,10 @@ class SourceContainer extends Component {
 		});
 	}
 
+	retrieveMetadata(otherOrg, alias, packageName) {
+
+	}
+
     render() {
         return (
 			<div>
@@ -154,6 +160,7 @@ class SourceContainer extends Component {
 					</div>
 					<div className="col-md-12 col-lg-4">
 						<SourcePush pushChanges={this.pushChanges}/>
+						<SourceRetrieve retrieveMetadata={this.retrieveMetadata}/>
 					</div>
 				</section>
             </div>
