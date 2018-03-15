@@ -24770,7 +24770,7 @@ var OrgContainer = function (_Component) {
 					message: this.state.alertMessage }) : null,
 				_react2.default.createElement(
 					"div",
-					{ "class": "container-fluid" },
+					{ className: "container-fluid" },
 					_react2.default.createElement(
 						"div",
 						{ className: "row" },
@@ -26253,54 +26253,54 @@ var OrgConnect = function (_Component) {
                 { className: "card mb-4" },
                 _react2.default.createElement(
                     "div",
-                    { className: "card-body" },
+                    { className: "card-header" },
                     _react2.default.createElement(
-                        "h3",
-                        { className: "card-title" },
+                        "strong",
+                        null,
                         "Connect Org"
-                    ),
+                    )
+                ),
+                _react2.default.createElement(
+                    "div",
+                    { className: "card-body" },
                     _react2.default.createElement(
                         "h6",
                         { className: "card-subtitle mb-2 text-muted" },
                         "Connect to a production org or sandbox"
                     ),
                     _react2.default.createElement(
-                        "ul",
-                        { className: "mt-2 pl-0" },
+                        "div",
+                        { className: "row from-group" },
                         _react2.default.createElement(
-                            "li",
-                            { className: "todo-list-item" },
+                            "div",
+                            { className: "checkbox form-check" },
+                            _react2.default.createElement("input", { type: "checkbox", defaultChecked: this.state.isSandbox,
+                                onChange: this.handleSandboxChange, className: "form-check-input form-check-input" }),
                             _react2.default.createElement(
-                                "div",
-                                { className: "form-check" },
-                                _react2.default.createElement("input", { type: "checkbox", defaultChecked: this.state.isSandbox,
-                                    onChange: this.handleSandboxChange }),
-                                _react2.default.createElement(
-                                    "label",
-                                    null,
-                                    "Is it a sandbox?"
-                                )
-                            )
-                        ),
-                        _react2.default.createElement(
-                            "li",
-                            { className: "todo-list-item" },
-                            _react2.default.createElement(
-                                "div",
-                                { className: "form-check" },
-                                _react2.default.createElement("input", { type: "checkbox", defaultChecked: this.state.isDevhub,
-                                    onChange: this.handleDevHubChange }),
-                                _react2.default.createElement(
-                                    "label",
-                                    null,
-                                    "Is it the default devhub?"
-                                )
+                                "label",
+                                { className: "form-check-label form-check-label" },
+                                "Is it a sandbox?"
                             )
                         )
                     ),
                     _react2.default.createElement(
                         "div",
-                        { className: "card-footer todo-list-footer" },
+                        { className: "row from-group" },
+                        _react2.default.createElement(
+                            "div",
+                            { className: "checkbox form-check" },
+                            _react2.default.createElement("input", { type: "checkbox", defaultChecked: this.state.isDevhub,
+                                onChange: this.handleDevHubChange, className: "form-check-input form-check-input" }),
+                            _react2.default.createElement(
+                                "label",
+                                { className: "form-check-label form-check-label" },
+                                "Is it the default devhub?"
+                            )
+                        )
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "card-footer" },
                         _react2.default.createElement(
                             "div",
                             { className: "input-group" },
@@ -26394,33 +26394,33 @@ var OrgCreate = function (_Component) {
                 { className: "card mb-4" },
                 _react2.default.createElement(
                     "div",
-                    { className: "card-body" },
+                    { className: "card-header" },
                     _react2.default.createElement(
-                        "h3",
-                        { className: "card-title" },
+                        "strong",
+                        null,
                         "Create Org"
-                    ),
+                    )
+                ),
+                _react2.default.createElement(
+                    "div",
+                    { className: "card-body" },
                     _react2.default.createElement(
                         "h6",
                         { className: "card-subtitle mb-2 text-muted" },
-                        "Connect a Scratch Org"
+                        "Create a Scratch Org"
                     ),
                     _react2.default.createElement(
-                        "ul",
-                        { className: "mt-2 pl-0" },
+                        "div",
+                        { className: "row from-group" },
                         _react2.default.createElement(
-                            "li",
-                            { className: "todo-list-item" },
+                            "div",
+                            { className: "checkbox form-check" },
+                            _react2.default.createElement("input", { type: "checkbox", defaultChecked: this.state.isDefault,
+                                onChange: this.handleDevHubChange, className: "form-check-input form-check-input" }),
                             _react2.default.createElement(
-                                "div",
-                                { className: "form-check" },
-                                _react2.default.createElement("input", { type: "checkbox", defaultChecked: this.state.isDefault,
-                                    onChange: this.handleDevHubChange }),
-                                _react2.default.createElement(
-                                    "label",
-                                    null,
-                                    "Is it the default org?"
-                                )
+                                "label",
+                                { className: "form-check-label form-check-label" },
+                                "Is it the default org?"
                             )
                         )
                     ),
@@ -27578,45 +27578,49 @@ function SourceList(props) {
 			props.title
 		),
 		_react2.default.createElement(
-			"table",
-			{ className: "table table-striped" },
+			"div",
+			{ className: "table-responsive" },
 			_react2.default.createElement(
-				"thead",
-				null,
+				"table",
+				{ className: "table table-striped" },
 				_react2.default.createElement(
-					"tr",
+					"thead",
 					null,
 					_react2.default.createElement(
-						"th",
+						"tr",
 						null,
-						"State"
-					),
-					_react2.default.createElement(
-						"th",
-						null,
-						"Operation"
-					),
-					_react2.default.createElement(
-						"th",
-						null,
-						"Full Name"
-					),
-					_react2.default.createElement(
-						"th",
-						null,
-						"Type"
-					),
-					_react2.default.createElement(
-						"th",
-						null,
-						"File Path"
+						_react2.default.createElement(
+							"th",
+							null,
+							"State"
+						),
+						_react2.default.createElement(
+							"th",
+							null,
+							"Operation"
+						),
+						_react2.default.createElement(
+							"th",
+							null,
+							"Full Name"
+						),
+						_react2.default.createElement(
+							"th",
+							null,
+							"Type"
+						),
+						_react2.default.createElement(
+							"th",
+							null,
+							"File Path"
+						)
 					)
+				),
+				_react2.default.createElement(
+					"tbody",
+					null,
+					sourceRows
 				)
-			),
-			_react2.default.createElement(
-				"tbody",
-				null,
-				sourceRows
 			)
 		)
 	);

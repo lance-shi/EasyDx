@@ -29,18 +29,18 @@ class OrgCreate extends Component {
     render() {
         return (
             <div className="card mb-4">
+                <div className="card-header">
+                    <strong>Create Org</strong>
+                </div>
                 <div className="card-body">
-                    <h3 className="card-title">Create Org</h3>
-                    <h6 className="card-subtitle mb-2 text-muted">Connect a Scratch Org</h6>
-                    <ul className="mt-2 pl-0">
-                        <li className="todo-list-item">
-                            <div className="form-check">
-                                <input type="checkbox" defaultChecked={this.state.isDefault} 
-                                    onChange={this.handleDevHubChange}/>
-                                <label>Is it the default org?</label>
-                            </div>
-                        </li>
-                    </ul>
+                    <h6 className="card-subtitle mb-2 text-muted">Create a Scratch Org</h6>
+                    <div className="row from-group">
+                        <div className="checkbox form-check">
+                            <input type="checkbox" defaultChecked={this.state.isDefault} 
+                                onChange={this.handleDevHubChange} className="form-check-input form-check-input"/>
+                            <label className="form-check-label form-check-label">Is it the default org?</label>
+                        </div>
+                    </div>
                     <div className="card-footer todo-list-footer">
                         <div className="input-group">
                             <input type="text" className="form-control input-md" placeholder="Alias" value={this.state.alias} 

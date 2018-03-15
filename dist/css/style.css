@@ -41,3 +41,11 @@
 .bg-success {
     background-color: #5cb85c!important;
 }
+
+.form-check {
+    padding-left: 2.25rem!important;
+}
+
+.card-footer {
+    margin-top: 1rem;
+}

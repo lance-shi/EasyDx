@@ -6,20 +6,22 @@ function SourceList(props) {
 	return (
 		<div className="section-group">
 			<h3 className="card-title">{props.title}</h3>
-			<table className="table table-striped">
-				<thead>
-					<tr>
-						<th>State</th>
-						<th>Operation</th>
-						<th>Full Name</th>
-						<th>Type</th>
-						<th>File Path</th>
-					</tr>
-				</thead>
-				<tbody>
-					{sourceRows}
-				</tbody>
-			</table>
+			<div className="table-responsive">
+				<table className="table table-striped">
+					<thead>
+						<tr>
+							<th>State</th>
+							<th>Operation</th>
+							<th>Full Name</th>
+							<th>Type</th>
+							<th>File Path</th>
+						</tr>
+					</thead>
+					<tbody>
+						{sourceRows}
+					</tbody>
+				</table>
+			</div>
 		</div>
 	);
 }

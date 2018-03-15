@@ -35,26 +35,26 @@ class OrgConnect extends Component {
     render() {
         return (
             <div className="card mb-4">
+                <div className="card-header">
+                    <strong>Connect Org</strong>
+                </div>
                 <div className="card-body">
-                    <h3 className="card-title">Connect Org</h3>
                     <h6 className="card-subtitle mb-2 text-muted">Connect to a production org or sandbox</h6>
-                    <ul className="mt-2 pl-0">
-                        <li className="todo-list-item">
-                            <div className="form-check">
-                                <input type="checkbox" defaultChecked={this.state.isSandbox} 
-                                    onChange={this.handleSandboxChange}/>
-                                <label>Is it a sandbox?</label>
-                            </div>
-                        </li>
-                        <li className="todo-list-item">
-                            <div className="form-check">
-                                <input type="checkbox" defaultChecked={this.state.isDevhub} 
-                                    onChange={this.handleDevHubChange}/>
-                                <label>Is it the default devhub?</label>
-                            </div>
-                        </li>
-                    </ul>
-                    <div className="card-footer todo-list-footer">
+                    <div className="row from-group">
+                        <div className="checkbox form-check">
+                            <input type="checkbox" defaultChecked={this.state.isSandbox} 
+                                onChange={this.handleSandboxChange} className="form-check-input form-check-input"/>
+                            <label className="form-check-label form-check-label">Is it a sandbox?</label>
+                        </div>
+                    </div>
+                    <div className="row from-group">
+                        <div className="checkbox form-check">
+                            <input type="checkbox" defaultChecked={this.state.isDevhub} 
+                                onChange={this.handleDevHubChange} className="form-check-input form-check-input"/>
+                            <label className="form-check-label form-check-label">Is it the default devhub?</label>
+                        </div>
+                    </div>
+                    <div className="card-footer">
                         <div className="input-group">
                             <input type="text" className="form-control input-md" placeholder="Alias" value={this.state.alias} 
                                 onChange={this.handleAliasChange}/>
