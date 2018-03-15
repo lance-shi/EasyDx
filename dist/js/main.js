@@ -2075,7 +2075,7 @@ exports.default = AlertMessage;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _react = __webpack_require__(0);
@@ -2085,19 +2085,19 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function PageHeader(props) {
-  return _react2.default.createElement(
-    "header",
-    { className: "page-header row" },
-    _react2.default.createElement(
-      "div",
-      { className: "col-md-6 col-lg-8" },
-      _react2.default.createElement(
-        "h1",
-        { className: "float-left text-center text-md-left" },
-        props.title
-      )
-    )
-  );
+    return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+            "ol",
+            { className: "breadcrumb" },
+            _react2.default.createElement(
+                "li",
+                { className: "active breadcrumb-item" },
+                props.title
+            )
+        )
+    );
 }
 
 exports.default = PageHeader;
@@ -3448,7 +3448,7 @@ var _MainContainer2 = _interopRequireDefault(_MainContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var wrapper = document.getElementById("mainContainer");
+var wrapper = document.getElementById("root");
 wrapper ? _reactDom2.default.render(_react2.default.createElement(_MainContainer2.default, null), wrapper) : false;
 
 /***/ }),
@@ -20775,6 +20775,10 @@ var _MenuItems = __webpack_require__(127);
 
 var _MenuItems2 = _interopRequireDefault(_MenuItems);
 
+var _Header = __webpack_require__(128);
+
+var _Header2 = _interopRequireDefault(_Header);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -20810,14 +20814,14 @@ var MainContainer = function (_Component) {
                 null,
                 _react2.default.createElement(
                     "div",
-                    { className: "container-fluid", id: "wrapper" },
+                    { className: "app" },
                     _react2.default.createElement(
                         "div",
-                        { className: "row" },
+                        { className: "app-body" },
                         _react2.default.createElement(_MenuItems2.default, { activePanel: this.state.activePanel, setActivePanel: this.setActivePanel.bind(this) }),
                         _react2.default.createElement(
                             "main",
-                            { className: "col-sm-8 offset-sm-4 col-lg-9 offset-lg-3 col-xl-10 offset-xl-2 pt-3 pl-4" },
+                            { className: "main" },
                             _react2.default.createElement(
                                 _reactRouterDom.Switch,
                                 null,
@@ -24765,30 +24769,34 @@ var OrgContainer = function (_Component) {
 					alertClass: this.state.alertClass,
 					message: this.state.alertMessage }) : null,
 				_react2.default.createElement(
-					"section",
-					{ className: "row" },
+					"div",
+					{ "class": "container-fluid" },
 					_react2.default.createElement(
 						"div",
-						{ className: "col-md-12 col-lg-8" },
-						this.state.defaultProjectExists ? _react2.default.createElement(_CurrentProjectLine2.default, {
-							project: this.state.currentProject }) : _react2.default.createElement(_CurrentProjectNotExist2.default, null),
-						_react2.default.createElement(_OrgListCard2.default, { scratchOrgs: this.state.scratchOrgs,
-							nonScratchOrgs: this.state.nonScratchOrgs,
-							setDetailOrg: this.setDetailOrg.bind(this),
-							toggleLoadingImage: this.toggleLoadingImage,
-							showAlertMessage: this.showAlertMessage,
-							setDefaultOrg: this.setDefaultOrg,
-							handleRefreshOrgs: this.handleRefreshOrgs.bind(this) })
-					),
-					_react2.default.createElement(
-						"div",
-						{ className: "col-md-12 col-lg-4" },
-						_react2.default.createElement(_OrgConnect2.default, { connectOrg: this.connectOrg }),
-						_react2.default.createElement(_OrgCreate2.default, { createOrg: this.createOrg }),
+						{ className: "row" },
 						_react2.default.createElement(
 							"div",
-							{ id: "orgDetailsSection" },
-							this.state.showDetailOrg ? _react2.default.createElement(_OrgDetails2.default, { org: this.state.detailOrg }) : null
+							{ className: "col-md-12 col-lg-8" },
+							this.state.defaultProjectExists ? _react2.default.createElement(_CurrentProjectLine2.default, {
+								project: this.state.currentProject }) : _react2.default.createElement(_CurrentProjectNotExist2.default, null),
+							_react2.default.createElement(_OrgListCard2.default, { scratchOrgs: this.state.scratchOrgs,
+								nonScratchOrgs: this.state.nonScratchOrgs,
+								setDetailOrg: this.setDetailOrg.bind(this),
+								toggleLoadingImage: this.toggleLoadingImage,
+								showAlertMessage: this.showAlertMessage,
+								setDefaultOrg: this.setDefaultOrg,
+								handleRefreshOrgs: this.handleRefreshOrgs.bind(this) })
+						),
+						_react2.default.createElement(
+							"div",
+							{ className: "col-md-12 col-lg-4" },
+							_react2.default.createElement(_OrgConnect2.default, { connectOrg: this.connectOrg }),
+							_react2.default.createElement(_OrgCreate2.default, { createOrg: this.createOrg }),
+							_react2.default.createElement(
+								"div",
+								{ id: "orgDetailsSection" },
+								this.state.showDetailOrg ? _react2.default.createElement(_OrgDetails2.default, { org: this.state.detailOrg }) : null
+							)
 						)
 					)
 				)
@@ -26643,22 +26651,26 @@ var ProjectContainer = function (_Component) {
 					alertClass: this.state.alertClass,
 					message: this.state.alertMessage }) : null,
 				_react2.default.createElement(
-					"section",
-					{ className: "row" },
+					"div",
+					{ "class": "container-fluid" },
 					_react2.default.createElement(
 						"div",
-						{ className: "col-md-12 col-lg-8" },
-						_react2.default.createElement(_ProjectList2.default, { projects: this.state.projects,
-							setDefaultProj: this.setDefaultProj.bind(this),
-							removeProject: this.removeProject })
-					),
-					_react2.default.createElement(
-						"div",
-						{ className: "col-md-12 col-lg-4" },
-						_react2.default.createElement(_ProjectAdd2.default, { addProject: this.addProject.bind(this),
-							showAlertMessage: this.showAlertMessage }),
-						_react2.default.createElement(_ProjectCreate2.default, { createProject: this.createProject.bind(this),
-							showAlertMessage: this.showAlertMessage })
+						{ className: "row" },
+						_react2.default.createElement(
+							"div",
+							{ className: "col-md-12 col-lg-8" },
+							_react2.default.createElement(_ProjectList2.default, { projects: this.state.projects,
+								setDefaultProj: this.setDefaultProj.bind(this),
+								removeProject: this.removeProject })
+						),
+						_react2.default.createElement(
+							"div",
+							{ className: "col-md-12 col-lg-4" },
+							_react2.default.createElement(_ProjectAdd2.default, { addProject: this.addProject.bind(this),
+								showAlertMessage: this.showAlertMessage }),
+							_react2.default.createElement(_ProjectCreate2.default, { createProject: this.createProject.bind(this),
+								showAlertMessage: this.showAlertMessage })
+						)
 					)
 				)
 			);
@@ -27454,22 +27466,26 @@ var SourceContainer = function (_Component) {
 					alertClass: this.state.alertClass,
 					message: this.state.alertMessage }) : null,
 				_react2.default.createElement(
-					"section",
-					{ className: "row" },
+					"div",
+					{ "class": "container-fluid" },
 					_react2.default.createElement(
 						"div",
-						{ className: "col-md-12 col-lg-8" },
-						this.state.defaultProjectExists ? _react2.default.createElement(_CurrentProjectLine2.default, {
-							project: this.state.currentProject }) : _react2.default.createElement(_CurrentProjectNotExist2.default, null),
-						_react2.default.createElement(_SourceListCard2.default, { remoteChanges: this.state.remoteChanges,
-							localChanges: this.state.localChanges,
-							handleRefreshStatus: this.handleRefreshStatus.bind(this) })
-					),
-					_react2.default.createElement(
-						"div",
-						{ className: "col-md-12 col-lg-4" },
-						_react2.default.createElement(_SourcePush2.default, { pushChanges: this.pushChanges }),
-						_react2.default.createElement(_SourceRetrieve2.default, { retrieveMetadata: this.retrieveMetadata })
+						{ className: "row" },
+						_react2.default.createElement(
+							"div",
+							{ className: "col-md-12 col-lg-8" },
+							this.state.defaultProjectExists ? _react2.default.createElement(_CurrentProjectLine2.default, {
+								project: this.state.currentProject }) : _react2.default.createElement(_CurrentProjectNotExist2.default, null),
+							_react2.default.createElement(_SourceListCard2.default, { remoteChanges: this.state.remoteChanges,
+								localChanges: this.state.localChanges,
+								handleRefreshStatus: this.handleRefreshStatus.bind(this) })
+						),
+						_react2.default.createElement(
+							"div",
+							{ className: "col-md-12 col-lg-4" },
+							_react2.default.createElement(_SourcePush2.default, { pushChanges: this.pushChanges }),
+							_react2.default.createElement(_SourceRetrieve2.default, { retrieveMetadata: this.retrieveMetadata })
+						)
 					)
 				)
 			);
@@ -27998,20 +28014,10 @@ var MenuItems = function (_Component) {
         value: function render() {
             return _react2.default.createElement(
                 "nav",
-                { className: "sidebar col-sm-4 col-lg-3 col-xl-2 bg-faded" },
-                _react2.default.createElement(
-                    "h1",
-                    { className: "site-title" },
-                    _react2.default.createElement(
-                        "a",
-                        { href: "#" },
-                        _react2.default.createElement("span", { className: "fa fa-rocket" }),
-                        " Easy DX"
-                    )
-                ),
+                { className: "sidebar" },
                 _react2.default.createElement(
                     "ul",
-                    { className: "nav nav-pills flex-column sidebar-nav" },
+                    { className: "nav" },
                     _react2.default.createElement(
                         "li",
                         { className: "nav-item" },
@@ -28051,6 +28057,74 @@ var MenuItems = function (_Component) {
 }(_react.Component);
 
 exports.default = MenuItems;
+
+/***/ }),
+/* 128 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Header = function (_Component) {
+    _inherits(Header, _Component);
+
+    function Header() {
+        _classCallCheck(this, Header);
+
+        return _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).apply(this, arguments));
+    }
+
+    _createClass(Header, [{
+        key: "render",
+        value: function render() {
+            return _react2.default.createElement(
+                "header",
+                { className: "app-header navbar" },
+                _react2.default.createElement("a", { href: "#", className: "navbar-brand" }),
+                _react2.default.createElement(
+                    "button",
+                    { type: "button", className: "d-lg-none navbar-toggler" },
+                    _react2.default.createElement("span", { className: "navbar-toggler-icon" })
+                ),
+                _react2.default.createElement(
+                    "ul",
+                    { className: "d-md-down-none navbar-nav" },
+                    _react2.default.createElement(
+                        "li",
+                        { className: "px-3 nav-item" },
+                        _react2.default.createElement(
+                            "a",
+                            { href: "#", className: "nav-link" },
+                            "Users"
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return Header;
+}(_react.Component);
+
+exports.default = Header;
 
 /***/ })
 /******/ ]);

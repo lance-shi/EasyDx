@@ -196,26 +196,28 @@ class OrgContainer extends Component {
 				{this.state.showAlertMessage ? <AlertMessage 
 					alertClass={this.state.alertClass}
 					message={this.state.alertMessage}/> : null}
-				<section className="row">
-					<div className="col-md-12 col-lg-8">
-						{this.state.defaultProjectExists ? <CurrentProjectLine 
-							project={this.state.currentProject}/> : <CurrentProjectNotExist/>}
-						<OrgListCard scratchOrgs={this.state.scratchOrgs} 
-							nonScratchOrgs={this.state.nonScratchOrgs}
-							setDetailOrg={this.setDetailOrg.bind(this)}
-							toggleLoadingImage={this.toggleLoadingImage}
-							showAlertMessage={this.showAlertMessage}
-							setDefaultOrg={this.setDefaultOrg}
-							handleRefreshOrgs={this.handleRefreshOrgs.bind(this)}/>
-					</div>
-					<div className="col-md-12 col-lg-4">
-						<OrgConnect connectOrg={this.connectOrg}/>
-						<OrgCreate createOrg={this.createOrg}/>
-						<div id="orgDetailsSection">
-							{this.state.showDetailOrg ? <OrgDetails org={this.state.detailOrg}/> : null}
+				<div class="container-fluid">
+					<div className="row">
+						<div className="col-md-12 col-lg-8">
+							{this.state.defaultProjectExists ? <CurrentProjectLine 
+								project={this.state.currentProject}/> : <CurrentProjectNotExist/>}
+							<OrgListCard scratchOrgs={this.state.scratchOrgs} 
+								nonScratchOrgs={this.state.nonScratchOrgs}
+								setDetailOrg={this.setDetailOrg.bind(this)}
+								toggleLoadingImage={this.toggleLoadingImage}
+								showAlertMessage={this.showAlertMessage}
+								setDefaultOrg={this.setDefaultOrg}
+								handleRefreshOrgs={this.handleRefreshOrgs.bind(this)}/>
+						</div>
+						<div className="col-md-12 col-lg-4">
+							<OrgConnect connectOrg={this.connectOrg}/>
+							<OrgCreate createOrg={this.createOrg}/>
+							<div id="orgDetailsSection">
+								{this.state.showDetailOrg ? <OrgDetails org={this.state.detailOrg}/> : null}
+							</div>
 						</div>
 					</div>
-				</section>
+				</div>
 			</div>
 		)
 	}

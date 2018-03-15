@@ -167,19 +167,21 @@ class SourceContainer extends Component {
 				{this.state.showAlertMessage ? <AlertMessage 
 					alertClass={this.state.alertClass}
 					message={this.state.alertMessage}/> : null}
-				<section className="row">
-					<div className="col-md-12 col-lg-8">
-						{this.state.defaultProjectExists ? <CurrentProjectLine 
-							project={this.state.currentProject}/> : <CurrentProjectNotExist/>}
-						<SourceListCard remoteChanges={this.state.remoteChanges}
-							localChanges={this.state.localChanges}
-							handleRefreshStatus={this.handleRefreshStatus.bind(this)}/>
+				<div class="container-fluid">
+					<div className="row">
+						<div className="col-md-12 col-lg-8">
+							{this.state.defaultProjectExists ? <CurrentProjectLine 
+								project={this.state.currentProject}/> : <CurrentProjectNotExist/>}
+							<SourceListCard remoteChanges={this.state.remoteChanges}
+								localChanges={this.state.localChanges}
+								handleRefreshStatus={this.handleRefreshStatus.bind(this)}/>
+						</div>
+						<div className="col-md-12 col-lg-4">
+							<SourcePush pushChanges={this.pushChanges}/>
+							<SourceRetrieve retrieveMetadata={this.retrieveMetadata}/>
+						</div>
 					</div>
-					<div className="col-md-12 col-lg-4">
-						<SourcePush pushChanges={this.pushChanges}/>
-						<SourceRetrieve retrieveMetadata={this.retrieveMetadata}/>
-					</div>
-				</section>
+				</div>
             </div>
         )
     }

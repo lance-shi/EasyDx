@@ -4,9 +4,8 @@ import { NavLink } from "react-router-dom";
 class MenuItems extends Component {
     render() {
         return (
-            <nav className="sidebar col-sm-4 col-lg-3 col-xl-2 bg-faded">
-                <h1 className="site-title"><a href="#"><span className="fa fa-rocket"></span> Easy DX</a></h1>
-                <ul className="nav nav-pills flex-column sidebar-nav">
+            <nav className="sidebar">
+                <ul className="nav">
                     <li className="nav-item">
                         <NavLink to="/" exact activeClassName="active" className="nav-link">
                             <span className="fa fa-home fa-lg"></span> Org

@@ -6,6 +6,7 @@ import OrgContainer from "./OrgContainer";
 import ProjectContainer from "./ProjectContainer";
 import SourceContainer from "./SourceContainer";
 import MenuItems from "../presentational/MenuItems";
+import Header from "../presentational/Header";
 
 class MainContainer extends Component {
     constructor() {
@@ -22,10 +23,10 @@ class MainContainer extends Component {
     render() {
         return (
             <BrowserRouter>
-                <div className="container-fluid" id="wrapper">
-                    <div className="row">
+                <div className="app">
+                    <div className="app-body">
                         <MenuItems activePanel={this.state.activePanel} setActivePanel={this.setActivePanel.bind(this)}/>
-                        <main className="col-sm-8 offset-sm-4 col-lg-9 offset-lg-3 col-xl-10 offset-xl-2 pt-3 pl-4">
+                        <main className="main">
                             <Switch>
                                 <Route exact path="/" component={OrgContainer}/>
                                 <Route path="/Project" component={ProjectContainer}/>

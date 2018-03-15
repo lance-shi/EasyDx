@@ -127,19 +127,21 @@ class ProjectContainer extends Component {
 				{this.state.showAlertMessage ? <AlertMessage 
 					alertClass={this.state.alertClass}
 					message={this.state.alertMessage}/> : null}
-				<section className="row">
-					<div className="col-md-12 col-lg-8">
-						<ProjectList projects={this.state.projects}
-							setDefaultProj={this.setDefaultProj.bind(this)}
-							removeProject={this.removeProject}/>
+				<div class="container-fluid">
+					<div className="row">
+						<div className="col-md-12 col-lg-8">
+							<ProjectList projects={this.state.projects}
+								setDefaultProj={this.setDefaultProj.bind(this)}
+								removeProject={this.removeProject}/>
+						</div>
+						<div className="col-md-12 col-lg-4">
+							<ProjectAdd addProject={this.addProject.bind(this)}
+								showAlertMessage={this.showAlertMessage}/>
+							<ProjectCreate createProject={this.createProject.bind(this)}
+								showAlertMessage={this.showAlertMessage}/>
+						</div>
 					</div>
-					<div className="col-md-12 col-lg-4">
-						<ProjectAdd addProject={this.addProject.bind(this)}
-							showAlertMessage={this.showAlertMessage}/>
-						<ProjectCreate createProject={this.createProject.bind(this)}
-							showAlertMessage={this.showAlertMessage}/>
-					</div>
-				</section>
+				</div>
 			</div>
 		)
 	}
