@@ -127,7 +127,7 @@ class ProjectContainer extends Component {
 				{this.state.showAlertMessage ? <AlertMessage 
 					alertClass={this.state.alertClass}
 					message={this.state.alertMessage}/> : null}
-				<div class="container-fluid">
+				<div className="container-fluid">
 					<div className="row">
 						<div className="col-md-12 col-lg-8">
 							<ProjectList projects={this.state.projects}

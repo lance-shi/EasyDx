@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import SourceRow from "./SourceRow";
 import Pagination from "./Pagination";
 
-class SourceList extends React.Component {
+class SourceList extends Component {
 	constructor() {
 		super();
 		this.state = {
@@ -19,7 +19,7 @@ class SourceList extends React.Component {
 	}
 
 	render() {
-		const sourceRows = props.sources.map(source=><SourceRow key={props.title+source.filePath} source={source}/>);
+		const sourceRows = this.props.sources.map(source=><SourceRow key={this.props.title+source.filePath} source={source}/>);
 		const maxCount = 1;
 		return (
 			<div className="section-group">

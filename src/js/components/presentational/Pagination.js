@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import SourceRow from "./SourceRow";
+import PaginationItem from "./PaginationItem";
 
-class Pagination extends React.Component {
+class Pagination extends Component {
 	constructor() {
 		super();
 
@@ -22,19 +23,23 @@ class Pagination extends React.Component {
     }
 
 	render() {
+        let pageNumbers = [];
+        for (let i = 1; i <= this.props.maxCount; i++) {
+            pageNumbers.push(i);
+        }
+        let paginationItems = pageNumbers.map(number=><PaginationItem key={number} number={number}
+			pageClick={this.props.pageClick}/>);
 		return (
             <ul className="pagination">
                 <li className="page-item">
-                    <a href="#" className="page-link" aria-label="Previous">
+                    <a href="#/" className="page-link" aria-label="Previous" onClick={this.handlePreviousClick}>
                         <span aria-hidden="true">Prev</span>
                         <span className="sr-only">Previous</span>
                     </a>
                 </li>
-                <li className="page-item active">
-                    <a href="#" className="page-link">1</a>
-                </li>
+                {paginationItems}
                 <li className="page-item">
-                    <a href="#" className="page-link" aria-label="Next">
+                    <a href="#/" className="page-link" aria-label="Next" onClick={this.handleNextClick}>
                         <span aria-hidden="true">Next</span>
                         <span className="sr-only">Next</span>
                     </a>

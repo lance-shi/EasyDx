@@ -1,30 +1,59 @@
 import React, { Component } from "react";
 import ProjectRow from "./ProjectRow";
+import Pagination from "./Pagination";
 
-function ProjectList(props) {
-	const projectRows = props.projects.map(project=><ProjectRow key={project.directory} project={project}
-        setDefaultProj={props.setDefaultProj}
-		removeProject={props.removeProject}/>);
-	return (
-		<div className="card mb-4">
-            <div className="card-body">
-				<h3 className="card-title">Existing Projects</h3>
-				<table className="table table-striped">
-					<thead>
-						<tr>
-							<th style={{width: "8%"}}>Default</th>
-							<th style={{width: "23%"}}>Alias</th>
-							<th style={{width: "54%"}}>Directory</th>
-							<th style={{width: "15%"}}>Actions</th>
-						</tr>
-					</thead>
-					<tbody>
-						{projectRows}
-					</tbody>
-				</table>
+class ProjectList extends Component {
+	constructor() {
+		super();
+
+		this.state = {
+			currentPage: 1
+		}
+		this.pageClick = this.pageClick.bind(this);
+	}
+
+	pageClick(number) {
+		this.setState({
+			currentPage: number
+		});
+	}
+
+	render() {
+		const numberPerPage = 5;
+		let maxCount = Math.ceil(this.props.projects.length / numberPerPage);
+		let indexOfLastItem = this.state.currentPage * numberPerPage;
+		let indexOfFirstItem = indexOfLastItem - numberPerPage;
+		let currentProjects = this.props.projects.slice(indexOfFirstItem, indexOfLastItem);
+
+		let projectRows = currentProjects.map(project=><ProjectRow key={project.directory} project={project}
+			setDefaultProj={this.props.setDefaultProj}
+			removeProject={this.props.removeProject}/>);
+		return (
+			<div className="card mb-4">
+				<div className="card-header">
+					<strong>Existing Projects</strong>
+				</div>
+				<div className="card-body">
+					<div className="table-responsive">
+						<table className="table table-striped">
+							<thead>
+								<tr>
+									<th style={{width: "8%"}}>Default</th>
+									<th style={{width: "23%"}}>Alias</th>
+									<th style={{width: "54%"}}>Directory</th>
+									<th style={{width: "15%"}}>Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+								{projectRows}
+							</tbody>
+						</table>
+					</div>
+					<Pagination currentPage={this.state.currentPage} pageClick={this.pageClick} maxCount={maxCount}/>
+				</div>
 			</div>
-		</div>
-	);
+		);
+	}
 }
 
 export default ProjectList;
