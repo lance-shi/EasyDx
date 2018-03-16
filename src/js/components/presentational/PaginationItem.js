@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import SourceRow from "./SourceRow";
 
 class PaginationItem extends Component {
 	constructor() {
