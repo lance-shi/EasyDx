@@ -49,3 +49,7 @@
 .card-footer {
     margin-top: 1rem;
 }
+
+.sidebar-fixed .sidebar {
+    height: 100vh!important;
+}

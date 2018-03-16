@@ -3505,7 +3505,7 @@ var Pagination = function (_Component) {
             }
             var paginationItems = pageNumbers.map(function (number) {
                 return _react2.default.createElement(_PaginationItem2.default, { key: number, number: number,
-                    pageClick: _this2.props.pageClick });
+                    currentPage: _this2.props.currentPage, pageClick: _this2.props.pageClick });
             });
             return _react2.default.createElement(
                 "ul",
@@ -21014,7 +21014,7 @@ var MainContainer = function (_Component) {
                 null,
                 _react2.default.createElement(
                     "div",
-                    { className: "app" },
+                    { className: "app sidebar-fixed" },
                     _react2.default.createElement(
                         "div",
                         { className: "app-body" },
@@ -27161,7 +27161,7 @@ exports.default = ProjectRow;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -27183,38 +27183,42 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var PaginationItem = function (_Component) {
-  _inherits(PaginationItem, _Component);
+    _inherits(PaginationItem, _Component);
 
-  function PaginationItem() {
-    _classCallCheck(this, PaginationItem);
+    function PaginationItem() {
+        _classCallCheck(this, PaginationItem);
 
-    var _this = _possibleConstructorReturn(this, (PaginationItem.__proto__ || Object.getPrototypeOf(PaginationItem)).call(this));
+        var _this = _possibleConstructorReturn(this, (PaginationItem.__proto__ || Object.getPrototypeOf(PaginationItem)).call(this));
 
-    _this.handleClick = _this.handleClick.bind(_this);
-    return _this;
-  }
-
-  _createClass(PaginationItem, [{
-    key: "handleClick",
-    value: function handleClick() {
-      this.props.pageClick(this.props.number);
+        _this.handleClick = _this.handleClick.bind(_this);
+        return _this;
     }
-  }, {
-    key: "render",
-    value: function render() {
-      return _react2.default.createElement(
-        "li",
-        { className: "page-item" },
-        _react2.default.createElement(
-          "a",
-          { href: "#/", className: "page-link", onClick: this.handleClick },
-          this.props.number
-        )
-      );
-    }
-  }]);
 
-  return PaginationItem;
+    _createClass(PaginationItem, [{
+        key: "handleClick",
+        value: function handleClick() {
+            this.props.pageClick(this.props.number);
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            var activeString = "";
+            if (this.props.number === this.props.currentPage) {
+                activeString = " active";
+            }
+            return _react2.default.createElement(
+                "li",
+                { className: "page-item" + activeString },
+                _react2.default.createElement(
+                    "a",
+                    { href: "#/", className: "page-link", onClick: this.handleClick },
+                    this.props.number
+                )
+            );
+        }
+    }]);
+
+    return PaginationItem;
 }(_react.Component);
 
 exports.default = PaginationItem;
@@ -27724,7 +27728,7 @@ var SourceContainer = function (_Component) {
 					});
 					_this2.showAlertMessage("success", "Source status refreshed successfully!");
 				} else {
-					toggleLoadingImage(false);
+					_this2.toggleLoadingImage(false);
 					_this2.showAlertMessage("danger", "Error:" + res.data.err);
 				}
 			});
@@ -27790,7 +27794,7 @@ var SourceContainer = function (_Component) {
 					message: this.state.alertMessage }) : null,
 				_react2.default.createElement(
 					"div",
-					{ "class": "container-fluid" },
+					{ className: "container-fluid" },
 					_react2.default.createElement(
 						"div",
 						{ className: "row" },
@@ -27928,17 +27932,23 @@ var SourceList = function (_Component) {
 		value: function render() {
 			var _this2 = this;
 
-			var sourceRows = this.props.sources.map(function (source) {
+			var numberPerPage = 10;
+			var maxCount = Math.ceil(this.props.sources.length / numberPerPage);
+			var indexOfLastItem = this.state.currentPage * numberPerPage;
+			var indexOfFirstItem = indexOfLastItem - numberPerPage;
+			var currentRecords = this.props.sources.slice(indexOfFirstItem, indexOfLastItem);
+
+			var sourceRows = currentRecords.map(function (source) {
 				return _react2.default.createElement(_SourceRow2.default, { key: _this2.props.title + source.filePath, source: source });
 			});
-			var maxCount = 1;
+
 			return _react2.default.createElement(
 				"div",
 				{ className: "section-group" },
 				_react2.default.createElement(
 					"h3",
 					{ className: "card-title" },
-					props.title
+					this.props.title
 				),
 				_react2.default.createElement(
 					"div",
@@ -28309,6 +28319,16 @@ var MenuItems = function (_Component) {
             return _react2.default.createElement(
                 "nav",
                 { className: "sidebar" },
+                _react2.default.createElement(
+                    "h4",
+                    { className: "site-title" },
+                    _react2.default.createElement(
+                        _reactRouterDom.Link,
+                        { to: "/", className: "nav-link" },
+                        _react2.default.createElement("span", { className: "fa fa-rocket" }),
+                        " Easy DX"
+                    )
+                ),
                 _react2.default.createElement(
                     "ul",
                     { className: "nav" },

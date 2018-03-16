@@ -23,7 +23,7 @@ class MainContainer extends Component {
     render() {
         return (
             <BrowserRouter>
-                <div className="app">
+                <div className="app sidebar-fixed">
                     <div className="app-body">
                         <MenuItems activePanel={this.state.activePanel} setActivePanel={this.setActivePanel.bind(this)}/>
                         <main className="main">

@@ -28,7 +28,7 @@ class Pagination extends Component {
             pageNumbers.push(i);
         }
         let paginationItems = pageNumbers.map(number=><PaginationItem key={number} number={number}
-			pageClick={this.props.pageClick}/>);
+			currentPage={this.props.currentPage} pageClick={this.props.pageClick}/>);
 		return (
             <ul className="pagination">
                 <li className="page-item">

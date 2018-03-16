@@ -19,11 +19,17 @@ class SourceList extends Component {
 	}
 
 	render() {
-		const sourceRows = this.props.sources.map(source=><SourceRow key={this.props.title+source.filePath} source={source}/>);
-		const maxCount = 1;
+		const numberPerPage = 10;
+		let maxCount = Math.ceil(this.props.sources.length / numberPerPage);
+		let indexOfLastItem = this.state.currentPage * numberPerPage;
+		let indexOfFirstItem = indexOfLastItem - numberPerPage;
+		let currentRecords = this.props.sources.slice(indexOfFirstItem, indexOfLastItem);
+
+		let sourceRows = currentRecords.map(source=><SourceRow key={this.props.title+source.filePath} source={source}/>);
+
 		return (
 			<div className="section-group">
-				<h3 className="card-title">{props.title}</h3>
+				<h3 className="card-title">{this.props.title}</h3>
 				<div className="table-responsive">
 					<table className="table table-striped">
 						<thead>

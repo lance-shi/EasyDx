@@ -13,8 +13,12 @@ class PaginationItem extends Component {
     }
 
 	render() {
+        let activeString = "";
+        if(this.props.number === this.props.currentPage) {
+            activeString = " active";
+        }
 		return (
-            <li className="page-item">
+            <li className={"page-item" + activeString}>
                 <a href="#/" className="page-link" onClick={this.handleClick}>{this.props.number}</a>
             </li>   
 		);

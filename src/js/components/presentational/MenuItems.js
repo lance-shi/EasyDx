@@ -1,10 +1,15 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 class MenuItems extends Component {
     render() {
         return (
             <nav className="sidebar">
+                <h4 className="site-title">
+                    <Link to="/" className="nav-link">
+                        <span className="fa fa-rocket"></span> Easy DX
+                    </Link>
+                </h4>
                 <ul className="nav">
                     <li className="nav-item">
                         <NavLink to="/" exact activeClassName="active" className="nav-link">
