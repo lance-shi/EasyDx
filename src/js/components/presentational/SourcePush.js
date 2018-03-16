@@ -36,26 +36,28 @@ class SourcePush extends Component {
     render() {
         return (
             <div className="card mb-4">
+                <div className="card-header">
+                    <strong>Push Changes</strong>
+                </div>
                 <div className="card-body">
-                    <h3 className="card-title">Retrieve Source</h3>
-                    <ul className="mt-2 pl-0">
-                        <li className="todo-list-item">
-                            <div className="form-check">
-                                <input type="checkbox" defaultChecked={this.state.forcePush} 
-                                    onChange={this.handleForcePushChange}/>
-                                <label>Is it a force push?</label>
-                            </div>
-                        </li>
-                        <li className="todo-list-item">
-                            <div className="form-check">
-                                <input type="checkbox" defaultChecked={this.state.OtherOrg} 
-                                    onChange={this.handleOtherOrgChange}/>
-                                <label>Push to a non-default org?</label>
-                            </div>
-                        </li>
-                        {this.state.OtherOrg? <AliasInput alias={this.state.alias} changeAlias={this.changeAlias}/>: null}
-                    </ul>
-                    <button type="button" className="btn btn-primary" 
+                    <div className="row from-group">
+                        <div className="checkbox form-check">
+                            <input type="checkbox" defaultChecked={this.state.forcePush} 
+                                onChange={this.handleForcePushChange}
+                                className="form-check-input form-check-input"/>
+                            <label className="form-check-label form-check-label">Is it a force push?</label>
+                        </div>
+                    </div>
+                    <div className="row from-group">
+                        <div className="checkbox form-check">
+                            <input type="checkbox" defaultChecked={this.state.OtherOrg} 
+                                onChange={this.handleOtherOrgChange}
+                                className="form-check-input form-check-input"/>
+                            <label className="form-check-label form-check-label">Push to a non-default org?</label>
+                        </div>
+                    </div>
+                    {this.state.OtherOrg? <AliasInput alias={this.state.alias} changeAlias={this.changeAlias}/>: null}
+                    <button type="button" className="btn btn-primary form-button" 
 					    onClick={this.handlePushSource}>Push Changes</button>
                 </div>
             </div>

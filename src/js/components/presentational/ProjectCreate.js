@@ -56,30 +56,31 @@ class ProjectCreate extends Component {
     render() {
         return (
             <div className="card mb-4">
+                <div className="card-header">
+                    <strong>Create a new Project</strong>
+                </div>
                 <div className="card-body">
-                    <h3 className="card-title">Create a new Project</h3>
                     <h6 className="card-subtitle mb-2 text-muted">Create a new Salesforce DX project</h6>
-                    <ul className="mt-2 pl-0">
-                        <li className="todo-list-item">
-                            <div className="form-check">
-                                <input type="checkbox" defaultChecked={this.state.isDefault} 
-                                    onChange={this.handleDefaultChange}/>
-                                <label>Is it default project?</label>
-                            </div>
-                        </li>
-                        <li className="todo-list-item">
-                            <label>Please specify the project's directory</label>
-                            <input type="text" className="form-control" value={this.state.directory} 
-                                onChange={this.handleDirectoryChange}/>
-                        </li>
-                    </ul>
+                    <div className="row from-group">
+                        <div className="checkbox form-check">
+                            <input type="checkbox" defaultChecked={this.state.isDefault} 
+                                onChange={this.handleDefaultChange} 
+                                className="form-check-input form-check-input"/>
+                            <label className="form-check-label form-check-label">Is it default project?</label>
+                        </div>
+                    </div>
+                    <div className="row from-group input-bar">
+                        <label>Please specify the project's directory</label>
+                        <input type="text" className="form-control" value={this.state.directory} 
+                            onChange={this.handleDirectoryChange}/>
+                    </div>
                     <div className="card-footer todo-list-footer">
                         <div className="input-group">
                             <input type="text" className="form-control input-md" placeholder="Alias" value={this.state.alias} 
                                 onChange={this.handleAliasChange}/>
                             <span className="input-group-btn">
                                 <button type="button" className="btn btn-primary btn-md" onClick={this.handleCreateProject}>
-                                    Create a new Project
+                                    Create Project
                                 </button>
                             </span>
                         </div>

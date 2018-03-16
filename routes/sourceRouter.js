@@ -20,7 +20,7 @@ sourceRouter.route('/')
     fs.access(directory + directoryDelimeter + sfdxProjFileName, (err) => {
         if(err) {
             res.statusCode = 202;
-            res.send({err: 'The filepath doesnot exist or doesnot contain a valid sfdx project!'});
+            res.send({err: 'The default project directory doesnot exist or doesnot contain a valid sfdx project!'});
             console.log(err);
             return;
         }

@@ -3469,6 +3469,9 @@ var Pagination = function (_Component) {
                 morePreviousExist ? _react2.default.createElement(_PaginationDot2.default, null) : null,
                 paginationItems,
                 moreNextExist ? _react2.default.createElement(_PaginationDot2.default, null) : null,
+                moreNextExist ? _react2.default.createElement(_PaginationItem2.default, { key: maxCount, number: maxCount,
+                    currentPage: currentPage,
+                    pageClick: this.props.pageClick }) : null,
                 _react2.default.createElement(
                     "li",
                     { className: "page-item" },
@@ -3542,8 +3545,8 @@ var AliasInput = function (_Component) {
         key: "render",
         value: function render() {
             return _react2.default.createElement(
-                "li",
-                { className: "todo-list-item" },
+                "div",
+                { className: "row from-group input-bar" },
                 _react2.default.createElement(
                     "label",
                     null,
@@ -20950,7 +20953,7 @@ var MainContainer = function (_Component) {
         key: "render",
         value: function render() {
             return _react2.default.createElement(
-                _reactRouterDom.BrowserRouter,
+                _reactRouterDom.HashRouter,
                 null,
                 _react2.default.createElement(
                     "div",
@@ -27308,46 +27311,46 @@ var ProjectAdd = function (_Component) {
                 { className: "card mb-4" },
                 _react2.default.createElement(
                     "div",
-                    { className: "card-body" },
+                    { className: "card-header" },
                     _react2.default.createElement(
-                        "h3",
-                        { className: "card-title" },
+                        "strong",
+                        null,
                         "Add a Project"
-                    ),
+                    )
+                ),
+                _react2.default.createElement(
+                    "div",
+                    { className: "card-body" },
                     _react2.default.createElement(
                         "h6",
                         { className: "card-subtitle mb-2 text-muted" },
                         "Add an existing project into Easy DX"
                     ),
                     _react2.default.createElement(
-                        "ul",
-                        { className: "mt-2 pl-0" },
+                        "div",
+                        { className: "row from-group" },
                         _react2.default.createElement(
-                            "li",
-                            { className: "todo-list-item" },
-                            _react2.default.createElement(
-                                "div",
-                                { className: "form-check" },
-                                _react2.default.createElement("input", { type: "checkbox", defaultChecked: this.state.isDefault,
-                                    onChange: this.handleDefaultChange }),
-                                _react2.default.createElement(
-                                    "label",
-                                    null,
-                                    "Is it default project?"
-                                )
-                            )
-                        ),
-                        _react2.default.createElement(
-                            "li",
-                            { className: "todo-list-item" },
+                            "div",
+                            { className: "checkbox form-check" },
+                            _react2.default.createElement("input", { type: "checkbox", defaultChecked: this.state.isDefault,
+                                onChange: this.handleDefaultChange, className: "form-check-input form-check-input" }),
                             _react2.default.createElement(
                                 "label",
-                                null,
-                                "Please specify the project's directory"
-                            ),
-                            _react2.default.createElement("input", { type: "text", className: "form-control", value: this.state.directory,
-                                onChange: this.handleDirectoryChange })
+                                { className: "form-check-label form-check-label" },
+                                "Is it default project?"
+                            )
                         )
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "row from-group input-bar" },
+                        _react2.default.createElement(
+                            "label",
+                            null,
+                            "Please specify the project's directory"
+                        ),
+                        _react2.default.createElement("input", { type: "text", className: "form-control", value: this.state.directory,
+                            onChange: this.handleDirectoryChange })
                     ),
                     _react2.default.createElement(
                         "div",
@@ -27473,46 +27476,47 @@ var ProjectCreate = function (_Component) {
                 { className: "card mb-4" },
                 _react2.default.createElement(
                     "div",
-                    { className: "card-body" },
+                    { className: "card-header" },
                     _react2.default.createElement(
-                        "h3",
-                        { className: "card-title" },
+                        "strong",
+                        null,
                         "Create a new Project"
-                    ),
+                    )
+                ),
+                _react2.default.createElement(
+                    "div",
+                    { className: "card-body" },
                     _react2.default.createElement(
                         "h6",
                         { className: "card-subtitle mb-2 text-muted" },
                         "Create a new Salesforce DX project"
                     ),
                     _react2.default.createElement(
-                        "ul",
-                        { className: "mt-2 pl-0" },
+                        "div",
+                        { className: "row from-group" },
                         _react2.default.createElement(
-                            "li",
-                            { className: "todo-list-item" },
-                            _react2.default.createElement(
-                                "div",
-                                { className: "form-check" },
-                                _react2.default.createElement("input", { type: "checkbox", defaultChecked: this.state.isDefault,
-                                    onChange: this.handleDefaultChange }),
-                                _react2.default.createElement(
-                                    "label",
-                                    null,
-                                    "Is it default project?"
-                                )
-                            )
-                        ),
-                        _react2.default.createElement(
-                            "li",
-                            { className: "todo-list-item" },
+                            "div",
+                            { className: "checkbox form-check" },
+                            _react2.default.createElement("input", { type: "checkbox", defaultChecked: this.state.isDefault,
+                                onChange: this.handleDefaultChange,
+                                className: "form-check-input form-check-input" }),
                             _react2.default.createElement(
                                 "label",
-                                null,
-                                "Please specify the project's directory"
-                            ),
-                            _react2.default.createElement("input", { type: "text", className: "form-control", value: this.state.directory,
-                                onChange: this.handleDirectoryChange })
+                                { className: "form-check-label form-check-label" },
+                                "Is it default project?"
+                            )
                         )
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "row from-group input-bar" },
+                        _react2.default.createElement(
+                            "label",
+                            null,
+                            "Please specify the project's directory"
+                        ),
+                        _react2.default.createElement("input", { type: "text", className: "form-control", value: this.state.directory,
+                            onChange: this.handleDirectoryChange })
                     ),
                     _react2.default.createElement(
                         "div",
@@ -27528,7 +27532,7 @@ var ProjectCreate = function (_Component) {
                                 _react2.default.createElement(
                                     "button",
                                     { type: "button", className: "btn btn-primary btn-md", onClick: this.handleCreateProject },
-                                    "Create a new Project"
+                                    "Create Project"
                                 )
                             )
                         )
@@ -28152,50 +28156,52 @@ var SourcePush = function (_Component) {
                 { className: "card mb-4" },
                 _react2.default.createElement(
                     "div",
+                    { className: "card-header" },
+                    _react2.default.createElement(
+                        "strong",
+                        null,
+                        "Push Changes"
+                    )
+                ),
+                _react2.default.createElement(
+                    "div",
                     { className: "card-body" },
                     _react2.default.createElement(
-                        "h3",
-                        { className: "card-title" },
-                        "Retrieve Source"
+                        "div",
+                        { className: "row from-group" },
+                        _react2.default.createElement(
+                            "div",
+                            { className: "checkbox form-check" },
+                            _react2.default.createElement("input", { type: "checkbox", defaultChecked: this.state.forcePush,
+                                onChange: this.handleForcePushChange,
+                                className: "form-check-input form-check-input" }),
+                            _react2.default.createElement(
+                                "label",
+                                { className: "form-check-label form-check-label" },
+                                "Is it a force push?"
+                            )
+                        )
                     ),
                     _react2.default.createElement(
-                        "ul",
-                        { className: "mt-2 pl-0" },
+                        "div",
+                        { className: "row from-group" },
                         _react2.default.createElement(
-                            "li",
-                            { className: "todo-list-item" },
+                            "div",
+                            { className: "checkbox form-check" },
+                            _react2.default.createElement("input", { type: "checkbox", defaultChecked: this.state.OtherOrg,
+                                onChange: this.handleOtherOrgChange,
+                                className: "form-check-input form-check-input" }),
                             _react2.default.createElement(
-                                "div",
-                                { className: "form-check" },
-                                _react2.default.createElement("input", { type: "checkbox", defaultChecked: this.state.forcePush,
-                                    onChange: this.handleForcePushChange }),
-                                _react2.default.createElement(
-                                    "label",
-                                    null,
-                                    "Is it a force push?"
-                                )
+                                "label",
+                                { className: "form-check-label form-check-label" },
+                                "Push to a non-default org?"
                             )
-                        ),
-                        _react2.default.createElement(
-                            "li",
-                            { className: "todo-list-item" },
-                            _react2.default.createElement(
-                                "div",
-                                { className: "form-check" },
-                                _react2.default.createElement("input", { type: "checkbox", defaultChecked: this.state.OtherOrg,
-                                    onChange: this.handleOtherOrgChange }),
-                                _react2.default.createElement(
-                                    "label",
-                                    null,
-                                    "Push to a non-default org?"
-                                )
-                            )
-                        ),
-                        this.state.OtherOrg ? _react2.default.createElement(_AliasInput2.default, { alias: this.state.alias, changeAlias: this.changeAlias }) : null
+                        )
                     ),
+                    this.state.OtherOrg ? _react2.default.createElement(_AliasInput2.default, { alias: this.state.alias, changeAlias: this.changeAlias }) : null,
                     _react2.default.createElement(
                         "button",
-                        { type: "button", className: "btn btn-primary",
+                        { type: "button", className: "btn btn-primary form-button",
                             onClick: this.handlePushSource },
                         "Push Changes"
                     )
@@ -28287,51 +28293,52 @@ var SourceRetrieve = function (_Component) {
                 { className: "card mb-4" },
                 _react2.default.createElement(
                     "div",
-                    { className: "card-body" },
+                    { className: "card-header" },
                     _react2.default.createElement(
-                        "h3",
-                        { className: "card-title" },
+                        "strong",
+                        null,
                         "Retrieve Metadata"
-                    ),
+                    )
+                ),
+                _react2.default.createElement(
+                    "div",
+                    { className: "card-body" },
                     _react2.default.createElement(
                         "h6",
                         { className: "card-subtitle mb-2 text-muted" },
                         "Retrieve a .zip file from target Org's package"
                     ),
                     _react2.default.createElement(
-                        "ul",
-                        { className: "mt-2 pl-0" },
+                        "div",
+                        { className: "row from-group" },
                         _react2.default.createElement(
-                            "li",
-                            { className: "todo-list-item" },
-                            _react2.default.createElement(
-                                "div",
-                                { className: "form-check" },
-                                _react2.default.createElement("input", { type: "checkbox", defaultChecked: this.state.OtherOrg,
-                                    onChange: this.handleOtherOrgChange }),
-                                _react2.default.createElement(
-                                    "label",
-                                    null,
-                                    "Retrieve from a non-default org?"
-                                )
-                            )
-                        ),
-                        this.state.OtherOrg ? _react2.default.createElement(_AliasInput2.default, { alias: this.state.alias, changeAlias: this.changeAlias }) : null,
-                        _react2.default.createElement(
-                            "li",
-                            { className: "todo-list-item" },
+                            "div",
+                            { className: "checkbox form-check" },
+                            _react2.default.createElement("input", { type: "checkbox", defaultChecked: this.state.OtherOrg,
+                                onChange: this.handleOtherOrgChange,
+                                className: "form-check-input form-check-input" }),
                             _react2.default.createElement(
                                 "label",
-                                null,
-                                "Please specify the package's name"
-                            ),
-                            _react2.default.createElement("input", { type: "text", className: "form-control", value: this.state.packageName,
-                                onChange: this.handlePackageChange })
+                                { className: "form-check-label form-check-label" },
+                                "Retrieve from a non-default org?"
+                            )
                         )
+                    ),
+                    this.state.OtherOrg ? _react2.default.createElement(_AliasInput2.default, { alias: this.state.alias, changeAlias: this.changeAlias }) : null,
+                    _react2.default.createElement(
+                        "div",
+                        { className: "row from-group input-bar" },
+                        _react2.default.createElement(
+                            "label",
+                            null,
+                            "Please specify the package's name"
+                        ),
+                        _react2.default.createElement("input", { type: "text", className: "form-control", value: this.state.packageName,
+                            onChange: this.handlePackageChange })
                     ),
                     _react2.default.createElement(
                         "button",
-                        { type: "button", className: "btn btn-primary",
+                        { type: "button", className: "btn btn-primary form-button",
                             onClick: this.handleRetrieveMetadata },
                         "Retrieve metadata"
                     )

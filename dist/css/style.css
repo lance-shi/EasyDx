@@ -46,10 +46,14 @@
     padding-left: 2.25rem!important;
 }
 
-.card-footer {
+.card-footer, .form-button {
     margin-top: 1rem;
 }
 
 .sidebar-fixed .sidebar {
     height: 100vh!important;
+}
+
+.input-bar {
+    padding: 0.5rem 1.25rem 0 1.25rem;
 }

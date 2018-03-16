@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import {Switch, Route} from "react-router-dom";
 
 import OrgContainer from "./OrgContainer";
@@ -22,7 +22,7 @@ class MainContainer extends Component {
     
     render() {
         return (
-            <BrowserRouter>
+            <HashRouter>
                 <div className="app sidebar-fixed">
                     <div className="app-body">
                         <MenuItems activePanel={this.state.activePanel} setActivePanel={this.setActivePanel.bind(this)}/>
@@ -35,7 +35,7 @@ class MainContainer extends Component {
                         </main>
                     </div>
                 </div>
-            </BrowserRouter>
+            </HashRouter>
         );
     }
 }

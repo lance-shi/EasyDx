@@ -12,11 +12,11 @@ class AliasInput extends Component {
 
     render() {
         return (
-            <li className="todo-list-item">
+            <div className="row from-group input-bar">
                 <label>Please specify the org's alias or user name</label>
                 <input type="text" className="form-control" value={this.props.alias} 
                     onChange={this.handleAliasChange}/>
-            </li>
+            </div>
         );
     }
 }

@@ -53,6 +53,9 @@ class Pagination extends Component {
                 {morePreviousExist? <PaginationDot/>: null}
                 {paginationItems}
                 {moreNextExist? <PaginationDot/>: null}
+                {moreNextExist? <PaginationItem key={maxCount} number={maxCount}
+                    currentPage={currentPage} 
+                    pageClick={this.props.pageClick}/>: null}
                 <li className="page-item">
                     <a href="#/" className="page-link" aria-label="Next" onClick={this.handleNextClick}>
                         <span aria-hidden="true">Next</span>
