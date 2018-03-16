@@ -46,9 +46,9 @@ class ProjectRow extends Component {
 							Action
 						</button>
 						<div className="dropdown-menu">
-							<a className="dropdown-item" href="#/" onClick={this.handleSetDefault}>Set as Default Project</a>
-							<a className="dropdown-item" href="#/" onClick={this.handleConvertCode}>Convert Code</a>
-							<a className="dropdown-item" href="#/" onClick={this.handleRemoveProject}>Remove Project</a>
+							<a className="dropdown-item" href="javascript:;" onClick={this.handleSetDefault}>Set as Default Project</a>
+							<a className="dropdown-item" href="javascript:;" onClick={this.handleConvertCode}>Convert Code</a>
+							<a className="dropdown-item" href="javascript:;" onClick={this.handleRemoveProject}>Remove Project</a>
 						</div>
 					</div>
 				</td>

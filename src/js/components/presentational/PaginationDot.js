@@ -4,7 +4,7 @@ class PaginationDot extends Component {
 	render() {
 		return (
             <li className="page-item disabled">
-                <a href="#/" className="page-link">...</a>
+                <a href="javascript:;" className="page-link">...</a>
             </li>
 		);
 	}

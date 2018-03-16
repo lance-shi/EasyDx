@@ -45,7 +45,7 @@ class Pagination extends Component {
 		return (
             <ul className="pagination">
                 <li className="page-item">
-                    <a href="#/" className="page-link" aria-label="Previous" onClick={this.handlePreviousClick}>
+                    <a href="javascript:;" className="page-link" aria-label="Previous" onClick={this.handlePreviousClick}>
                         <span aria-hidden="true">Prev</span>
                         <span className="sr-only">Previous</span>
                     </a>
@@ -57,7 +57,7 @@ class Pagination extends Component {
                     currentPage={currentPage} 
                     pageClick={this.props.pageClick}/>: null}
                 <li className="page-item">
-                    <a href="#/" className="page-link" aria-label="Next" onClick={this.handleNextClick}>
+                    <a href="javascript:;" className="page-link" aria-label="Next" onClick={this.handleNextClick}>
                         <span aria-hidden="true">Next</span>
                         <span className="sr-only">Next</span>
                     </a>

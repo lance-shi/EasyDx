@@ -18,7 +18,7 @@ class PaginationItem extends Component {
         }
 		return (
             <li className={"page-item" + activeString}>
-                <a href="#/" className="page-link" onClick={this.handleClick}>{this.props.number}</a>
+                <a href="javascript:;" className="page-link" onClick={this.handleClick}>{this.props.number}</a>
             </li>   
 		);
 	}

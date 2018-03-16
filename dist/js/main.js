@@ -3453,7 +3453,7 @@ var Pagination = function (_Component) {
                     { className: "page-item" },
                     _react2.default.createElement(
                         "a",
-                        { href: "#/", className: "page-link", "aria-label": "Previous", onClick: this.handlePreviousClick },
+                        { href: "javascript:;", className: "page-link", "aria-label": "Previous", onClick: this.handlePreviousClick },
                         _react2.default.createElement(
                             "span",
                             { "aria-hidden": "true" },
@@ -3477,7 +3477,7 @@ var Pagination = function (_Component) {
                     { className: "page-item" },
                     _react2.default.createElement(
                         "a",
-                        { href: "#/", className: "page-link", "aria-label": "Next", onClick: this.handleNextClick },
+                        { href: "javascript:;", className: "page-link", "aria-label": "Next", onClick: this.handleNextClick },
                         _react2.default.createElement(
                             "span",
                             { "aria-hidden": "true" },
@@ -26100,17 +26100,17 @@ var OrgRow = function (_Component) {
 							{ className: "dropdown-menu" },
 							_react2.default.createElement(
 								"a",
-								{ className: "dropdown-item", href: "#orgDetailsSection", onClick: this.handleShowDetail },
+								{ className: "dropdown-item", href: "javascript:;", onClick: this.handleShowDetail },
 								"Display Org Details"
 							),
 							_react2.default.createElement(
 								"a",
-								{ className: "dropdown-item", href: "#/", onClick: this.handleOpenOrg },
+								{ className: "dropdown-item", href: "javascript:;", onClick: this.handleOpenOrg },
 								"Open Org"
 							),
 							_react2.default.createElement(
 								"a",
-								{ className: "dropdown-item", href: "#/", onClick: this.handleDefaultOrg },
+								{ className: "dropdown-item", href: "javascript:;", onClick: this.handleDefaultOrg },
 								"Set as Default Org"
 							)
 						)
@@ -27071,17 +27071,17 @@ var ProjectRow = function (_Component) {
 							{ className: "dropdown-menu" },
 							_react2.default.createElement(
 								"a",
-								{ className: "dropdown-item", href: "#/", onClick: this.handleSetDefault },
+								{ className: "dropdown-item", href: "javascript:;", onClick: this.handleSetDefault },
 								"Set as Default Project"
 							),
 							_react2.default.createElement(
 								"a",
-								{ className: "dropdown-item", href: "#/", onClick: this.handleConvertCode },
+								{ className: "dropdown-item", href: "javascript:;", onClick: this.handleConvertCode },
 								"Convert Code"
 							),
 							_react2.default.createElement(
 								"a",
-								{ className: "dropdown-item", href: "#/", onClick: this.handleRemoveProject },
+								{ className: "dropdown-item", href: "javascript:;", onClick: this.handleRemoveProject },
 								"Remove Project"
 							)
 						)
@@ -27150,7 +27150,7 @@ var PaginationItem = function (_Component) {
                 { className: "page-item" + activeString },
                 _react2.default.createElement(
                     "a",
-                    { href: "#/", className: "page-link", onClick: this.handleClick },
+                    { href: "javascript:;", className: "page-link", onClick: this.handleClick },
                     this.props.number
                 )
             );
@@ -27204,7 +27204,7 @@ var PaginationDot = function (_Component) {
 				{ className: "page-item disabled" },
 				_react2.default.createElement(
 					"a",
-					{ href: "#/", className: "page-link" },
+					{ href: "javascript:;", className: "page-link" },
 					"..."
 				)
 			);
@@ -28487,7 +28487,7 @@ var Header = function (_Component) {
             return _react2.default.createElement(
                 "header",
                 { className: "app-header navbar" },
-                _react2.default.createElement("a", { href: "#", className: "navbar-brand" }),
+                _react2.default.createElement("a", { href: "javascript:;", className: "navbar-brand" }),
                 _react2.default.createElement(
                     "button",
                     { type: "button", className: "d-lg-none navbar-toggler" },
@@ -28501,7 +28501,7 @@ var Header = function (_Component) {
                         { className: "px-3 nav-item" },
                         _react2.default.createElement(
                             "a",
-                            { href: "#", className: "nav-link" },
+                            { href: "javascript:;", className: "nav-link" },
                             "Users"
                         )
                     )
