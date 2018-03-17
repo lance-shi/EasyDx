@@ -27,11 +27,13 @@ class ProjectList extends Component {
 
 		let projectRows = currentProjects.map(project=><ProjectRow key={project.directory} project={project}
 			setDefaultProj={this.props.setDefaultProj}
-			removeProject={this.props.removeProject}/>);
+			removeProject={this.props.removeProject}
+			reverseConvertProject={this.props.reverseConvertProject}
+			convertProject={this.props.convertProject}/>);
 		return (
 			<div className="card mb-4">
 				<div className="card-header">
-					<strong>Existing Projects</strong>
+					<strong>Current Projects</strong>
 				</div>
 				<div className="card-body">
 					<div className="table-responsive">

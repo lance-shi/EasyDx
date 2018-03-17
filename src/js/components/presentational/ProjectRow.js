@@ -6,6 +6,7 @@ class ProjectRow extends Component {
 		super(props);
 		this.handleSetDefault = this.handleSetDefault.bind(this);
 		this.handleConvertCode = this.handleConvertCode.bind(this);
+		this.handleReverseConvert = this.handleReverseConvert.bind(this);
 		this.handleRemoveProject = this.handleRemoveProject.bind(this);
 	}
 
@@ -14,15 +15,11 @@ class ProjectRow extends Component {
 	}
 
 	handleConvertCode() {
-		axios.post("api/convertProject", {
-			directory: this.props.project.directory
-		}).then((res) => {
-			if(res.status === 200) {
-				console.log("Project converted successfully!");
-			} else {
-				console.log("Error: " + res.data.err);
-			}
-		});
+		this.props.convertProject(this.props.project);
+	}
+
+	handleReverseConvert() {
+		this.props.reverseConvertProject(this.props.project);
 	}
 
 	handleRemoveProject() {
@@ -48,6 +45,7 @@ class ProjectRow extends Component {
 						<div className="dropdown-menu">
 							<a className="dropdown-item" href="javascript:;" onClick={this.handleSetDefault}>Set as Default Project</a>
 							<a className="dropdown-item" href="javascript:;" onClick={this.handleConvertCode}>Convert Code</a>
+							<a className="dropdown-item" href="javascript:;" onClick={this.handleReverseConvert}>Reverse Convert</a>
 							<a className="dropdown-item" href="javascript:;" onClick={this.handleRemoveProject}>Remove Project</a>
 						</div>
 					</div>
