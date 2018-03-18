@@ -15,14 +15,16 @@ class OrgListCard extends Component {
                         setDetailOrg={this.props.setDetailOrg}
                         toggleLoadingImage={this.props.toggleLoadingImage}
                         showAlertMessage={this.props.showAlertMessage}
-                        setDefaultOrg={this.props.setDefaultOrg}/>   
+                        setDefaultOrg={this.props.setDefaultOrg}
+                        deleteOrg={this.props.deleteOrg}/>   
                     <div className="divider"></div>
                     <OrgList orgs={this.props.scratchOrgs} title="Scratch Orgs"
                         key="scratchOrgs"
                         setDetailOrg={this.props.setDetailOrg}
                         toggleLoadingImage={this.props.toggleLoadingImage}
                         showAlertMessage={this.props.showAlertMessage}
-                        setDefaultOrg={this.props.setDefaultOrg}/>
+                        setDefaultOrg={this.props.setDefaultOrg}
+                        deleteOrg={this.props.deleteOrg}/>
                     <button id="orgInfo" type="button" className="btn btn-primary" 
 						onClick={this.props.handleRefreshOrgs}>Refresh Org List</button>
                 </div>

@@ -24745,6 +24745,7 @@ var OrgContainer = function (_Component) {
 		_this.setDefaultOrg = _this.setDefaultOrg.bind(_this);
 		_this.connectOrg = _this.connectOrg.bind(_this);
 		_this.createOrg = _this.createOrg.bind(_this);
+		_this.deleteOrg = _this.deleteOrg.bind(_this);
 		return _this;
 	}
 
@@ -24807,7 +24808,7 @@ var OrgContainer = function (_Component) {
 				this.showAlertMessage("danger", "Error: Please specify a default project first");
 				return;
 			}
-			this.setState({ showLoaidngImage: true });
+			this.toggleLoadingImage(true);
 			_axios2.default.post("/api/createOrg", {
 				isDefault: isDefault,
 				directory: this.state.currentProject.directory,
@@ -24826,9 +24827,48 @@ var OrgContainer = function (_Component) {
 			});
 		}
 	}, {
+		key: "deleteOrg",
+		value: function deleteOrg(orgName) {
+			var _this5 = this;
+
+			this.toggleLoadingImage(true);
+			_axios2.default.post("/api/deleteOrg", {
+				orgName: orgName
+			}).then(function (res) {
+				if (res.status === 200) {
+					var result = res.data.result;
+					_this5.setState({
+						showLoaidngImage: false
+					});
+					_this5.showAlertMessage("success", "Org removed successfully!");
+					for (var i = 0; i < _this5.state.scratchOrgs.length; i++) {
+						if (_this5.state.scratchOrgs[i].username === orgName) {
+							_this5.state.scratchOrgs.splice(i, 1);
+							_this5.setState({
+								scratchOrgs: _this5.state.scratchOrgs
+							});
+							return;
+						}
+					}
+					for (var _i = 0; _i < _this5.state.nonScratchOrgs.length; _i++) {
+						if (_this5.state.nonScratchOrgs[_i].username === orgName) {
+							_this5.state.nonScratchOrgs.splice(_i, 1);
+							_this5.setState({
+								nonScratchOrgs: _this5.state.nonScratchOrgs
+							});
+							return;
+						}
+					}
+				} else {
+					_this5.toggleLoadingImage(false);
+					_this5.showAlertMessage("danger", "Error:" + res.data.err);
+				}
+			});
+		}
+	}, {
 		key: "setDefaultOrg",
 		value: function setDefaultOrg(defaultUserName) {
-			var _this5 = this;
+			var _this6 = this;
 
 			if (!this.state.defaultProjectExists) {
 				this.showAlertMessage("danger", "Error: Please specify the default project first");
@@ -24841,31 +24881,31 @@ var OrgContainer = function (_Component) {
 				directory: this.state.currentProject.directory
 			}).then(function (res) {
 				if (res.status === 200) {
-					_this5.toggleLoadingImage(false);
-					_this5.showAlertMessage("success", "Default org set successfully");
-					for (var i = 0; i < _this5.state.scratchOrgs.length; i++) {
-						if (_this5.state.scratchOrgs[i].username !== defaultUserName) {
-							_this5.state.scratchOrgs[i].defaultMarker = "";
+					_this6.toggleLoadingImage(false);
+					_this6.showAlertMessage("success", "Default org set successfully");
+					for (var i = 0; i < _this6.state.scratchOrgs.length; i++) {
+						if (_this6.state.scratchOrgs[i].username !== defaultUserName) {
+							_this6.state.scratchOrgs[i].defaultMarker = "";
 						} else {
-							_this5.state.scratchOrgs[i].defaultMarker = "(U)";
+							_this6.state.scratchOrgs[i].defaultMarker = "(U)";
 						}
 					}
-					for (var _i = 0; _i < _this5.state.nonScratchOrgs.length; _i++) {
-						if (_this5.state.nonScratchOrgs[_i].defaultMarker !== "(D)") {
-							if (_this5.state.nonScratchOrgs[_i].username !== defaultUserName) {
-								_this5.state.nonScratchOrgs[_i].defaultMarker = "";
+					for (var _i2 = 0; _i2 < _this6.state.nonScratchOrgs.length; _i2++) {
+						if (_this6.state.nonScratchOrgs[_i2].defaultMarker !== "(D)") {
+							if (_this6.state.nonScratchOrgs[_i2].username !== defaultUserName) {
+								_this6.state.nonScratchOrgs[_i2].defaultMarker = "";
 							} else {
-								_this5.state.nonScratchOrgs[_i].defaultMarker = "(U)";
+								_this6.state.nonScratchOrgs[_i2].defaultMarker = "(U)";
 							}
 						}
 					}
-					_this5.setState({
-						scratchOrgs: _this5.state.scratchOrgs,
-						nonScratchOrgs: _this5.state.nonScratchOrgs
+					_this6.setState({
+						scratchOrgs: _this6.state.scratchOrgs,
+						nonScratchOrgs: _this6.state.nonScratchOrgs
 					});
 				} else {
-					_this5.toggleLoadingImage(false);
-					_this5.showAlertMessage("danger", "Error:" + res.data.err);
+					_this6.toggleLoadingImage(false);
+					_this6.showAlertMessage("danger", "Error:" + res.data.err);
 				}
 			});
 		}
@@ -24928,7 +24968,8 @@ var OrgContainer = function (_Component) {
 								toggleLoadingImage: this.toggleLoadingImage,
 								showAlertMessage: this.showAlertMessage,
 								setDefaultOrg: this.setDefaultOrg,
-								handleRefreshOrgs: this.handleRefreshOrgs.bind(this) })
+								handleRefreshOrgs: this.handleRefreshOrgs.bind(this),
+								deleteOrg: this.deleteOrg })
 						),
 						_react2.default.createElement(
 							"div",
@@ -25888,14 +25929,16 @@ var OrgListCard = function (_Component) {
                         setDetailOrg: this.props.setDetailOrg,
                         toggleLoadingImage: this.props.toggleLoadingImage,
                         showAlertMessage: this.props.showAlertMessage,
-                        setDefaultOrg: this.props.setDefaultOrg }),
+                        setDefaultOrg: this.props.setDefaultOrg,
+                        deleteOrg: this.props.deleteOrg }),
                     _react2.default.createElement("div", { className: "divider" }),
                     _react2.default.createElement(_OrgList2.default, { orgs: this.props.scratchOrgs, title: "Scratch Orgs",
                         key: "scratchOrgs",
                         setDetailOrg: this.props.setDetailOrg,
                         toggleLoadingImage: this.props.toggleLoadingImage,
                         showAlertMessage: this.props.showAlertMessage,
-                        setDefaultOrg: this.props.setDefaultOrg }),
+                        setDefaultOrg: this.props.setDefaultOrg,
+                        deleteOrg: this.props.deleteOrg }),
                     _react2.default.createElement(
                         "button",
                         { id: "orgInfo", type: "button", className: "btn btn-primary",
@@ -25939,7 +25982,8 @@ function OrgList(props) {
 			setDetailOrg: props.setDetailOrg,
 			toggleLoadingImage: props.toggleLoadingImage,
 			showAlertMessage: props.showAlertMessage,
-			setDefaultOrg: props.setDefaultOrg });
+			setDefaultOrg: props.setDefaultOrg,
+			deleteOrg: props.deleteOrg });
 	});
 	return _react2.default.createElement(
 		"div",
@@ -26031,7 +26075,7 @@ var OrgRow = function (_Component) {
 		_this.handleShowDetail = _this.handleShowDetail.bind(_this);
 		_this.handleOpenOrg = _this.handleOpenOrg.bind(_this);
 		_this.handleDefaultOrg = _this.handleDefaultOrg.bind(_this);
-
+		_this.handleDeleteOrg = _this.handleDeleteOrg.bind(_this);
 		return _this;
 	}
 
@@ -26057,6 +26101,14 @@ var OrgRow = function (_Component) {
 					_this2.props.showAlertMessage("danger", "Error:" + res.data.err);
 				}
 			});
+		}
+	}, {
+		key: "handleDeleteOrg",
+		value: function handleDeleteOrg() {
+			var confirmDelete = confirm("Are you sure you want to delete this org?");
+			if (confirmDelete === true) {
+				this.props.deleteOrg(this.props.org.username);
+			}
 		}
 	}, {
 		key: "handleDefaultOrg",
@@ -26112,6 +26164,11 @@ var OrgRow = function (_Component) {
 								"a",
 								{ className: "dropdown-item", href: "javascript:;", onClick: this.handleDefaultOrg },
 								"Set as Default Org"
+							),
+							_react2.default.createElement(
+								"a",
+								{ className: "dropdown-item", href: "javascript:;", onClick: this.handleDeleteOrg },
+								"Delete Org"
 							)
 						)
 					)

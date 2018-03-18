@@ -6,7 +6,8 @@ function OrgList(props) {
 		setDetailOrg={props.setDetailOrg} 
 		toggleLoadingImage={props.toggleLoadingImage}
 		showAlertMessage={props.showAlertMessage}
-		setDefaultOrg={props.setDefaultOrg}/>);
+		setDefaultOrg={props.setDefaultOrg}
+		deleteOrg={props.deleteOrg}/>);
 	return (
 		<div>
 			<h3 className="card-title">{props.title}</h3>

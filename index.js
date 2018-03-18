@@ -8,6 +8,7 @@ const listOrgRouter = require('./routes/listOrgRouter');
 const defaultOrgRouter = require('./routes/defaultOrgRouter');
 const connectOrgRouter = require('./routes/connectOrgRouter');
 const createOrgRouter = require('./routes/createOrgRouter');
+const deleteOrgRouter = require('./routes/deleteOrgRouter');
 const projectRouter = require('./routes/projectRouter');
 const addProjectRouter = require('./routes/addProjectRouter');
 const removeProjectRouter = require('./routes/removeProjectRouter');
@@ -19,7 +20,7 @@ const pushSourceRouter = require('./routes/pushSourceRouter');
 const retrieveSourceRouter = require('./routes/retrieveSourceRouter');
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3666;
 app.use(bodyParser.json());
 
 app.use("/api/org", orgRouter);
@@ -27,6 +28,7 @@ app.use("/api/listOrg", listOrgRouter);
 app.use("/api/defaultOrg", defaultOrgRouter);
 app.use("/api/connectOrg", connectOrgRouter);
 app.use("/api/createOrg", createOrgRouter);
+app.use("/api/deleteOrg", deleteOrgRouter);
 app.use("/api/project", projectRouter);
 app.use("/api/addProject", addProjectRouter);
 app.use("/api/defaultProject", defaultProjectRouter);

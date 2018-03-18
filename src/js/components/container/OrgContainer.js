@@ -50,6 +50,7 @@ class OrgContainer extends Component {
 		this.setDefaultOrg = this.setDefaultOrg.bind(this);
 		this.connectOrg = this.connectOrg.bind(this);
 		this.createOrg = this.createOrg.bind(this);
+		this.deleteOrg = this.deleteOrg.bind(this);
 	}
 
 	handleRefreshOrgs(e) {
@@ -101,7 +102,7 @@ class OrgContainer extends Component {
 			this.showAlertMessage("danger", "Error: Please specify a default project first");
 			return;
 		}
-		this.setState({showLoaidngImage: true});
+		this.toggleLoadingImage(true);
 		axios.post("/api/createOrg", {
 			isDefault: isDefault,
 			directory: this.state.currentProject.directory,
@@ -113,6 +114,42 @@ class OrgContainer extends Component {
 					showLoaidngImage: false
 				});
 				this.showAlertMessage("success", "Scratch org created successfully!");
+	        } else {
+				this.toggleLoadingImage(false);
+	        	this.showAlertMessage("danger", "Error:" + res.data.err);
+	        }
+		});
+	}
+
+	deleteOrg(orgName) {
+		this.toggleLoadingImage(true);
+		axios.post("/api/deleteOrg", {
+			orgName: orgName
+        }).then((res) => {
+			if(res.status === 200) {
+				let result = res.data.result;
+	            this.setState({
+					showLoaidngImage: false
+				});
+				this.showAlertMessage("success", "Org removed successfully!");
+				for(let i = 0; i < this.state.scratchOrgs.length; i++) {
+					if(this.state.scratchOrgs[i].username === orgName) {
+						this.state.scratchOrgs.splice(i, 1);
+						this.setState ({
+							scratchOrgs: this.state.scratchOrgs
+						});
+						return;
+					}
+				}
+				for(let i = 0; i < this.state.nonScratchOrgs.length; i++) {
+					if(this.state.nonScratchOrgs[i].username === orgName) {
+						this.state.nonScratchOrgs.splice(i, 1);
+						this.setState ({
+							nonScratchOrgs: this.state.nonScratchOrgs
+						});
+						return;
+					}
+				}
 	        } else {
 				this.toggleLoadingImage(false);
 	        	this.showAlertMessage("danger", "Error:" + res.data.err);
@@ -207,7 +244,8 @@ class OrgContainer extends Component {
 								toggleLoadingImage={this.toggleLoadingImage}
 								showAlertMessage={this.showAlertMessage}
 								setDefaultOrg={this.setDefaultOrg}
-								handleRefreshOrgs={this.handleRefreshOrgs.bind(this)}/>
+								handleRefreshOrgs={this.handleRefreshOrgs.bind(this)}
+								deleteOrg={this.deleteOrg}/>
 						</div>
 						<div className="col-md-12 col-lg-4">
 							<OrgConnect connectOrg={this.connectOrg}/>

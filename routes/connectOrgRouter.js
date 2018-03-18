@@ -23,6 +23,11 @@ connectOrgRouter.route('/')
     cmd.get(
         `sfdx force:auth:web:login${devhub}${alias}${sandbox} --json`,
         function(err, data, stderr) {
+            if(!err) {
+                console.log(data);
+            } else {
+                console.log(stderr);
+            }
         }
     );
     setTimeout(function() {

@@ -7,7 +7,7 @@ class OrgRow extends Component {
 		this.handleShowDetail = this.handleShowDetail.bind(this);
 		this.handleOpenOrg = this.handleOpenOrg.bind(this);
 		this.handleDefaultOrg = this.handleDefaultOrg.bind(this);
-
+		this.handleDeleteOrg = this.handleDeleteOrg.bind(this);
 	}
 
 	handleShowDetail() {
@@ -29,6 +29,13 @@ class OrgRow extends Component {
 	    });
 	}
 
+	handleDeleteOrg() {
+		let confirmDelete = confirm("Are you sure you want to delete this org?");
+		if(confirmDelete === true) {
+			this.props.deleteOrg(this.props.org.username);
+		}
+	}
+
 	handleDefaultOrg() {
 		this.props.setDefaultOrg(this.props.org.username);
 	}
@@ -48,6 +55,7 @@ class OrgRow extends Component {
 							<a className="dropdown-item" href="javascript:;" onClick={this.handleShowDetail}>Display Org Details</a>
 							<a className="dropdown-item" href="javascript:;" onClick={this.handleOpenOrg}>Open Org</a>
 							<a className="dropdown-item" href="javascript:;" onClick={this.handleDefaultOrg}>Set as Default Org</a>
+							<a className="dropdown-item" href="javascript:;" onClick={this.handleDeleteOrg}>Delete Org</a>
 						</div>
 					</div>
 				</td>
