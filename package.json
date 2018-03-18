@@ -11,7 +11,7 @@
     "watch": "webpack watch"
   },
   "author": "Lance Shi",
-  "license": "ISC",
+  "license": "GPLv3",
   "dependencies": {
     "axios": "^0.17.1",
     "bluebird": "^3.5.1",
