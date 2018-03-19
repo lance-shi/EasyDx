@@ -9,13 +9,15 @@ import SourceListCard from "../presentational/SourceListCard";
 import SourcePush from "../presentational/SourcePush";
 import SourceRetrieve from "../presentational/SourceRetrieve";
 import PageHeader from "../presentational/PageHeader";
+import ProjectConvertResult from "../presentational/ProjectConvertResult"
 
 class SourceContainer extends Component {
 	constructor() {
 		super();
 	    this.state = {
             remoteChanges: [],
-            localChanges: [],
+			localChanges: [],
+			pushedSource: [],
 			currentProject: {},
 			defaultProjectExists: false,
 			showLoaidngImage: false,
@@ -128,7 +130,10 @@ class SourceContainer extends Component {
 			force: forcePush
         }).then((res) => {
 			if(res.status === 200) {
-                let result = res.data.result;
+				let result = res.data.result;
+				this.setState({
+					pushedSource: result.pushedSource
+				});
 
 	            this.toggleLoadingImage(false);
 				this.showAlertMessage("success", "Source status pushed successfully!");
@@ -175,6 +180,8 @@ class SourceContainer extends Component {
 							<SourceListCard remoteChanges={this.state.remoteChanges}
 								localChanges={this.state.localChanges}
 								handleRefreshStatus={this.handleRefreshStatus.bind(this)}/>
+							{this.state.pushedSource.length > 0 ? <ProjectConvertResult title="Pushed Source"
+								convertResults={this.state.pushedSource}/>: null}
 						</div>
 						<div className="col-md-12 col-lg-4">
 							<SourcePush pushChanges={this.pushChanges}/>
