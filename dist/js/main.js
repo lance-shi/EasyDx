@@ -26686,7 +26686,7 @@ var OrgCreate = function (_Component) {
                             "div",
                             { className: "checkbox form-check" },
                             _react2.default.createElement("input", { type: "checkbox", defaultChecked: this.state.isDefault,
-                                onChange: this.handleDevHubChange, className: "form-check-input form-check-input" }),
+                                onChange: this.handleDefaultChange, className: "form-check-input form-check-input" }),
                             _react2.default.createElement(
                                 "label",
                                 { className: "form-check-label form-check-label" },

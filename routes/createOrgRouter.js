@@ -33,6 +33,7 @@ createOrgRouter.route('/')
             console.log(err);
             return;
         }
+
         cmd.get(
             `cd ${directory} && sfdx force:org:create -f config/project-scratch-def.json${alias}${defaultString} --json`,
             function(err, data, stderr) {
