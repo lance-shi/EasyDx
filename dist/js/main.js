@@ -27227,7 +27227,10 @@ var ProjectRow = function (_Component) {
 	}, {
 		key: "handleRemoveProject",
 		value: function handleRemoveProject() {
-			this.props.removeProject(this.props.project);
+			var confirmDelete = confirm("Are you sure you want to remove this project?");
+			if (confirmDelete === true) {
+				this.props.removeProject(this.props.project);
+			}
 		}
 	}, {
 		key: "render",

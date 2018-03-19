@@ -28,7 +28,10 @@ class ProjectRow extends Component {
 	}
 
 	handleRemoveProject() {
-		this.props.removeProject(this.props.project);
+		let confirmDelete = confirm("Are you sure you want to remove this project?");
+		if(confirmDelete === true) {
+			this.props.removeProject(this.props.project);
+		}
 	}
 
 	render() {
