@@ -24743,6 +24743,7 @@ var OrgContainer = function (_Component) {
 		_this.showAlertMessage = _this.showAlertMessage.bind(_this);
 		_this.hideAlertMessage = _this.hideAlertMessage.bind(_this);
 		_this.setDefaultOrg = _this.setDefaultOrg.bind(_this);
+		_this.setDefaultDevhub = _this.setDefaultDevhub.bind(_this);
 		_this.connectOrg = _this.connectOrg.bind(_this);
 		_this.createOrg = _this.createOrg.bind(_this);
 		_this.deleteOrg = _this.deleteOrg.bind(_this);
@@ -24792,7 +24793,7 @@ var OrgContainer = function (_Component) {
 					_this3.setState({
 						showLoaidngImage: false
 					});
-					_this3.showAlertMessage("success", "Org connected successfully!");
+					_this3.showAlertMessage("success", "Please input your user name and password in the opening tab and you will be connected successfully!");
 				} else {
 					_this3.toggleLoadingImage(false);
 					_this3.showAlertMessage("danger", "Error:" + res.data.err);
@@ -24910,6 +24911,40 @@ var OrgContainer = function (_Component) {
 			});
 		}
 	}, {
+		key: "setDefaultDevhub",
+		value: function setDefaultDevhub(orgName) {
+			var _this7 = this;
+
+			if (!this.state.defaultProjectExists) {
+				this.showAlertMessage("danger", "Error: Please specify the default project first");
+				return;
+			}
+
+			this.toggleLoadingImage(true);
+			_axios2.default.post("api/defaultDevhub", {
+				username: orgName,
+				directory: this.state.currentProject.directory
+			}).then(function (res) {
+				if (res.status === 200) {
+					_this7.toggleLoadingImage(false);
+					_this7.showAlertMessage("success", "Default devhub set successfully");
+					for (var i = 0; i < _this7.state.nonScratchOrgs.length; i++) {
+						if (_this7.state.nonScratchOrgs[i].username !== orgName) {
+							_this7.state.nonScratchOrgs[i].defaultMarker = "";
+						} else {
+							_this7.state.nonScratchOrgs[i].defaultMarker = "(D)";
+						}
+					}
+					_this7.setState({
+						nonScratchOrgs: _this7.state.nonScratchOrgs
+					});
+				} else {
+					_this7.toggleLoadingImage(false);
+					_this7.showAlertMessage("danger", "Error:" + res.data.err);
+				}
+			});
+		}
+	}, {
 		key: "showAlertMessage",
 		value: function showAlertMessage(alertClass, alertMessage) {
 			this.setState({
@@ -24968,6 +25003,7 @@ var OrgContainer = function (_Component) {
 								toggleLoadingImage: this.toggleLoadingImage,
 								showAlertMessage: this.showAlertMessage,
 								setDefaultOrg: this.setDefaultOrg,
+								setDefaultDevhub: this.setDefaultDevhub,
 								handleRefreshOrgs: this.handleRefreshOrgs.bind(this),
 								deleteOrg: this.deleteOrg })
 						),
@@ -25930,6 +25966,7 @@ var OrgListCard = function (_Component) {
                         toggleLoadingImage: this.props.toggleLoadingImage,
                         showAlertMessage: this.props.showAlertMessage,
                         setDefaultOrg: this.props.setDefaultOrg,
+                        setDefaultDevhub: this.props.setDefaultDevhub,
                         deleteOrg: this.props.deleteOrg }),
                     _react2.default.createElement("div", { className: "divider" }),
                     _react2.default.createElement(_OrgList2.default, { orgs: this.props.scratchOrgs, title: "Scratch Orgs",
@@ -25938,6 +25975,7 @@ var OrgListCard = function (_Component) {
                         toggleLoadingImage: this.props.toggleLoadingImage,
                         showAlertMessage: this.props.showAlertMessage,
                         setDefaultOrg: this.props.setDefaultOrg,
+                        setDefaultDevhub: this.props.setDefaultDevhub,
                         deleteOrg: this.props.deleteOrg }),
                     _react2.default.createElement(
                         "button",
@@ -25983,6 +26021,7 @@ function OrgList(props) {
 			toggleLoadingImage: props.toggleLoadingImage,
 			showAlertMessage: props.showAlertMessage,
 			setDefaultOrg: props.setDefaultOrg,
+			setDefaultDevhub: props.setDefaultDevhub,
 			deleteOrg: props.deleteOrg });
 	});
 	return _react2.default.createElement(
@@ -26076,6 +26115,7 @@ var OrgRow = function (_Component) {
 		_this.handleOpenOrg = _this.handleOpenOrg.bind(_this);
 		_this.handleDefaultOrg = _this.handleDefaultOrg.bind(_this);
 		_this.handleDeleteOrg = _this.handleDeleteOrg.bind(_this);
+		_this.handleDefaultDevhub = _this.handleDefaultDevhub.bind(_this);
 		return _this;
 	}
 
@@ -26114,6 +26154,11 @@ var OrgRow = function (_Component) {
 		key: "handleDefaultOrg",
 		value: function handleDefaultOrg() {
 			this.props.setDefaultOrg(this.props.org.username);
+		}
+	}, {
+		key: "handleDefaultDevhub",
+		value: function handleDefaultDevhub() {
+			this.props.setDefaultDevhub(this.props.org.username);
 		}
 	}, {
 		key: "render",
@@ -26164,6 +26209,11 @@ var OrgRow = function (_Component) {
 								"a",
 								{ className: "dropdown-item", href: "javascript:;", onClick: this.handleDefaultOrg },
 								"Set as Default Org"
+							),
+							_react2.default.createElement(
+								"a",
+								{ className: "dropdown-item", href: "javascript:;", onClick: this.handleDefaultDevhub },
+								"Set as Default Devhub"
 							),
 							_react2.default.createElement(
 								"a",

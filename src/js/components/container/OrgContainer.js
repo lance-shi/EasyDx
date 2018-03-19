@@ -48,6 +48,7 @@ class OrgContainer extends Component {
 		this.showAlertMessage = this.showAlertMessage.bind(this);
 		this.hideAlertMessage = this.hideAlertMessage.bind(this);
 		this.setDefaultOrg = this.setDefaultOrg.bind(this);
+		this.setDefaultDevhub = this.setDefaultDevhub.bind(this);
 		this.connectOrg = this.connectOrg.bind(this);
 		this.createOrg = this.createOrg.bind(this);
 		this.deleteOrg = this.deleteOrg.bind(this);
@@ -89,7 +90,7 @@ class OrgContainer extends Component {
 	            this.setState({
 					showLoaidngImage: false
 				});
-				this.showAlertMessage("success", "Org connected successfully!");
+				this.showAlertMessage("success", "Please input your user name and password in the opening tab and you will be connected successfully!");
 	        } else {
 				this.toggleLoadingImage(false);
 	        	this.showAlertMessage("danger", "Error:" + res.data.err);
@@ -197,6 +198,37 @@ class OrgContainer extends Component {
 			}
 		});
 	}
+
+	setDefaultDevhub(orgName) {
+		if(!this.state.defaultProjectExists) {
+			this.showAlertMessage("danger", "Error: Please specify the default project first");
+			return;
+		}
+
+		this.toggleLoadingImage(true);
+		axios.post("api/defaultDevhub", {
+			username: orgName,
+			directory: this.state.currentProject.directory
+		}).then((res) => {
+			if(res.status === 200) {
+				this.toggleLoadingImage(false);
+				this.showAlertMessage("success", "Default devhub set successfully");
+				for(let i = 0; i < this.state.nonScratchOrgs.length; i++) {
+					if(this.state.nonScratchOrgs[i].username !== orgName) {
+						this.state.nonScratchOrgs[i].defaultMarker = "";
+					} else {
+						this.state.nonScratchOrgs[i].defaultMarker = "(D)";
+					}
+				}
+				this.setState ({
+					nonScratchOrgs: this.state.nonScratchOrgs
+				});
+			} else {
+				this.toggleLoadingImage(false);
+				this.showAlertMessage("danger", "Error:" + res.data.err);
+			}
+		});
+	}
 	
 	showAlertMessage(alertClass, alertMessage) {
 		this.setState({
@@ -244,6 +276,7 @@ class OrgContainer extends Component {
 								toggleLoadingImage={this.toggleLoadingImage}
 								showAlertMessage={this.showAlertMessage}
 								setDefaultOrg={this.setDefaultOrg}
+								setDefaultDevhub={this.setDefaultDevhub}
 								handleRefreshOrgs={this.handleRefreshOrgs.bind(this)}
 								deleteOrg={this.deleteOrg}/>
 						</div>

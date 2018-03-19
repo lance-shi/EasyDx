@@ -16,6 +16,7 @@ class OrgListCard extends Component {
                         toggleLoadingImage={this.props.toggleLoadingImage}
                         showAlertMessage={this.props.showAlertMessage}
                         setDefaultOrg={this.props.setDefaultOrg}
+                        setDefaultDevhub={this.props.setDefaultDevhub}
                         deleteOrg={this.props.deleteOrg}/>   
                     <div className="divider"></div>
                     <OrgList orgs={this.props.scratchOrgs} title="Scratch Orgs"
@@ -24,6 +25,7 @@ class OrgListCard extends Component {
                         toggleLoadingImage={this.props.toggleLoadingImage}
                         showAlertMessage={this.props.showAlertMessage}
                         setDefaultOrg={this.props.setDefaultOrg}
+                        setDefaultDevhub={this.props.setDefaultDevhub}
                         deleteOrg={this.props.deleteOrg}/>
                     <button id="orgInfo" type="button" className="btn btn-primary" 
 						onClick={this.props.handleRefreshOrgs}>Refresh Org List</button>

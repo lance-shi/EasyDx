@@ -8,6 +8,7 @@ class OrgRow extends Component {
 		this.handleOpenOrg = this.handleOpenOrg.bind(this);
 		this.handleDefaultOrg = this.handleDefaultOrg.bind(this);
 		this.handleDeleteOrg = this.handleDeleteOrg.bind(this);
+		this.handleDefaultDevhub = this.handleDefaultDevhub.bind(this);
 	}
 
 	handleShowDetail() {
@@ -40,6 +41,10 @@ class OrgRow extends Component {
 		this.props.setDefaultOrg(this.props.org.username);
 	}
 
+	handleDefaultDevhub() {
+		this.props.setDefaultDevhub(this.props.org.username);
+	}
+
 	render() {
 		return (
 			<tr>
@@ -55,6 +60,7 @@ class OrgRow extends Component {
 							<a className="dropdown-item" href="javascript:;" onClick={this.handleShowDetail}>Display Org Details</a>
 							<a className="dropdown-item" href="javascript:;" onClick={this.handleOpenOrg}>Open Org</a>
 							<a className="dropdown-item" href="javascript:;" onClick={this.handleDefaultOrg}>Set as Default Org</a>
+							<a className="dropdown-item" href="javascript:;" onClick={this.handleDefaultDevhub}>Set as Default Devhub</a>
 							<a className="dropdown-item" href="javascript:;" onClick={this.handleDeleteOrg}>Delete Org</a>
 						</div>
 					</div>

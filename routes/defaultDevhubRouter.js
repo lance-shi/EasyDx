@@ -3,11 +3,11 @@ const bodyParser = require('body-parser');
 const cmd = require('node-cmd');
 const fs = require('fs');
 
-const defaultOrgRouter = express.Router();
+const defaultDevhubRouter = express.Router();
 
-defaultOrgRouter.use(bodyParser.json());
+defaultDevhubRouter.use(bodyParser.json());
 
-defaultOrgRouter.route('/')
+defaultDevhubRouter.route('/')
 .post((req, res) => {
     let directory = req.body.directory;
     const sfdxProjFileName = 'sfdx-project.json';
@@ -25,7 +25,7 @@ defaultOrgRouter.route('/')
             return;
         }
         cmd.get(
-            `cd ${directory} && sfdx force:config:set defaultusername=${req.body.username} --json`,
+            `cd ${directory} && sfdx force:config:set defaultdevhubusername=${req.body.username} --json`,
             function(err, data, stderr) {
                 if(!err) {
                     res.statusCode = 200;
@@ -42,4 +42,4 @@ defaultOrgRouter.route('/')
     });
 });
 
-module.exports = defaultOrgRouter;
+module.exports = defaultDevhubRouter;

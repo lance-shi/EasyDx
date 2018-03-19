@@ -7,6 +7,7 @@ function OrgList(props) {
 		toggleLoadingImage={props.toggleLoadingImage}
 		showAlertMessage={props.showAlertMessage}
 		setDefaultOrg={props.setDefaultOrg}
+		setDefaultDevhub={props.setDefaultDevhub}
 		deleteOrg={props.deleteOrg}/>);
 	return (
 		<div>
