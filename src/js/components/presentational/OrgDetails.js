@@ -13,45 +13,53 @@ class OrgDetails extends Component {
 
         return (
             <div className="card mb-4">
+                <div className="card-header">
+                    <strong>Org Details</strong>
+                </div>
                 <div className="card-body">
-                    <h3 className="card-title">{this.props.org.alias?this.props.org.alias:"Anonymous"}</h3>
-                    <div className="row">
-                        <div className="col-sm-3">User Name: </div>
-                        <div className="col-sm-6">{this.props.org.username}</div>
-                    </div>
-                    <div className="row">
-                        <div className="col-sm-3">Alias: </div>
-                        <div className="col-sm-6">{this.props.org.alias}</div>
-                    </div>
-                    <div className="row">
-                        <div className="col-sm-3">Org Id: </div>
-                        <div className="col-sm-6">{this.props.org.orgId}</div>
-                    </div>
-                    <div className="row">
-                        <div className="col-sm-3">Connected Status: </div>
-                        <div className="col-sm-6">
-                            <span className={"badge badge-" + connectionStatus}>{this.props.org.connectedStatus}</span>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-sm-3">Instance Url: </div>
-                        <div className="col-sm-6">{this.props.org.instanceUrl}</div>
-                    </div>
-                    <div className="row">
-                        <div className="col-sm-3">Login Url: </div>
-                        <div className="col-sm-6">{this.props.org.loginUrl}</div>
-                    </div>
-                    <div className="row">
-                        <div className="col-sm-3">Last Used: </div>
-                        <div className="col-sm-6">{this.props.org.lastUsed}</div>
-                    </div>
-                    <div className="row">
-                        <div className="col-sm-3">Expiration Date: </div>
-                        <div className="col-sm-6">{this.props.org.expirationDate}</div>
-                    </div>
-                    <div className="row">
-                        <div className="col-sm-3">DevHub User Name: </div>
-                        <div className="col-sm-6">{this.props.org.devHubUsername}</div>
+                    <div className="table-responsive">
+                        <table className="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <td>User Name:</td>
+                                    <td>{this.props.org.username}</td>
+                                </tr>
+                                <tr>
+                                    <td>Alias: </td>
+                                    <td>{this.props.org.alias}</td>
+                                </tr>
+                                <tr>
+                                    <td>Org Id: </td>
+                                    <td>{this.props.org.orgId}</td>
+                                </tr>
+                                <tr>
+                                    <td>Connected Status: </td>
+                                    <td>
+                                        <span className={"badge badge-" + connectionStatus}>{this.props.org.connectedStatus}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Instance Url: </td>
+                                    <td>{this.props.org.instanceUrl}</td>
+                                </tr>
+                                <tr>
+                                    <td>Login Url: </td>
+                                    <td>{this.props.org.loginUrl}</td>
+                                </tr>
+                                <tr>
+                                    <td>Last Used: </td>
+                                    <td>{this.props.org.lastUsed}</td>
+                                </tr>
+                                <tr>
+                                    <td>Expiration Date: </td>
+                                    <td>{this.props.org.expirationDate}</td>
+                                </tr>
+                                <tr>
+                                    <td>DevHub User Name: </td>
+                                    <td>{this.props.org.devHubUsername}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

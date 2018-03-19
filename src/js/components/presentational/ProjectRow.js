@@ -10,6 +10,11 @@ class ProjectRow extends Component {
 		this.handleRemoveProject = this.handleRemoveProject.bind(this);
 	}
 
+	componentDidMount() {
+		$(this.refs.reverseDropDown).tooltip();
+		$(this.refs.convertDropDown).tooltip();
+	}
+
 	handleSetDefault() {
 		this.props.setDefaultProj(this.props.project);
 	}
@@ -44,8 +49,18 @@ class ProjectRow extends Component {
 						</button>
 						<div className="dropdown-menu">
 							<a className="dropdown-item" href="javascript:;" onClick={this.handleSetDefault}>Set as Default Project</a>
-							<a className="dropdown-item" href="javascript:;" onClick={this.handleConvertCode}>Convert Code</a>
-							<a className="dropdown-item" href="javascript:;" onClick={this.handleReverseConvert}>Reverse Convert</a>
+							<a className="dropdown-item" href="javascript:;" onClick={this.handleConvertCode}
+								data-toggle="tooltip" data-placement="bottom" 
+								title="Convert DX project into metadata in outputTmp folder that you can deploy using Metadata API"
+								ref="convertDropDown">
+								Convert Code
+							</a>
+							<a className="dropdown-item" href="javascript:;" onClick={this.handleReverseConvert}
+								data-toggle="tooltip" data-placement="bottom" 
+								title="Convert metadata retrieved inside inputTmp folder back into DX project"
+								ref="reverseDropDown">
+								Reverse Convert
+							</a>
 							<a className="dropdown-item" href="javascript:;" onClick={this.handleRemoveProject}>Remove Project</a>
 						</div>
 					</div>

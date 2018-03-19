@@ -12,19 +12,21 @@ function OrgList(props) {
 	return (
 		<div>
 			<h3 className="card-title">{props.title}</h3>
-			<table className="table table-striped">
-				<thead>
-					<tr>
-						<th>Default</th>
-						<th>User Name</th>
-						<th>Alias</th>
-						<th>Action</th>
-					</tr>
-				</thead>
-				<tbody>
-					{orgRows}
-				</tbody>
-			</table>
+			<div className="table-responsive">
+				<table className="table table-striped">
+					<thead>
+						<tr>
+							<th>Default</th>
+							<th>User Name</th>
+							<th>Alias</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						{orgRows}
+					</tbody>
+				</table>
+			</div>
 		</div>
 	);
 }

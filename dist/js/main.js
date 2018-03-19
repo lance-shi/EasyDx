@@ -26033,40 +26033,44 @@ function OrgList(props) {
 			props.title
 		),
 		_react2.default.createElement(
-			"table",
-			{ className: "table table-striped" },
+			"div",
+			{ className: "table-responsive" },
 			_react2.default.createElement(
-				"thead",
-				null,
+				"table",
+				{ className: "table table-striped" },
 				_react2.default.createElement(
-					"tr",
+					"thead",
 					null,
 					_react2.default.createElement(
-						"th",
+						"tr",
 						null,
-						"Default"
-					),
-					_react2.default.createElement(
-						"th",
-						null,
-						"User Name"
-					),
-					_react2.default.createElement(
-						"th",
-						null,
-						"Alias"
-					),
-					_react2.default.createElement(
-						"th",
-						null,
-						"Action"
+						_react2.default.createElement(
+							"th",
+							null,
+							"Default"
+						),
+						_react2.default.createElement(
+							"th",
+							null,
+							"User Name"
+						),
+						_react2.default.createElement(
+							"th",
+							null,
+							"Alias"
+						),
+						_react2.default.createElement(
+							"th",
+							null,
+							"Action"
+						)
 					)
+				),
+				_react2.default.createElement(
+					"tbody",
+					null,
+					orgRows
 				)
-			),
-			_react2.default.createElement(
-				"tbody",
-				null,
-				orgRows
 			)
 		)
 	);
@@ -26283,140 +26287,156 @@ var OrgDetails = function (_Component) {
                 { className: "card mb-4" },
                 _react2.default.createElement(
                     "div",
+                    { className: "card-header" },
+                    _react2.default.createElement(
+                        "strong",
+                        null,
+                        "Org Details"
+                    )
+                ),
+                _react2.default.createElement(
+                    "div",
                     { className: "card-body" },
                     _react2.default.createElement(
-                        "h3",
-                        { className: "card-title" },
-                        this.props.org.alias ? this.props.org.alias : "Anonymous"
-                    ),
-                    _react2.default.createElement(
                         "div",
-                        { className: "row" },
+                        { className: "table-responsive" },
                         _react2.default.createElement(
-                            "div",
-                            { className: "col-sm-3" },
-                            "User Name: "
-                        ),
-                        _react2.default.createElement(
-                            "div",
-                            { className: "col-sm-6" },
-                            this.props.org.username
-                        )
-                    ),
-                    _react2.default.createElement(
-                        "div",
-                        { className: "row" },
-                        _react2.default.createElement(
-                            "div",
-                            { className: "col-sm-3" },
-                            "Alias: "
-                        ),
-                        _react2.default.createElement(
-                            "div",
-                            { className: "col-sm-6" },
-                            this.props.org.alias
-                        )
-                    ),
-                    _react2.default.createElement(
-                        "div",
-                        { className: "row" },
-                        _react2.default.createElement(
-                            "div",
-                            { className: "col-sm-3" },
-                            "Org Id: "
-                        ),
-                        _react2.default.createElement(
-                            "div",
-                            { className: "col-sm-6" },
-                            this.props.org.orgId
-                        )
-                    ),
-                    _react2.default.createElement(
-                        "div",
-                        { className: "row" },
-                        _react2.default.createElement(
-                            "div",
-                            { className: "col-sm-3" },
-                            "Connected Status: "
-                        ),
-                        _react2.default.createElement(
-                            "div",
-                            { className: "col-sm-6" },
+                            "table",
+                            { className: "table table-striped" },
                             _react2.default.createElement(
-                                "span",
-                                { className: "badge badge-" + connectionStatus },
-                                this.props.org.connectedStatus
+                                "tbody",
+                                null,
+                                _react2.default.createElement(
+                                    "tr",
+                                    null,
+                                    _react2.default.createElement(
+                                        "td",
+                                        null,
+                                        "User Name:"
+                                    ),
+                                    _react2.default.createElement(
+                                        "td",
+                                        null,
+                                        this.props.org.username
+                                    )
+                                ),
+                                _react2.default.createElement(
+                                    "tr",
+                                    null,
+                                    _react2.default.createElement(
+                                        "td",
+                                        null,
+                                        "Alias: "
+                                    ),
+                                    _react2.default.createElement(
+                                        "td",
+                                        null,
+                                        this.props.org.alias
+                                    )
+                                ),
+                                _react2.default.createElement(
+                                    "tr",
+                                    null,
+                                    _react2.default.createElement(
+                                        "td",
+                                        null,
+                                        "Org Id: "
+                                    ),
+                                    _react2.default.createElement(
+                                        "td",
+                                        null,
+                                        this.props.org.orgId
+                                    )
+                                ),
+                                _react2.default.createElement(
+                                    "tr",
+                                    null,
+                                    _react2.default.createElement(
+                                        "td",
+                                        null,
+                                        "Connected Status: "
+                                    ),
+                                    _react2.default.createElement(
+                                        "td",
+                                        null,
+                                        _react2.default.createElement(
+                                            "span",
+                                            { className: "badge badge-" + connectionStatus },
+                                            this.props.org.connectedStatus
+                                        )
+                                    )
+                                ),
+                                _react2.default.createElement(
+                                    "tr",
+                                    null,
+                                    _react2.default.createElement(
+                                        "td",
+                                        null,
+                                        "Instance Url: "
+                                    ),
+                                    _react2.default.createElement(
+                                        "td",
+                                        null,
+                                        this.props.org.instanceUrl
+                                    )
+                                ),
+                                _react2.default.createElement(
+                                    "tr",
+                                    null,
+                                    _react2.default.createElement(
+                                        "td",
+                                        null,
+                                        "Login Url: "
+                                    ),
+                                    _react2.default.createElement(
+                                        "td",
+                                        null,
+                                        this.props.org.loginUrl
+                                    )
+                                ),
+                                _react2.default.createElement(
+                                    "tr",
+                                    null,
+                                    _react2.default.createElement(
+                                        "td",
+                                        null,
+                                        "Last Used: "
+                                    ),
+                                    _react2.default.createElement(
+                                        "td",
+                                        null,
+                                        this.props.org.lastUsed
+                                    )
+                                ),
+                                _react2.default.createElement(
+                                    "tr",
+                                    null,
+                                    _react2.default.createElement(
+                                        "td",
+                                        null,
+                                        "Expiration Date: "
+                                    ),
+                                    _react2.default.createElement(
+                                        "td",
+                                        null,
+                                        this.props.org.expirationDate
+                                    )
+                                ),
+                                _react2.default.createElement(
+                                    "tr",
+                                    null,
+                                    _react2.default.createElement(
+                                        "td",
+                                        null,
+                                        "DevHub User Name: "
+                                    ),
+                                    _react2.default.createElement(
+                                        "td",
+                                        null,
+                                        this.props.org.devHubUsername
+                                    )
+                                )
                             )
-                        )
-                    ),
-                    _react2.default.createElement(
-                        "div",
-                        { className: "row" },
-                        _react2.default.createElement(
-                            "div",
-                            { className: "col-sm-3" },
-                            "Instance Url: "
-                        ),
-                        _react2.default.createElement(
-                            "div",
-                            { className: "col-sm-6" },
-                            this.props.org.instanceUrl
-                        )
-                    ),
-                    _react2.default.createElement(
-                        "div",
-                        { className: "row" },
-                        _react2.default.createElement(
-                            "div",
-                            { className: "col-sm-3" },
-                            "Login Url: "
-                        ),
-                        _react2.default.createElement(
-                            "div",
-                            { className: "col-sm-6" },
-                            this.props.org.loginUrl
-                        )
-                    ),
-                    _react2.default.createElement(
-                        "div",
-                        { className: "row" },
-                        _react2.default.createElement(
-                            "div",
-                            { className: "col-sm-3" },
-                            "Last Used: "
-                        ),
-                        _react2.default.createElement(
-                            "div",
-                            { className: "col-sm-6" },
-                            this.props.org.lastUsed
-                        )
-                    ),
-                    _react2.default.createElement(
-                        "div",
-                        { className: "row" },
-                        _react2.default.createElement(
-                            "div",
-                            { className: "col-sm-3" },
-                            "Expiration Date: "
-                        ),
-                        _react2.default.createElement(
-                            "div",
-                            { className: "col-sm-6" },
-                            this.props.org.expirationDate
-                        )
-                    ),
-                    _react2.default.createElement(
-                        "div",
-                        { className: "row" },
-                        _react2.default.createElement(
-                            "div",
-                            { className: "col-sm-3" },
-                            "DevHub User Name: "
-                        ),
-                        _react2.default.createElement(
-                            "div",
-                            { className: "col-sm-6" },
-                            this.props.org.devHubUsername
                         )
                     )
                 )
@@ -27184,6 +27204,12 @@ var ProjectRow = function (_Component) {
 	}
 
 	_createClass(ProjectRow, [{
+		key: "componentDidMount",
+		value: function componentDidMount() {
+			$(this.refs.reverseDropDown).tooltip();
+			$(this.refs.convertDropDown).tooltip();
+		}
+	}, {
 		key: "handleSetDefault",
 		value: function handleSetDefault() {
 			this.props.setDefaultProj(this.props.project);
@@ -27250,12 +27276,18 @@ var ProjectRow = function (_Component) {
 							),
 							_react2.default.createElement(
 								"a",
-								{ className: "dropdown-item", href: "javascript:;", onClick: this.handleConvertCode },
+								{ className: "dropdown-item", href: "javascript:;", onClick: this.handleConvertCode,
+									"data-toggle": "tooltip", "data-placement": "bottom",
+									title: "Convert DX project into metadata in outputTmp folder that you can deploy using Metadata API",
+									ref: "convertDropDown" },
 								"Convert Code"
 							),
 							_react2.default.createElement(
 								"a",
-								{ className: "dropdown-item", href: "javascript:;", onClick: this.handleReverseConvert },
+								{ className: "dropdown-item", href: "javascript:;", onClick: this.handleReverseConvert,
+									"data-toggle": "tooltip", "data-placement": "bottom",
+									title: "Convert metadata retrieved inside inputTmp folder back into DX project",
+									ref: "reverseDropDown" },
 								"Reverse Convert"
 							),
 							_react2.default.createElement(
