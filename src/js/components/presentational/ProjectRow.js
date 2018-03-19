@@ -53,13 +53,13 @@ class ProjectRow extends Component {
 						<div className="dropdown-menu">
 							<a className="dropdown-item" href="javascript:;" onClick={this.handleSetDefault}>Set as Default Project</a>
 							<a className="dropdown-item" href="javascript:;" onClick={this.handleConvertCode}
-								data-toggle="tooltip" data-placement="bottom" 
+								data-toggle="tooltip" data-placement="left" 
 								title="Convert DX project into metadata in outputTmp folder that you can deploy using Metadata API"
 								ref="convertDropDown">
 								Convert Code
 							</a>
 							<a className="dropdown-item" href="javascript:;" onClick={this.handleReverseConvert}
-								data-toggle="tooltip" data-placement="bottom" 
+								data-toggle="tooltip" data-placement="left" 
 								title="Convert metadata retrieved inside inputTmp folder back into DX project"
 								ref="reverseDropDown">
 								Reverse Convert

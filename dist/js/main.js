@@ -26034,7 +26034,7 @@ function OrgList(props) {
 		),
 		_react2.default.createElement(
 			"div",
-			{ className: "table-responsive" },
+			null,
 			_react2.default.createElement(
 				"table",
 				{ className: "table table-striped" },
@@ -27280,7 +27280,7 @@ var ProjectRow = function (_Component) {
 							_react2.default.createElement(
 								"a",
 								{ className: "dropdown-item", href: "javascript:;", onClick: this.handleConvertCode,
-									"data-toggle": "tooltip", "data-placement": "bottom",
+									"data-toggle": "tooltip", "data-placement": "left",
 									title: "Convert DX project into metadata in outputTmp folder that you can deploy using Metadata API",
 									ref: "convertDropDown" },
 								"Convert Code"
@@ -27288,7 +27288,7 @@ var ProjectRow = function (_Component) {
 							_react2.default.createElement(
 								"a",
 								{ className: "dropdown-item", href: "javascript:;", onClick: this.handleReverseConvert,
-									"data-toggle": "tooltip", "data-placement": "bottom",
+									"data-toggle": "tooltip", "data-placement": "left",
 									title: "Convert metadata retrieved inside inputTmp folder back into DX project",
 									ref: "reverseDropDown" },
 								"Reverse Convert"

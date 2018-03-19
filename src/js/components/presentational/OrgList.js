@@ -12,7 +12,7 @@ function OrgList(props) {
 	return (
 		<div>
 			<h3 className="card-title">{props.title}</h3>
-			<div className="table-responsive">
+			<div>
 				<table className="table table-striped">
 					<thead>
 						<tr>
