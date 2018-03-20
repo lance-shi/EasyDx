@@ -4,6 +4,7 @@ class DeployFailedResultRow extends Component {
 	render() {
 		return (
 			<tr>
+                <td><span className="badge badge-danger">{this.props.failedResult.state}</span></td>
 				<td>{this.props.failedResult.columnNumber}</td>
 				<td>{this.props.failedResult.lineNumber}</td>
 				<td>{this.props.failedResult.error}</td>

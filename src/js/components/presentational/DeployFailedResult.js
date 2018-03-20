@@ -38,6 +38,7 @@ class DeployFailedResult extends Component {
                         <table className="table table-striped">
                             <thead>
                                 <tr>
+                                    <th>State</th>
                                     <th>Column</th>
                                     <th>Line</th>
                                     <th>Error</th>

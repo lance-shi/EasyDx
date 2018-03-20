@@ -25,13 +25,14 @@ pushSourceRouter.route('/')
             return;
         }
         let forceOption = "";
-        if(req.force === true) {
+        if(req.body.force === true) {
             forceOption = " -f";
         }
         let orgStr = "";
         if(req.body.otherOrg && req.body.alias !== undefined && req.body.alias !== "") {
             orgStr = " -u " + req.body.alias;
         }
+
         cmd.get(
             `cd ${directory} && sfdx force:source:push${forceOption}${orgStr} --json`,
             function(err, data, stderr) {

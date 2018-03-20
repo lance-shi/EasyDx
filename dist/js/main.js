@@ -28942,6 +28942,11 @@ var DeployFailedResult = function (_Component) {
                                     _react2.default.createElement(
                                         "th",
                                         null,
+                                        "State"
+                                    ),
+                                    _react2.default.createElement(
+                                        "th",
+                                        null,
                                         "Column"
                                     ),
                                     _react2.default.createElement(
@@ -29029,6 +29034,15 @@ var DeployFailedResultRow = function (_Component) {
 			return _react2.default.createElement(
 				"tr",
 				null,
+				_react2.default.createElement(
+					"td",
+					null,
+					_react2.default.createElement(
+						"span",
+						{ className: "badge badge-danger" },
+						this.props.failedResult.state
+					)
+				),
 				_react2.default.createElement(
 					"td",
 					null,
