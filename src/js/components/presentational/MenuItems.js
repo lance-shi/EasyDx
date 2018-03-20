@@ -22,6 +22,11 @@ class MenuItems extends Component {
                         </NavLink> 
                     </li>
                     <li className="nav-item">
+                        <NavLink to="/Create" activeClassName="active" className="nav-link">
+                            <span className="fas fa-plus-circle fa-lg"></span> Create
+                        </NavLink> 
+                    </li>
+                    <li className="nav-item">
                         <NavLink to="/Source" activeClassName="active" className="nav-link">
                             <span className="fas fa-code fa-lg"></span> Code
                         </NavLink> 
