@@ -127,7 +127,9 @@ class SourceContainer extends Component {
 		this.setState({showLoaidngImage: true});
 		axios.post("/api/pushSource", {
 			directory: this.state.currentProject.directory,
-			force: forcePush
+			force: forcePush,
+			otherOrg: otherOrg, 
+			alias: alias
         }).then((res) => {
 			if(res.status === 200) {
 				let result = res.data.result;

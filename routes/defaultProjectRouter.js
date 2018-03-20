@@ -15,7 +15,7 @@ defaultProjectRouter.route('/')
 
     jsonfile.readFile(projectFile, function(err, obj) {
         for(let i = 0; i < obj.projects.length; i++) {
-            if(obj.projects[i].alias === newProj.alias) {
+            if(obj.projects[i].alias === newProj.alias && obj.projects[i].directory === newProj.directory) {
                 obj.projects[i].isDefault = true;
             } else {
                 obj.projects[i].isDefault = false;

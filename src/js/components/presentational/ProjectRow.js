@@ -13,6 +13,7 @@ class ProjectRow extends Component {
 	componentDidMount() {
 		$(this.refs.reverseDropDown).tooltip();
 		$(this.refs.convertDropDown).tooltip();
+		$(this.refs.removeDropDown).tooltip();
 	}
 
 	handleSetDefault() {
@@ -64,7 +65,12 @@ class ProjectRow extends Component {
 								ref="reverseDropDown">
 								Reverse Convert
 							</a>
-							<a className="dropdown-item" href="javascript:;" onClick={this.handleRemoveProject}>Remove Project</a>
+							<a className="dropdown-item" href="javascript:;" onClick={this.handleRemoveProject}
+								data-toggle="tooltip" data-placement="left" 
+								title="Only remove from Easy DX, not your local disc"
+								ref="removeDropDown">
+								Remove Project
+							</a>
 						</div>
 					</div>
 				</td>

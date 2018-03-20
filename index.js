@@ -19,6 +19,7 @@ const reverseConvertProjectRouter = require('./routes/reverseConvertProjectRoute
 const sourceRouter = require('./routes/sourceRouter');
 const pushSourceRouter = require('./routes/pushSourceRouter');
 const retrieveSourceRouter = require('./routes/retrieveSourceRouter');
+const retrieveLimitsRouter = require('./routes/retrieveLimitsRouter');
 
 const app = express();
 const port = process.env.PORT || 3666;
@@ -40,6 +41,7 @@ app.use("/api/removeProject", removeProjectRouter);
 app.use("/api/source", sourceRouter);
 app.use("/api/pushSource", pushSourceRouter);
 app.use("/api/retrieveSource", retrieveSourceRouter);
+app.use("/api/retrieveLimits", retrieveLimitsRouter);
 
 app.use(express.static('dist'));
 

@@ -3,11 +3,11 @@ const bodyParser = require('body-parser');
 const cmd = require('node-cmd');
 const fs = require('fs');
 
-const sourceRouter = express.Router();
+const retrieveLimitsRouter = express.Router();
 
-sourceRouter.use(bodyParser.json());
+retrieveLimitsRouter.use(bodyParser.json());
 
-sourceRouter.route('/')
+retrieveLimitsRouter.route('/')
 .post((req, res) => {
     let directory = req.body.directory;
     const sfdxProjFileName = 'sfdx-project.json';
@@ -24,8 +24,13 @@ sourceRouter.route('/')
             console.log(err);
             return;
         }
+        
+        let orgStr = "";
+        if(req.body.otherOrg && req.body.alias !== undefined && req.body.alias !== "") {
+            orgStr = " -u " + req.body.alias;
+        }
         cmd.get(
-            `cd ${directory} && sfdx force:source:status --json`,
+            `cd ${directory} && sfdx force:limits:api:display${orgStr} --json`,
             function(err, data, stderr) {
                 if(!err) {
                     res.statusCode = 200;
@@ -40,4 +45,4 @@ sourceRouter.route('/')
     });
 });
 
-module.exports = sourceRouter;
+module.exports = retrieveLimitsRouter;

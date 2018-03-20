@@ -5,6 +5,7 @@ import {Switch, Route} from "react-router-dom";
 import OrgContainer from "./OrgContainer";
 import ProjectContainer from "./ProjectContainer";
 import SourceContainer from "./SourceContainer";
+import LimitsContainer from "./LimitsContainer";
 import MenuItems from "../presentational/MenuItems";
 import Header from "../presentational/Header";
 
@@ -31,6 +32,7 @@ class MainContainer extends Component {
                                 <Route exact path="/" component={OrgContainer}/>
                                 <Route path="/Project" component={ProjectContainer}/>
                                 <Route path="/Source" component={SourceContainer}/>
+                                <Route path="/Limits" component={LimitsContainer}/>
                             </Switch>
                         </main>
                     </div>
