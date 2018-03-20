@@ -16,7 +16,8 @@ npm install.
 
 Once it is completed, you are ready to go! 
 
-##Usage
+## Usage
+
 In command line, go to your folder and run 
 ```shell
 npm start
