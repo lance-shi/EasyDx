@@ -40,8 +40,7 @@ pushSourceRouter.route('/')
                     res.send(data);
                 } else {
                     res.statusCode = 202;
-                    let errObj = JSON.parse(stderr);
-                    res.send({"err": errObj.message});
+                    res.send(stderr);
                 }
             }
         );

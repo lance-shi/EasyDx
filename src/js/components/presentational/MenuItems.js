@@ -28,7 +28,7 @@ class MenuItems extends Component {
                     </li>
                     <li className="nav-item">
                         <NavLink to="/Limits" activeClassName="active" className="nav-link">
-                            <span className="fas fa-code fa-lg"></span> Limits
+                            <span className="fas fa-list fa-lg"></span> Limits
                         </NavLink> 
                     </li>
                 </ul>

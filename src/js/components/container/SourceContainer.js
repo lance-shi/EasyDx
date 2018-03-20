@@ -9,7 +9,8 @@ import SourceListCard from "../presentational/SourceListCard";
 import SourcePush from "../presentational/SourcePush";
 import SourceRetrieve from "../presentational/SourceRetrieve";
 import PageHeader from "../presentational/PageHeader";
-import ProjectConvertResult from "../presentational/ProjectConvertResult"
+import ProjectConvertResult from "../presentational/ProjectConvertResult";
+import DeployFailedResult from "../presentational/DeployFailedResult";
 
 class SourceContainer extends Component {
 	constructor() {
@@ -18,6 +19,10 @@ class SourceContainer extends Component {
             remoteChanges: [],
 			localChanges: [],
 			pushedSource: [],
+			showPushedSource: false,
+			deploymentFailures: [],
+			showFailedResult: false,
+			pushedTitle: "Pushed Source",
 			currentProject: {},
 			defaultProjectExists: false,
 			showLoaidngImage: false,
@@ -124,7 +129,15 @@ class SourceContainer extends Component {
 			this.showAlertMessage("danger", "Error: Please specify a default project first");
 			return;
 		}
-		this.setState({showLoaidngImage: true});
+		this.setState({
+			showLoaidngImage: true,
+			remoteChanges: [],
+			localChanges: [],
+			deploymentFailures: [],
+			showFailedResult: false,
+			pushedSource: [],
+			showPushedSource: false
+		});
 		axios.post("/api/pushSource", {
 			directory: this.state.currentProject.directory,
 			force: forcePush,
@@ -134,13 +147,29 @@ class SourceContainer extends Component {
 			if(res.status === 200) {
 				let result = res.data.result;
 				this.setState({
-					pushedSource: result.pushedSource
+					pushedSource: result.pushedSource,
+					showPushedSource: true,
+					pushedTitle: "Pushed Source"
 				});
 
 	            this.toggleLoadingImage(false);
 				this.showAlertMessage("success", "Source status pushed successfully!");
 	        } else {
-	        	this.showAlertMessage("danger", "Error:" + res.data.err);
+				this.toggleLoadingImage(false);
+				this.showAlertMessage("danger", "Error: " + res.data.message + " Please see detailed results at the bottom of the page");
+				let { result, partialSuccess } = res.data;
+				if(partialSuccess !== null && partialSuccess !== undefined) {
+					this.setState({
+						pushedSource: partialSuccess,
+						showPushedSource: true,
+						pushedTitle: "Partial Success"
+					});
+				}
+
+				this.setState({
+					deploymentFailures: result,
+					showFailedResult: true
+				});
 	        }
 		});
 	}
@@ -182,7 +211,9 @@ class SourceContainer extends Component {
 							<SourceListCard remoteChanges={this.state.remoteChanges}
 								localChanges={this.state.localChanges}
 								handleRefreshStatus={this.handleRefreshStatus.bind(this)}/>
-							{this.state.pushedSource.length > 0 ? <ProjectConvertResult title="Pushed Source"
+							{this.state.showFailedResult ? <DeployFailedResult title="Deployment Failures"
+								deploymentFailures={this.state.deploymentFailures}/>: null}
+							{this.state.showPushedSource ? <ProjectConvertResult title={this.state.pushedTitle}
 								convertResults={this.state.pushedSource}/>: null}
 						</div>
 						<div className="col-md-12 col-lg-4">
