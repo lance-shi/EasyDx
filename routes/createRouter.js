@@ -27,7 +27,7 @@ createRouter.route('/')
         let methodType = "";
         let subFolder = "";
         
-        switch (methodType) {
+        switch (methodName) {
             case "ApexClass": 
                 methodType = "apex:class";
                 subFolder = "classes";
@@ -43,6 +43,22 @@ createRouter.route('/')
             case "VisualforceComponent": 
                 methodType = "visualforce:component";
                 subFolder = "components";
+                break;
+            case "LightningApp":
+                methodType = "lightning:app";
+                subFolder = "aura";
+                break;
+            case "LightningComponent":
+                methodType = "lightning:component";
+                subFolder = "aura";
+                break;
+            case "LightningEvent":
+                methodType = "lightning:event";
+                subFolder = "aura";
+                break;
+            case "LightningInterface":
+                methodType = "lightning:interface";
+                subFolder = "aura";
                 break;
             default: 
                 methodType = "apex:class";

@@ -7,6 +7,7 @@ import CurrentProjectLine from "../presentational/CurrentProjectLine";
 import CurrentProjectNotExist from "../presentational/CurrentProjectNotExist";
 import PageHeader from "../presentational/PageHeader";
 import CreatePanel from "../presentational/CreatePanel";
+import CreateLightning from "../presentational/CreateLightning";
 
 class CreateContainer extends Component {
 	constructor() {
@@ -101,6 +102,7 @@ class CreateContainer extends Component {
 						</div>
 						<div className="col-md-12 col-lg-4">
                             <CreatePanel createMethod={this.createMethod}/>
+							<CreateLightning createMethod={this.createMethod}/>
 						</div>
 					</div>
 				</div>
