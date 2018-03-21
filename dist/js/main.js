@@ -21053,19 +21053,19 @@ var _CreateContainer = __webpack_require__(126);
 
 var _CreateContainer2 = _interopRequireDefault(_CreateContainer);
 
-var _SourceContainer = __webpack_require__(127);
+var _SourceContainer = __webpack_require__(128);
 
 var _SourceContainer2 = _interopRequireDefault(_SourceContainer);
 
-var _LimitsContainer = __webpack_require__(135);
+var _LimitsContainer = __webpack_require__(136);
 
 var _LimitsContainer2 = _interopRequireDefault(_LimitsContainer);
 
-var _MenuItems = __webpack_require__(139);
+var _MenuItems = __webpack_require__(140);
 
 var _MenuItems2 = _interopRequireDefault(_MenuItems);
 
-var _Header = __webpack_require__(140);
+var _Header = __webpack_require__(141);
 
 var _Header2 = _interopRequireDefault(_Header);
 
@@ -28032,6 +28032,10 @@ var _PageHeader = __webpack_require__(14);
 
 var _PageHeader2 = _interopRequireDefault(_PageHeader);
 
+var _CreatePanel = __webpack_require__(127);
+
+var _CreatePanel2 = _interopRequireDefault(_CreatePanel);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28077,6 +28081,7 @@ var CreateContainer = function (_Component) {
 		_this.toggleLoadingImage = _this.toggleLoadingImage.bind(_this);
 		_this.showAlertMessage = _this.showAlertMessage.bind(_this);
 		_this.hideAlertMessage = _this.hideAlertMessage.bind(_this);
+		_this.createMethod = _this.createMethod.bind(_this);
 		return _this;
 	}
 
@@ -28104,6 +28109,9 @@ var CreateContainer = function (_Component) {
 			});
 		}
 	}, {
+		key: "createMethod",
+		value: function createMethod(methodName) {}
+	}, {
 		key: "render",
 		value: function render() {
 			return _react2.default.createElement(
@@ -28126,7 +28134,11 @@ var CreateContainer = function (_Component) {
 							this.state.defaultProjectExists ? _react2.default.createElement(_CurrentProjectLine2.default, {
 								project: this.state.currentProject }) : _react2.default.createElement(_CurrentProjectNotExist2.default, null)
 						),
-						_react2.default.createElement("div", { className: "col-md-12 col-lg-4" })
+						_react2.default.createElement(
+							"div",
+							{ className: "col-md-12 col-lg-4" },
+							_react2.default.createElement(_CreatePanel2.default, { createMethod: this.createMethod })
+						)
 					)
 				)
 			);
@@ -28140,6 +28152,144 @@ exports.default = CreateContainer;
 
 /***/ }),
 /* 127 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CreatePanel = function (_Component) {
+    _inherits(CreatePanel, _Component);
+
+    function CreatePanel() {
+        _classCallCheck(this, CreatePanel);
+
+        var _this = _possibleConstructorReturn(this, (CreatePanel.__proto__ || Object.getPrototypeOf(CreatePanel)).call(this));
+
+        _this.state = {
+            methodName: "ApexClass",
+            componentName: ""
+        };
+        _this.handleChangeMethod = _this.handleChangeMethod.bind(_this);
+        _this.handleCreate = _this.handleCreate.bind(_this);
+        _this.handleComponentNameChange = _this.handleComponentNameChange.bind(_this);
+        return _this;
+    }
+
+    _createClass(CreatePanel, [{
+        key: "handleChangeMethod",
+        value: function handleChangeMethod(event) {
+            this.setState({ methodName: event.target.value });
+        }
+    }, {
+        key: "handleCreate",
+        value: function handleCreate() {
+            this.props.createMethod(this.state.methodName, this.state.componentName);
+        }
+    }, {
+        key: "handleComponentNameChange",
+        value: function handleComponentNameChange(event) {
+            this.setState({ componentName: event.target.value });
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            return _react2.default.createElement(
+                "div",
+                { className: "card mb-4" },
+                _react2.default.createElement(
+                    "div",
+                    { className: "card-header" },
+                    _react2.default.createElement(
+                        "strong",
+                        null,
+                        "Create Apex and Visualforce"
+                    )
+                ),
+                _react2.default.createElement(
+                    "div",
+                    { className: "card-body" },
+                    _react2.default.createElement(
+                        "div",
+                        { className: "row form-group input-bar" },
+                        _react2.default.createElement(
+                            "label",
+                            null,
+                            "Select what you want to create"
+                        ),
+                        _react2.default.createElement(
+                            "select",
+                            { className: "form-control", value: this.state.methodName, onChange: this.handleChangeMethod },
+                            _react2.default.createElement(
+                                "option",
+                                { value: "ApexClass" },
+                                "Apex Class"
+                            ),
+                            _react2.default.createElement(
+                                "option",
+                                { value: "ApexTrigger" },
+                                "Apex Trigger"
+                            ),
+                            _react2.default.createElement(
+                                "option",
+                                { value: "VisualforcePage" },
+                                "Visualforce Page"
+                            ),
+                            _react2.default.createElement(
+                                "option",
+                                { value: "VisualforceComponent" },
+                                "Visualforce Component"
+                            )
+                        )
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "row from-group input-bar" },
+                        _react2.default.createElement(
+                            "label",
+                            null,
+                            "Please specify the ",
+                            this.state.methodName,
+                            " name"
+                        ),
+                        _react2.default.createElement("input", { type: "text", className: "form-control", value: this.props.alias,
+                            onChange: this.handleComponentNameChange })
+                    ),
+                    _react2.default.createElement(
+                        "button",
+                        { type: "button", className: "btn btn-primary form-button",
+                            onClick: this.handleCreate },
+                        "Create"
+                    )
+                )
+            );
+        }
+    }]);
+
+    return CreatePanel;
+}(_react.Component);
+
+exports.default = CreatePanel;
+
+/***/ }),
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28175,15 +28325,15 @@ var _CurrentProjectNotExist = __webpack_require__(20);
 
 var _CurrentProjectNotExist2 = _interopRequireDefault(_CurrentProjectNotExist);
 
-var _SourceListCard = __webpack_require__(128);
+var _SourceListCard = __webpack_require__(129);
 
 var _SourceListCard2 = _interopRequireDefault(_SourceListCard);
 
-var _SourcePush = __webpack_require__(131);
+var _SourcePush = __webpack_require__(132);
 
 var _SourcePush2 = _interopRequireDefault(_SourcePush);
 
-var _SourceRetrieve = __webpack_require__(132);
+var _SourceRetrieve = __webpack_require__(133);
 
 var _SourceRetrieve2 = _interopRequireDefault(_SourceRetrieve);
 
@@ -28195,7 +28345,7 @@ var _ProjectConvertResult = __webpack_require__(50);
 
 var _ProjectConvertResult2 = _interopRequireDefault(_ProjectConvertResult);
 
-var _DeployFailedResult = __webpack_require__(133);
+var _DeployFailedResult = __webpack_require__(134);
 
 var _DeployFailedResult2 = _interopRequireDefault(_DeployFailedResult);
 
@@ -28459,7 +28609,7 @@ var SourceContainer = function (_Component) {
 exports.default = SourceContainer;
 
 /***/ }),
-/* 128 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28473,7 +28623,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _SourceList = __webpack_require__(129);
+var _SourceList = __webpack_require__(130);
 
 var _SourceList2 = _interopRequireDefault(_SourceList);
 
@@ -28506,7 +28656,7 @@ function SourceListCard(props) {
 exports.default = SourceListCard;
 
 /***/ }),
-/* 129 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28522,7 +28672,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _SourceRow = __webpack_require__(130);
+var _SourceRow = __webpack_require__(131);
 
 var _SourceRow2 = _interopRequireDefault(_SourceRow);
 
@@ -28641,7 +28791,7 @@ var SourceList = function (_Component) {
 exports.default = SourceList;
 
 /***/ }),
-/* 130 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28719,7 +28869,7 @@ var SourceRow = function (_Component) {
 exports.default = SourceRow;
 
 /***/ }),
-/* 131 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28856,7 +29006,7 @@ var SourcePush = function (_Component) {
 exports.default = SourcePush;
 
 /***/ }),
-/* 132 */
+/* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28993,7 +29143,7 @@ var SourceRetrieve = function (_Component) {
 exports.default = SourceRetrieve;
 
 /***/ }),
-/* 133 */
+/* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29009,7 +29159,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _DeployFailedResultRow = __webpack_require__(134);
+var _DeployFailedResultRow = __webpack_require__(135);
 
 var _DeployFailedResultRow2 = _interopRequireDefault(_DeployFailedResultRow);
 
@@ -29147,7 +29297,7 @@ var DeployFailedResult = function (_Component) {
 exports.default = DeployFailedResult;
 
 /***/ }),
-/* 134 */
+/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29235,7 +29385,7 @@ var DeployFailedResultRow = function (_Component) {
 exports.default = DeployFailedResultRow;
 
 /***/ }),
-/* 135 */
+/* 136 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29275,11 +29425,11 @@ var _PageHeader = __webpack_require__(14);
 
 var _PageHeader2 = _interopRequireDefault(_PageHeader);
 
-var _LimitsRetrieve = __webpack_require__(136);
+var _LimitsRetrieve = __webpack_require__(137);
 
 var _LimitsRetrieve2 = _interopRequireDefault(_LimitsRetrieve);
 
-var _LimitsResult = __webpack_require__(137);
+var _LimitsResult = __webpack_require__(138);
 
 var _LimitsResult2 = _interopRequireDefault(_LimitsResult);
 
@@ -29424,7 +29574,7 @@ var LimitsContainer = function (_Component) {
 exports.default = LimitsContainer;
 
 /***/ }),
-/* 136 */
+/* 137 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29543,7 +29693,7 @@ var LimitsRetrieve = function (_Component) {
 exports.default = LimitsRetrieve;
 
 /***/ }),
-/* 137 */
+/* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29559,7 +29709,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _LimitsResultRow = __webpack_require__(138);
+var _LimitsResultRow = __webpack_require__(139);
 
 var _LimitsResultRow2 = _interopRequireDefault(_LimitsResultRow);
 
@@ -29646,7 +29796,7 @@ var LimitsResult = function (_Component) {
 exports.default = LimitsResult;
 
 /***/ }),
-/* 138 */
+/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29710,7 +29860,7 @@ var LimitsResultRow = function (_Component) {
 exports.default = LimitsResultRow;
 
 /***/ }),
-/* 139 */
+/* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29825,7 +29975,7 @@ var MenuItems = function (_Component) {
 exports.default = MenuItems;
 
 /***/ }),
-/* 140 */
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
