@@ -1,3 +1,4 @@
+#! /usr/bin/env node
 const express = require("express");
 const cmd = require('node-cmd');
 const Promise = require('bluebird');

@@ -7,12 +7,22 @@ const projectRouter = express.Router();
 projectRouter.use(bodyParser.json());
 
 const projectFile = './data/projects.json';
+const ncp = require('ncp').ncp;
 
 projectRouter.route('/')
 .get((req, res) => {
-    jsonfile.readFile(projectFile, function(err, obj) {
-        res.send(JSON.stringify(obj));
-    });
+    const dir = './data';
+    if (!fs.existsSync(dir)){
+        ncp('./dataSample', './data', function(err) {
+            jsonfile.readFile(projectFile, function(err, obj) {
+                res.send(JSON.stringify(obj));
+            });
+        });
+    } else {
+        jsonfile.readFile(projectFile, function(err, obj) {
+            res.send(JSON.stringify(obj));
+        });
+    }
 })
 .post((req, res) => {
     let newProj = {};
