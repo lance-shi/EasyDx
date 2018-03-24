@@ -2,14 +2,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cmd = require('node-cmd');
 const fs = require('fs');
-const jsonfile = require('jsonfile');
 
-const listOrgRouter = express.Router();
-const orgFile = './data/orgs.json';
+const userRouter = express.Router();
 
-listOrgRouter.use(bodyParser.json());
+userRouter.use(bodyParser.json());
 
-listOrgRouter.route('/')
+userRouter.route('/')
 .post((req, res) => {
     let directory = req.body.directory;
     const sfdxProjFileName = 'sfdx-project.json';
@@ -27,26 +25,11 @@ listOrgRouter.route('/')
             return;
         }
         cmd.get(
-            `cd ${directory} && sfdx force:org:list --json`,
+            `cd ${directory} && sfdx force:user:list --json`,
             function(err, data, stderr) {
                 if(!err) {
-                    let dataObj = JSON.parse(data);
-                    for(let i = 0; i < dataObj.result.nonScratchOrgs.length; i++) {
-                        dataObj.result.nonScratchOrgs[i].accessToken = "";
-                    }
-                    for(let i = 0; i < dataObj.result.scratchOrgs.length; i++) {
-                        dataObj.result.scratchOrgs[i].accessToken = "";
-                    }
                     res.statusCode = 200;
-                    res.send(JSON.stringify(dataObj));
-
-                    const orgs = dataObj.result;
-                    const jsonObj = {};
-                    jsonObj.orgs = orgs;
-
-                    jsonfile.writeFile(orgFile, jsonObj, function(error) {
-
-                    });
+                    res.send(data);
                 } else {
                     res.statusCode = 202;
                     let errObj = JSON.parse(stderr);
@@ -57,4 +40,4 @@ listOrgRouter.route('/')
     });
 });
 
-module.exports = listOrgRouter;
+module.exports = userRouter;

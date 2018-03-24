@@ -44,6 +44,15 @@ class OrgContainer extends Component {
 	        })
 		});
 
+		axios.get("/api/org").then((res) => {
+			let orgs = res.data.orgs;
+
+            this.setState({
+				nonScratchOrgs: orgs.nonScratchOrgs,
+				scratchOrgs: orgs.scratchOrgs
+	        })
+		});
+
 		this.toggleLoadingImage = this.toggleLoadingImage.bind(this);
 		this.showAlertMessage = this.showAlertMessage.bind(this);
 		this.hideAlertMessage = this.hideAlertMessage.bind(this);

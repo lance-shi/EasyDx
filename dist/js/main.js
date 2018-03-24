@@ -24893,6 +24893,15 @@ var OrgContainer = function (_Component) {
 			});
 		});
 
+		_axios2.default.get("/api/org").then(function (res) {
+			var orgs = res.data.orgs;
+
+			_this.setState({
+				nonScratchOrgs: orgs.nonScratchOrgs,
+				scratchOrgs: orgs.scratchOrgs
+			});
+		});
+
 		_this.toggleLoadingImage = _this.toggleLoadingImage.bind(_this);
 		_this.showAlertMessage = _this.showAlertMessage.bind(_this);
 		_this.hideAlertMessage = _this.hideAlertMessage.bind(_this);
