@@ -7,6 +7,7 @@ import CurrentOrgLine from "../presentational/CurrentOrgLine";
 import CurrentOrgNotExist from "../presentational/CurrentOrgNotExist";
 import PageHeader from "../presentational/PageHeader";
 import UserList from "../presentational/UserList";
+import UserRefresh from "../presentational/UserRefresh";
 
 class UserContainer extends Component {
 	constructor() {
@@ -72,14 +73,10 @@ class UserContainer extends Component {
 
     }
 
-    refreshUserList() {
-		if(!this.state.defaultOrgExists) {
-			this.showAlertMessage("danger", "Error: Please specify a default org first");
-			return;
-		}
+    refreshUserList(org) {
 		this.setState({showLoaidngImage: true});
 		axios.post("/api/user", {
-            org: this.state.currentOrg.username
+            org: org
         }).then((res) => {
 			if(res.status === 200) {
 				let result = res.data.result;
@@ -109,10 +106,13 @@ class UserContainer extends Component {
 							{this.state.defaultOrgExists ? <CurrentOrgLine 
 								org={this.state.currentOrg}/> : <CurrentOrgNotExist/>}
                             <UserList users={this.state.users} 
-                                setDetailUser={this.setDetailUser}
-                                refreshUserList={this.refreshUserList}/>
+                                setDetailUser={this.setDetailUser}/>
 						</div>
 						<div className="col-md-12 col-lg-4">
+							<UserRefresh refreshUserList={this.refreshUserList}
+								defaultOrgExist={this.state.defaultOrgExists}
+								currentOrg={this.state.currentOrg}
+								showAlertMessage={this.showAlertMessage}/>
 						</div>
 					</div>
 				</div>

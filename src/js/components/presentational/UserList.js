@@ -27,8 +27,6 @@ function UserList(props) {
                         </tbody>
                     </table>
                 </div>
-                <button type="button" className="btn btn-primary" 
-					onClick={props.refreshUserList}>Refresh User List</button>
             </div>
         </div>
 	);
