@@ -22,6 +22,7 @@ const pushSourceRouter = require('./routes/pushSourceRouter');
 const retrieveSourceRouter = require('./routes/retrieveSourceRouter');
 const retrieveLimitsRouter = require('./routes/retrieveLimitsRouter');
 const createRouter = require('./routes/createRouter');
+const userRouter = require('./routes/userRouter');
 
 const app = express();
 const port = process.env.PORT || 3666;
@@ -45,6 +46,7 @@ app.use("/api/pushSource", pushSourceRouter);
 app.use("/api/retrieveSource", retrieveSourceRouter);
 app.use("/api/retrieveLimits", retrieveLimitsRouter);
 app.use("/api/create", createRouter);
+app.use("/api/user", userRouter);
 
 app.use(express.static('dist'));
 

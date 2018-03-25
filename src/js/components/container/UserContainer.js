@@ -3,8 +3,8 @@ import axios from 'axios';
 
 import LoadingImage from "../presentational/LoadingImage";
 import AlertMessage from "../presentational/AlertMessage";
-import CurrentProjectLine from "../presentational/CurrentProjectLine";
-import CurrentProjectNotExist from "../presentational/CurrentProjectNotExist";
+import CurrentOrgLine from "../presentational/CurrentOrgLine";
+import CurrentOrgNotExist from "../presentational/CurrentOrgNotExist";
 import PageHeader from "../presentational/PageHeader";
 import UserList from "../presentational/UserList";
 
@@ -12,30 +12,33 @@ class UserContainer extends Component {
 	constructor() {
 		super();
 		this.state = {
-			currentProject: {},
-			defaultProjectExists: false,
 			showLoaidngImage: false,
 			showAlertMessage: false,
 			alertClass: "info",
             alertMessage: "",
-            users: []
+			users: [],
+			defaultOrgExists: false,
+			currentOrg: {}
 		};
 
-		axios.get("/api/project").then((res) => {
-			let projects = res.data.projects;
-			let defaultExists = false;
-			let defaultProject = {};
-			for(let i = 0; i < projects.length; i++) {
-				if(projects[i].isDefault) {
-					defaultExists = true;
-					defaultProject = projects[i];
+		axios.get("/api/org").then((res) => {
+			let { nonScratchOrgs, scratchOrgs } = res.data.orgs;
+            for(let i = 0; i < nonScratchOrgs.length; i++) {
+				if(nonScratchOrgs[i].defaultMarker === "(U)") {
+					this.setState({
+						currentOrg: nonScratchOrgs[i],
+						defaultOrgExists: true
+					});
+					break;
+				}
+				if(scratchOrgs[i].defaultMarker === "(U)") {
+					this.setState({
+						currentOrg: scratchOrgs[i],
+						defaultOrgExists: true
+					});
 					break;
 				}
 			}
-            this.setState({
-				currentProject: defaultProject,
-				defaultProjectExists: defaultExists
-	        })
 		});
 
 		this.toggleLoadingImage = this.toggleLoadingImage.bind(this);
@@ -70,7 +73,26 @@ class UserContainer extends Component {
     }
 
     refreshUserList() {
-
+		if(!this.state.defaultOrgExists) {
+			this.showAlertMessage("danger", "Error: Please specify a default org first");
+			return;
+		}
+		this.setState({showLoaidngImage: true});
+		axios.post("/api/user", {
+            org: this.state.currentOrg.username
+        }).then((res) => {
+			if(res.status === 200) {
+				let result = res.data.result;
+	            this.setState({
+					showLoaidngImage: false,
+		        	users: result
+				});
+				this.showAlertMessage("success", "Org list refreshed successfully!");
+	        } else {
+				this.toggleLoadingImage(false);
+	        	this.showAlertMessage("danger", "Error:" + res.data.err);
+	        }
+		});
     }
 
 	render() {
@@ -84,8 +106,8 @@ class UserContainer extends Component {
 				<div className="container-fluid">
 					<div className="row">
 						<div className="col-md-12 col-lg-8">
-							{this.state.defaultProjectExists ? <CurrentProjectLine 
-                                project={this.state.currentProject}/> : <CurrentProjectNotExist/>}
+							{this.state.defaultOrgExists ? <CurrentOrgLine 
+								org={this.state.currentOrg}/> : <CurrentOrgNotExist/>}
                             <UserList users={this.state.users} 
                                 setDetailUser={this.setDetailUser}
                                 refreshUserList={this.refreshUserList}/>
