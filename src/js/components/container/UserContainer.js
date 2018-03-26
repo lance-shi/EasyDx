@@ -45,6 +45,7 @@ class UserContainer extends Component {
         this.setDetailUser = this.setDetailUser.bind(this);
 		this.refreshUserList = this.refreshUserList.bind(this);
 		this.createUser = this.createUser.bind(this);
+		this.generatePassword = this.generatePassword.bind(this);
 	}
 	
 	showAlertMessage(alertClass, alertMessage) {
@@ -90,6 +91,22 @@ class UserContainer extends Component {
 		});
 	}
 
+	generatePassword(user) {
+		this.setState({showLoaidngImage: true});
+		axios.post("/api/generatePassword", {
+            userName: user.username
+        }).then((res) => {
+			if(res.status === 200) {
+				let result = res.data.result;
+	            this.toggleLoadingImage(false);
+				this.showAlertMessage("success", `Successfully set the password "${result.password}" for user!`);
+	        } else {
+				this.toggleLoadingImage(false);
+	        	this.showAlertMessage("danger", "Error:" + res.data.err);
+	        }
+		});
+	}
+
     refreshUserList(org) {
 		this.setState({showLoaidngImage: true});
 		axios.post("/api/user", {
@@ -123,7 +140,8 @@ class UserContainer extends Component {
 							{this.state.defaultOrgExists ? <CurrentOrgLine 
 								org={this.state.currentOrg}/> : <CurrentOrgNotExist/>}
                             <UserList users={this.state.users} 
-                                setDetailUser={this.setDetailUser}/>
+                                setDetailUser={this.setDetailUser}
+								generatePassword={this.generatePassword}/>
 						</div>
 						<div className="col-md-12 col-lg-4">
 							<UserRefresh refreshUserList={this.refreshUserList}

@@ -24,6 +24,7 @@ const retrieveLimitsRouter = require('./routes/retrieveLimitsRouter');
 const createRouter = require('./routes/createRouter');
 const userRouter = require('./routes/userRouter');
 const createUserRouter = require('./routes/createUserRouter');
+const generatePasswordRouter = require('./routes/generatePasswordRouter');
 const writeOrgFileRouter = require('./routes/writeOrgFileRouter');
 
 const app = express();
@@ -50,6 +51,7 @@ app.use("/api/retrieveLimits", retrieveLimitsRouter);
 app.use("/api/create", createRouter);
 app.use("/api/user", userRouter);
 app.use("/api/createUser", createUserRouter);
+app.use("/api/generatePassword", generatePasswordRouter);
 app.use("/api/writeOrgFile", writeOrgFileRouter);
 
 app.use(express.static('dist'));

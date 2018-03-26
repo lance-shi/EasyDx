@@ -3,7 +3,8 @@ import UserRow from "./UserRow";
 
 function UserList(props) {
 	const userRows = props.users.map(user=><UserRow key={user.username} user={user}
-        setDetailUser={props.setDetailUser}/>);
+        setDetailUser={props.setDetailUser}
+        generatePassword={props.generatePassword}/>);
 	return (
         <div className="card mb-4">
             <div className="card-header">

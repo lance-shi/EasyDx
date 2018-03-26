@@ -30152,6 +30152,7 @@ var UserContainer = function (_Component) {
 		_this.setDetailUser = _this.setDetailUser.bind(_this);
 		_this.refreshUserList = _this.refreshUserList.bind(_this);
 		_this.createUser = _this.createUser.bind(_this);
+		_this.generatePassword = _this.generatePassword.bind(_this);
 		return _this;
 	}
 
@@ -30206,9 +30207,28 @@ var UserContainer = function (_Component) {
 			});
 		}
 	}, {
+		key: "generatePassword",
+		value: function generatePassword(user) {
+			var _this3 = this;
+
+			this.setState({ showLoaidngImage: true });
+			_axios2.default.post("/api/generatePassword", {
+				userName: user.username
+			}).then(function (res) {
+				if (res.status === 200) {
+					var result = res.data.result;
+					_this3.toggleLoadingImage(false);
+					_this3.showAlertMessage("success", "Successfully set the password \"" + result.password + "\" for user!");
+				} else {
+					_this3.toggleLoadingImage(false);
+					_this3.showAlertMessage("danger", "Error:" + res.data.err);
+				}
+			});
+		}
+	}, {
 		key: "refreshUserList",
 		value: function refreshUserList(org) {
-			var _this3 = this;
+			var _this4 = this;
 
 			this.setState({ showLoaidngImage: true });
 			_axios2.default.post("/api/user", {
@@ -30216,14 +30236,14 @@ var UserContainer = function (_Component) {
 			}).then(function (res) {
 				if (res.status === 200) {
 					var result = res.data.result;
-					_this3.setState({
+					_this4.setState({
 						showLoaidngImage: false,
 						users: result
 					});
-					_this3.showAlertMessage("success", "User list refreshed successfully!");
+					_this4.showAlertMessage("success", "User list refreshed successfully!");
 				} else {
-					_this3.toggleLoadingImage(false);
-					_this3.showAlertMessage("danger", "Error:" + res.data.err);
+					_this4.toggleLoadingImage(false);
+					_this4.showAlertMessage("danger", "Error:" + res.data.err);
 				}
 			});
 		}
@@ -30250,7 +30270,8 @@ var UserContainer = function (_Component) {
 							this.state.defaultOrgExists ? _react2.default.createElement(_CurrentOrgLine2.default, {
 								org: this.state.currentOrg }) : _react2.default.createElement(_CurrentOrgNotExist2.default, null),
 							_react2.default.createElement(_UserList2.default, { users: this.state.users,
-								setDetailUser: this.setDetailUser })
+								setDetailUser: this.setDetailUser,
+								generatePassword: this.generatePassword })
 						),
 						_react2.default.createElement(
 							"div",
@@ -30455,7 +30476,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function UserList(props) {
     var userRows = props.users.map(function (user) {
         return _react2.default.createElement(_UserRow2.default, { key: user.username, user: user,
-            setDetailUser: props.setDetailUser });
+            setDetailUser: props.setDetailUser,
+            generatePassword: props.generatePassword });
     });
     return _react2.default.createElement(
         "div",
@@ -30563,6 +30585,7 @@ var UserRow = function (_Component) {
 		var _this = _possibleConstructorReturn(this, (UserRow.__proto__ || Object.getPrototypeOf(UserRow)).call(this, props));
 
 		_this.handleShowDetail = _this.handleShowDetail.bind(_this);
+		_this.handleGeneratePassword = _this.handleGeneratePassword.bind(_this);
 		return _this;
 	}
 
@@ -30570,6 +30593,11 @@ var UserRow = function (_Component) {
 		key: "handleShowDetail",
 		value: function handleShowDetail() {
 			this.props.setDetailUser(this.props.user);
+		}
+	}, {
+		key: "handleGeneratePassword",
+		value: function handleGeneratePassword() {
+			this.props.generatePassword(this.props.user);
 		}
 	}, {
 		key: "render",
@@ -30601,9 +30629,27 @@ var UserRow = function (_Component) {
 					"td",
 					null,
 					_react2.default.createElement(
-						"button",
-						{ type: "button", className: "btn btn-primary", onClick: this.handleShowDetail },
-						"Display Details"
+						"div",
+						{ className: "btn-group" },
+						_react2.default.createElement(
+							"button",
+							{ type: "button", className: "btn btn-primary dropdown-toggle", "data-toggle": "dropdown" },
+							"Action"
+						),
+						_react2.default.createElement(
+							"div",
+							{ className: "dropdown-menu" },
+							_react2.default.createElement(
+								"a",
+								{ className: "dropdown-item", href: "javascript:;", onClick: this.handleShowDetail },
+								"Display Details"
+							),
+							_react2.default.createElement(
+								"a",
+								{ className: "dropdown-item", href: "javascript:;", onClick: this.handleGeneratePassword },
+								"Generate Password"
+							)
+						)
 					)
 				)
 			);
