@@ -8,6 +8,7 @@ import CurrentOrgNotExist from "../presentational/CurrentOrgNotExist";
 import PageHeader from "../presentational/PageHeader";
 import UserList from "../presentational/UserList";
 import UserRefresh from "../presentational/UserRefresh";
+import UserDetail from "../presentational/UserDetail";
 
 class UserContainer extends Component {
 	constructor() {
@@ -19,7 +20,9 @@ class UserContainer extends Component {
             alertMessage: "",
 			users: [],
 			defaultOrgExists: false,
-			currentOrg: {}
+			currentOrg: {},
+			currentUser: {},
+			showDetailUser: false
 		};
 
 		axios.get("/api/org").then((res) => {
@@ -46,7 +49,7 @@ class UserContainer extends Component {
 		this.showAlertMessage = this.showAlertMessage.bind(this);
         this.hideAlertMessage = this.hideAlertMessage.bind(this);
         this.setDetailUser = this.setDetailUser.bind(this);
-        this.refreshUserList = this.refreshUserList.bind(this);
+		this.refreshUserList = this.refreshUserList.bind(this);
 	}
 	
 	showAlertMessage(alertClass, alertMessage) {
@@ -70,7 +73,10 @@ class UserContainer extends Component {
     }
 
     setDetailUser(user) {
-
+		this.setState({
+			currentUser: user,
+			showDetailUser: true
+		});
     }
 
     refreshUserList(org) {
@@ -90,7 +96,7 @@ class UserContainer extends Component {
 	        	this.showAlertMessage("danger", "Error:" + res.data.err);
 	        }
 		});
-    }
+	}
 
 	render() {
 		return (
@@ -113,6 +119,7 @@ class UserContainer extends Component {
 								defaultOrgExist={this.state.defaultOrgExists}
 								currentOrg={this.state.currentOrg}
 								showAlertMessage={this.showAlertMessage}/>
+							{this.state.showDetailUser ? <UserDetail user={this.state.currentUser}/> : null}
 						</div>
 					</div>
 				</div>

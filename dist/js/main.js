@@ -21065,11 +21065,11 @@ var _UserContainer = __webpack_require__(141);
 
 var _UserContainer2 = _interopRequireDefault(_UserContainer);
 
-var _MenuItems = __webpack_require__(147);
+var _MenuItems = __webpack_require__(148);
 
 var _MenuItems2 = _interopRequireDefault(_MenuItems);
 
-var _Header = __webpack_require__(148);
+var _Header = __webpack_require__(149);
 
 var _Header2 = _interopRequireDefault(_Header);
 
@@ -30087,6 +30087,10 @@ var _UserRefresh = __webpack_require__(146);
 
 var _UserRefresh2 = _interopRequireDefault(_UserRefresh);
 
+var _UserDetail = __webpack_require__(147);
+
+var _UserDetail2 = _interopRequireDefault(_UserDetail);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -30110,7 +30114,9 @@ var UserContainer = function (_Component) {
 			alertMessage: "",
 			users: [],
 			defaultOrgExists: false,
-			currentOrg: {}
+			currentOrg: {},
+			currentUser: {},
+			showDetailUser: false
 		};
 
 		_axios2.default.get("/api/org").then(function (res) {
@@ -30169,7 +30175,12 @@ var UserContainer = function (_Component) {
 		}
 	}, {
 		key: "setDetailUser",
-		value: function setDetailUser(user) {}
+		value: function setDetailUser(user) {
+			this.setState({
+				currentUser: user,
+				showDetailUser: true
+			});
+		}
 	}, {
 		key: "refreshUserList",
 		value: function refreshUserList(org) {
@@ -30223,7 +30234,8 @@ var UserContainer = function (_Component) {
 							_react2.default.createElement(_UserRefresh2.default, { refreshUserList: this.refreshUserList,
 								defaultOrgExist: this.state.defaultOrgExists,
 								currentOrg: this.state.currentOrg,
-								showAlertMessage: this.showAlertMessage })
+								showAlertMessage: this.showAlertMessage }),
+							this.state.showDetailUser ? _react2.default.createElement(_UserDetail2.default, { user: this.state.currentUser }) : null
 						)
 					)
 				)
@@ -30716,6 +30728,178 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var UserDetail = function (_Component) {
+    _inherits(UserDetail, _Component);
+
+    function UserDetail() {
+        _classCallCheck(this, UserDetail);
+
+        return _possibleConstructorReturn(this, (UserDetail.__proto__ || Object.getPrototypeOf(UserDetail)).apply(this, arguments));
+    }
+
+    _createClass(UserDetail, [{
+        key: "render",
+        value: function render() {
+            return _react2.default.createElement(
+                "div",
+                { className: "card mb-4" },
+                _react2.default.createElement(
+                    "div",
+                    { className: "card-header" },
+                    _react2.default.createElement(
+                        "strong",
+                        null,
+                        "Org Details"
+                    )
+                ),
+                _react2.default.createElement(
+                    "div",
+                    { className: "card-body" },
+                    _react2.default.createElement(
+                        "div",
+                        { className: "table-responsive" },
+                        _react2.default.createElement(
+                            "table",
+                            { className: "table table-striped" },
+                            _react2.default.createElement(
+                                "tbody",
+                                null,
+                                _react2.default.createElement(
+                                    "tr",
+                                    null,
+                                    _react2.default.createElement(
+                                        "td",
+                                        null,
+                                        "User Name:"
+                                    ),
+                                    _react2.default.createElement(
+                                        "td",
+                                        null,
+                                        this.props.user.username
+                                    )
+                                ),
+                                _react2.default.createElement(
+                                    "tr",
+                                    null,
+                                    _react2.default.createElement(
+                                        "td",
+                                        null,
+                                        "Alias: "
+                                    ),
+                                    _react2.default.createElement(
+                                        "td",
+                                        null,
+                                        this.props.user.alias
+                                    )
+                                ),
+                                _react2.default.createElement(
+                                    "tr",
+                                    null,
+                                    _react2.default.createElement(
+                                        "td",
+                                        null,
+                                        "User Id: "
+                                    ),
+                                    _react2.default.createElement(
+                                        "td",
+                                        null,
+                                        this.props.user.userId
+                                    )
+                                ),
+                                _react2.default.createElement(
+                                    "tr",
+                                    null,
+                                    _react2.default.createElement(
+                                        "td",
+                                        null,
+                                        "Instance Url: "
+                                    ),
+                                    _react2.default.createElement(
+                                        "td",
+                                        null,
+                                        this.props.user.instanceUrl
+                                    )
+                                ),
+                                _react2.default.createElement(
+                                    "tr",
+                                    null,
+                                    _react2.default.createElement(
+                                        "td",
+                                        null,
+                                        "Login Url: "
+                                    ),
+                                    _react2.default.createElement(
+                                        "td",
+                                        null,
+                                        this.props.user.loginUrl
+                                    )
+                                ),
+                                _react2.default.createElement(
+                                    "tr",
+                                    null,
+                                    _react2.default.createElement(
+                                        "td",
+                                        null,
+                                        "Org Id: "
+                                    ),
+                                    _react2.default.createElement(
+                                        "td",
+                                        null,
+                                        this.props.user.orgId
+                                    )
+                                ),
+                                _react2.default.createElement(
+                                    "tr",
+                                    null,
+                                    _react2.default.createElement(
+                                        "td",
+                                        null,
+                                        "Profile: "
+                                    ),
+                                    _react2.default.createElement(
+                                        "td",
+                                        null,
+                                        this.props.user.profileName
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return UserDetail;
+}(_react.Component);
+
+exports.default = UserDetail;
+
+/***/ }),
+/* 148 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
 var _reactRouterDom = __webpack_require__(8);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -30825,7 +31009,7 @@ var MenuItems = function (_Component) {
 exports.default = MenuItems;
 
 /***/ }),
-/* 148 */
+/* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
