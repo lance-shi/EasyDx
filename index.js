@@ -23,6 +23,8 @@ const retrieveSourceRouter = require('./routes/retrieveSourceRouter');
 const retrieveLimitsRouter = require('./routes/retrieveLimitsRouter');
 const createRouter = require('./routes/createRouter');
 const userRouter = require('./routes/userRouter');
+const createUserRouter = require('./routes/createUserRouter');
+const writeOrgFileRouter = require('./routes/writeOrgFileRouter');
 
 const app = express();
 const port = process.env.PORT || 3666;
@@ -47,6 +49,8 @@ app.use("/api/retrieveSource", retrieveSourceRouter);
 app.use("/api/retrieveLimits", retrieveLimitsRouter);
 app.use("/api/create", createRouter);
 app.use("/api/user", userRouter);
+app.use("/api/createUser", createUserRouter);
+app.use("/api/writeOrgFile", writeOrgFileRouter);
 
 app.use(express.static('dist'));
 

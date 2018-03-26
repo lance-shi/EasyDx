@@ -9,6 +9,7 @@ import PageHeader from "../presentational/PageHeader";
 import UserList from "../presentational/UserList";
 import UserRefresh from "../presentational/UserRefresh";
 import UserDetail from "../presentational/UserDetail";
+import UserCreate from "../presentational/UserCreate";
 
 class UserContainer extends Component {
 	constructor() {
@@ -27,14 +28,7 @@ class UserContainer extends Component {
 
 		axios.get("/api/org").then((res) => {
 			let { nonScratchOrgs, scratchOrgs } = res.data.orgs;
-            for(let i = 0; i < nonScratchOrgs.length; i++) {
-				if(nonScratchOrgs[i].defaultMarker === "(U)") {
-					this.setState({
-						currentOrg: nonScratchOrgs[i],
-						defaultOrgExists: true
-					});
-					break;
-				}
+            for(let i = 0; i < scratchOrgs.length; i++) {
 				if(scratchOrgs[i].defaultMarker === "(U)") {
 					this.setState({
 						currentOrg: scratchOrgs[i],
@@ -50,6 +44,7 @@ class UserContainer extends Component {
         this.hideAlertMessage = this.hideAlertMessage.bind(this);
         this.setDetailUser = this.setDetailUser.bind(this);
 		this.refreshUserList = this.refreshUserList.bind(this);
+		this.createUser = this.createUser.bind(this);
 	}
 	
 	showAlertMessage(alertClass, alertMessage) {
@@ -77,7 +72,23 @@ class UserContainer extends Component {
 			currentUser: user,
 			showDetailUser: true
 		});
-    }
+	}
+	
+	createUser(org) {
+		this.setState({showLoaidngImage: true});
+		axios.post("/api/createUser", {
+            org: org
+        }).then((res) => {
+			if(res.status === 200) {
+				let result = res.data.result;
+	            this.toggleLoadingImage(false);
+				this.showAlertMessage("success", "New user created successfully!");
+	        } else {
+				this.toggleLoadingImage(false);
+	        	this.showAlertMessage("danger", "Error:" + res.data.err);
+	        }
+		});
+	}
 
     refreshUserList(org) {
 		this.setState({showLoaidngImage: true});
@@ -90,7 +101,7 @@ class UserContainer extends Component {
 					showLoaidngImage: false,
 		        	users: result
 				});
-				this.showAlertMessage("success", "Org list refreshed successfully!");
+				this.showAlertMessage("success", "User list refreshed successfully!");
 	        } else {
 				this.toggleLoadingImage(false);
 	        	this.showAlertMessage("danger", "Error:" + res.data.err);
@@ -116,6 +127,10 @@ class UserContainer extends Component {
 						</div>
 						<div className="col-md-12 col-lg-4">
 							<UserRefresh refreshUserList={this.refreshUserList}
+								defaultOrgExist={this.state.defaultOrgExists}
+								currentOrg={this.state.currentOrg}
+								showAlertMessage={this.showAlertMessage}/>
+							<UserCreate createUser={this.createUser}
 								defaultOrgExist={this.state.defaultOrgExists}
 								currentOrg={this.state.currentOrg}
 								showAlertMessage={this.showAlertMessage}/>

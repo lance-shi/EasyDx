@@ -201,6 +201,13 @@ class OrgContainer extends Component {
 					scratchOrgs: this.state.scratchOrgs,
 					nonScratchOrgs: this.state.nonScratchOrgs
 				});
+				let orgObj = {};
+				orgObj.orgs = {};
+				orgObj.orgs.scratchOrgs = this.state.scratchOrgs;
+				orgObj.orgs.nonScratchOrgs = this.state.nonScratchOrgs;
+				axios.post("api/writeOrgFile", {
+					orgObj: orgObj
+				}).then((res)=>{});
 			} else {
 				this.toggleLoadingImage(false);
 				this.showAlertMessage("danger", "Error:" + res.data.err);
