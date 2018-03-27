@@ -7,7 +7,11 @@ So I have written this simple GUI version of Salesforce DX to help getting our d
 
 > Before installing Easy DX, you need to install [Salesforce CLI Tool](https://developer.salesforce.com/tools/sfdxcli) and [Node JS](https://nodejs.org/en/). 
 
-npm install doesn't work very well for easdydx for now. So you need to download the .zip file from this repository, unzip it into your local computer. Then go into that folder and execute: 
+npm install doesn't work very well for easdydx for now. So you need to use git clone to get a local copy of the repository by: 
+```shell
+git clone https://github.com/lance-shi/EasyDx.git
+```
+or download the .zip file from this repository, unzip it into your local computer. Then go into EasyDx folder and execute: 
 ```shell
 npm install
 ``` 
