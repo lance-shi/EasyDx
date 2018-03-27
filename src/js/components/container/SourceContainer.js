@@ -7,6 +7,7 @@ import CurrentProjectLine from "../presentational/CurrentProjectLine";
 import CurrentProjectNotExist from "../presentational/CurrentProjectNotExist";
 import SourceListCard from "../presentational/SourceListCard";
 import SourcePush from "../presentational/SourcePush";
+import SourcePull from "../presentational/SourcePull";
 import SourceRetrieve from "../presentational/SourceRetrieve";
 import PageHeader from "../presentational/PageHeader";
 import ProjectConvertResult from "../presentational/ProjectConvertResult";
@@ -52,6 +53,7 @@ class SourceContainer extends Component {
 		this.showAlertMessage = this.showAlertMessage.bind(this);
 		this.hideAlertMessage = this.hideAlertMessage.bind(this);
 		this.pushChanges = this.pushChanges.bind(this);
+		this.pullChanges = this.pullChanges.bind(this);
 		this.retrieveMetadata = this.retrieveMetadata.bind(this);
     }
 
@@ -80,7 +82,11 @@ class SourceContainer extends Component {
 			this.showAlertMessage("danger", "Error: Please specify a default project first");
 			return;
 		}
-        this.setState({showLoaidngImage: true});
+        this.setState({
+			showLoaidngImage: true,
+			showPushedSource: false,
+			showFailedResult: false
+		});
 		axios.post("/api/source", {
             directory: this.state.currentProject.directory
         }).then((res) => {
@@ -153,7 +159,58 @@ class SourceContainer extends Component {
 				});
 
 	            this.toggleLoadingImage(false);
-				this.showAlertMessage("success", "Source status pushed successfully!");
+				this.showAlertMessage("success", "Changes pushed successfully into org! Please view details at the bottom of the page");
+	        } else {
+				this.toggleLoadingImage(false);
+				this.showAlertMessage("danger", "Error: " + res.data.message + " Please see detailed results at the bottom of the page");
+				let { result, partialSuccess } = res.data;
+				if(partialSuccess !== null && partialSuccess !== undefined) {
+					this.setState({
+						pushedSource: partialSuccess,
+						showPushedSource: true,
+						pushedTitle: "Partial Success"
+					});
+				}
+
+				this.setState({
+					deploymentFailures: result,
+					showFailedResult: true
+				});
+	        }
+		});
+	}
+
+	pullChanges(forcePull, otherOrg, alias) {
+		if(!this.state.defaultProjectExists) {
+			this.showAlertMessage("danger", "Error: Please specify a default project first");
+			return;
+		}
+
+		this.setState({
+			showLoaidngImage: true,
+			remoteChanges: [],
+			localChanges: [],
+			deploymentFailures: [],
+			showFailedResult: false,
+			pushedSource: [],
+			showPushedSource: false
+		});
+		axios.post("/api/pullSource", {
+			directory: this.state.currentProject.directory,
+			force: forcePull,
+			otherOrg: otherOrg, 
+			alias: alias
+        }).then((res) => {
+			if(res.status === 200) {
+				let result = res.data.result;
+				this.setState({
+					pushedSource: result.pulledSource,
+					showPushedSource: true,
+					pushedTitle: "Pulled Source"
+				});
+
+	            this.toggleLoadingImage(false);
+				this.showAlertMessage("success", "Changes status pulled successfully from org!");
 	        } else {
 				this.toggleLoadingImage(false);
 				this.showAlertMessage("danger", "Error: " + res.data.message + " Please see detailed results at the bottom of the page");
@@ -218,6 +275,7 @@ class SourceContainer extends Component {
 						</div>
 						<div className="col-md-12 col-lg-4">
 							<SourcePush pushChanges={this.pushChanges}/>
+							<SourcePull pullChanges={this.pullChanges}/>
 							<SourceRetrieve retrieveMetadata={this.retrieveMetadata}/>
 						</div>
 					</div>

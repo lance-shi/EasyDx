@@ -25,7 +25,7 @@ class SourceList extends Component {
 		let indexOfFirstItem = indexOfLastItem - numberPerPage;
 		let currentRecords = this.props.sources.slice(indexOfFirstItem, indexOfLastItem);
 
-		let sourceRows = currentRecords.map(source=><SourceRow key={this.props.title+source.filePath} source={source}/>);
+		let sourceRows = currentRecords.map(source=><SourceRow key={this.props.title+source.fullName+source.filePath} source={source}/>);
 
 		return (
 			<div className="section-group">
