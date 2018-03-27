@@ -28,7 +28,7 @@ class MenuItems extends Component {
                     </li>
                     <li className="nav-item">
                         <NavLink to="/Source" activeClassName="active" className="nav-link">
-                            <span className="fas fa-code fa-lg"></span> Code
+                            <span className="fas fa-code fa-lg"></span> Source
                         </NavLink> 
                     </li>
                     <li className="nav-item">

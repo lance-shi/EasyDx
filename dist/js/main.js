@@ -31614,7 +31614,7 @@ var MenuItems = function (_Component) {
                             _reactRouterDom.NavLink,
                             { to: "/Source", activeClassName: "active", className: "nav-link" },
                             _react2.default.createElement("span", { className: "fas fa-code fa-lg" }),
-                            " Code"
+                            " Source"
                         )
                     ),
                     _react2.default.createElement(

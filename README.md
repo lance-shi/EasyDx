@@ -7,11 +7,9 @@ So I have written this simple GUI version of Salesforce DX to help getting our d
 
 > Before installing Easy DX, you need to install [Salesforce CLI Tool](https://developer.salesforce.com/tools/sfdxcli) and [Node JS](https://nodejs.org/en/). 
 
-Download a .zip file of this repository to your local computer and unzip the files. 
-
-In that folder, via command line, run 
+To install easydx, simply use npm
 ```shell
-npm install
+npm install -g easydx
 ``` 
 
 Once it is completed, you are ready to go! 
@@ -20,7 +18,7 @@ Once it is completed, you are ready to go!
 
 In command line, go to your folder and run 
 ```shell
-npm start
+easydx
 ```
 
 Then in your favourite browser, open this url: http://localhost:3666
