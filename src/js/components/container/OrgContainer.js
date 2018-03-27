@@ -88,11 +88,16 @@ class OrgContainer extends Component {
 	}
 
 	connectOrg(isDevHub, isSandbox, alias) {
-		this.setState({showLoaidngImage: true});
+		if(!this.state.defaultProjectExists) {
+			this.showAlertMessage("danger", "Error: Please specify a default project first");
+			return;
+		}
+		this.toggleLoadingImage(true);
 		axios.post("/api/connectOrg", {
 			isDevHub: isDevHub,
 			isSandbox: isSandbox,
-			alias: alias
+			alias: alias,
+			directory: this.state.currentProject.directory
         }).then((res) => {
 			if(res.status === 200) {
 				let result = res.data.result;

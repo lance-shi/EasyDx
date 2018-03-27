@@ -46,6 +46,10 @@ class OrgRow extends Component {
 	}
 
 	render() {
+		let showDefaultDevhub = false;
+		if(this.props.orgType === "nonScratch") {
+			showDefaultDevhub = true;
+		}
 		return (
 			<tr>
 				<td>{this.props.org.defaultMarker}</td>
@@ -60,7 +64,7 @@ class OrgRow extends Component {
 							<a className="dropdown-item" href="javascript:;" onClick={this.handleShowDetail}>Display Org Details</a>
 							<a className="dropdown-item" href="javascript:;" onClick={this.handleOpenOrg}>Open Org</a>
 							<a className="dropdown-item" href="javascript:;" onClick={this.handleDefaultOrg}>Set as Default Org</a>
-							<a className="dropdown-item" href="javascript:;" onClick={this.handleDefaultDevhub}>Set as Default Devhub</a>
+							{showDefaultDevhub? <a className="dropdown-item" href="javascript:;" onClick={this.handleDefaultDevhub}>Set as Default Devhub</a>:null}
 							<a className="dropdown-item" href="javascript:;" onClick={this.handleDeleteOrg}>Delete Org</a>
 						</div>
 					</div>

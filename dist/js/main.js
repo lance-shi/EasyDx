@@ -24945,11 +24945,16 @@ var OrgContainer = function (_Component) {
 		value: function connectOrg(isDevHub, isSandbox, alias) {
 			var _this3 = this;
 
-			this.setState({ showLoaidngImage: true });
+			if (!this.state.defaultProjectExists) {
+				this.showAlertMessage("danger", "Error: Please specify a default project first");
+				return;
+			}
+			this.toggleLoadingImage(true);
 			_axios2.default.post("/api/connectOrg", {
 				isDevHub: isDevHub,
 				isSandbox: isSandbox,
-				alias: alias
+				alias: alias,
+				directory: this.state.currentProject.directory
 			}).then(function (res) {
 				if (res.status === 200) {
 					var result = res.data.result;
@@ -26185,6 +26190,10 @@ var _OrgRow2 = _interopRequireDefault(_OrgRow);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function OrgList(props) {
+	var orgType = "nonScratch";
+	if (props.title === "Scratch Orgs") {
+		orgType = "scratch";
+	}
 	var orgRows = props.orgs.map(function (org) {
 		return _react2.default.createElement(_OrgRow2.default, { key: org.orgId, org: org,
 			setDetailOrg: props.setDetailOrg,
@@ -26192,7 +26201,8 @@ function OrgList(props) {
 			showAlertMessage: props.showAlertMessage,
 			setDefaultOrg: props.setDefaultOrg,
 			setDefaultDevhub: props.setDefaultDevhub,
-			deleteOrg: props.deleteOrg });
+			deleteOrg: props.deleteOrg,
+			orgType: orgType });
 	});
 	return _react2.default.createElement(
 		"div",
@@ -26337,6 +26347,10 @@ var OrgRow = function (_Component) {
 	}, {
 		key: "render",
 		value: function render() {
+			var showDefaultDevhub = false;
+			if (this.props.orgType === "nonScratch") {
+				showDefaultDevhub = true;
+			}
 			return _react2.default.createElement(
 				"tr",
 				null,
@@ -26384,11 +26398,11 @@ var OrgRow = function (_Component) {
 								{ className: "dropdown-item", href: "javascript:;", onClick: this.handleDefaultOrg },
 								"Set as Default Org"
 							),
-							_react2.default.createElement(
+							showDefaultDevhub ? _react2.default.createElement(
 								"a",
 								{ className: "dropdown-item", href: "javascript:;", onClick: this.handleDefaultDevhub },
 								"Set as Default Devhub"
-							),
+							) : null,
 							_react2.default.createElement(
 								"a",
 								{ className: "dropdown-item", href: "javascript:;", onClick: this.handleDeleteOrg },
