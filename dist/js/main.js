@@ -3580,7 +3580,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _ProjectConvertResultRow = __webpack_require__(125);
+var _ProjectConvertResultRow = __webpack_require__(126);
 
 var _ProjectConvertResultRow2 = _interopRequireDefault(_ProjectConvertResultRow);
 
@@ -21045,31 +21045,31 @@ var _OrgContainer = __webpack_require__(93);
 
 var _OrgContainer2 = _interopRequireDefault(_OrgContainer);
 
-var _ProjectContainer = __webpack_require__(120);
+var _ProjectContainer = __webpack_require__(121);
 
 var _ProjectContainer2 = _interopRequireDefault(_ProjectContainer);
 
-var _CreateContainer = __webpack_require__(126);
+var _CreateContainer = __webpack_require__(127);
 
 var _CreateContainer2 = _interopRequireDefault(_CreateContainer);
 
-var _SourceContainer = __webpack_require__(129);
+var _SourceContainer = __webpack_require__(130);
 
 var _SourceContainer2 = _interopRequireDefault(_SourceContainer);
 
-var _LimitsContainer = __webpack_require__(138);
+var _LimitsContainer = __webpack_require__(139);
 
 var _LimitsContainer2 = _interopRequireDefault(_LimitsContainer);
 
-var _UserContainer = __webpack_require__(142);
+var _UserContainer = __webpack_require__(143);
 
 var _UserContainer2 = _interopRequireDefault(_UserContainer);
 
-var _MenuItems = __webpack_require__(150);
+var _MenuItems = __webpack_require__(151);
 
 var _MenuItems2 = _interopRequireDefault(_MenuItems);
 
-var _Header = __webpack_require__(151);
+var _Header = __webpack_require__(152);
 
 var _Header2 = _interopRequireDefault(_Header);
 
@@ -24847,6 +24847,10 @@ var _OrgCreate = __webpack_require__(119);
 
 var _OrgCreate2 = _interopRequireDefault(_OrgCreate);
 
+var _OrgChangeAlias = __webpack_require__(120);
+
+var _OrgChangeAlias2 = _interopRequireDefault(_OrgChangeAlias);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -24910,6 +24914,7 @@ var OrgContainer = function (_Component) {
 		_this.connectOrg = _this.connectOrg.bind(_this);
 		_this.createOrg = _this.createOrg.bind(_this);
 		_this.deleteOrg = _this.deleteOrg.bind(_this);
+		_this.changeAlias = _this.changeAlias.bind(_this);
 		return _this;
 	}
 
@@ -25120,6 +25125,47 @@ var OrgContainer = function (_Component) {
 			});
 		}
 	}, {
+		key: "changeAlias",
+		value: function changeAlias(alias, userName) {
+			var _this8 = this;
+
+			this.toggleLoadingImage(true);
+			_axios2.default.post("api/changeAlias", {
+				userName: userName,
+				alias: alias
+			}).then(function (res) {
+				if (res.status === 200) {
+					_this8.toggleLoadingImage(false);
+					_this8.showAlertMessage("success", "Alias successfully set");
+					for (var i = 0; i < _this8.state.nonScratchOrgs.length; i++) {
+						if (_this8.state.nonScratchOrgs[i].username === userName) {
+							_this8.state.nonScratchOrgs[i].alias = alias;
+						}
+					}
+					for (var _i3 = 0; _i3 < _this8.state.scratchOrgs.length; _i3++) {
+						if (_this8.state.scratchOrgs[_i3].username === userName) {
+							_this8.state.scratchOrgs[_i3].alias = alias;
+						}
+					}
+					_this8.setState({
+						nonScratchOrgs: _this8.state.nonScratchOrgs,
+						scratchOrgs: _this8.state.scratchOrgs
+					});
+
+					var orgObj = {};
+					orgObj.orgs = {};
+					orgObj.orgs.scratchOrgs = _this8.state.scratchOrgs;
+					orgObj.orgs.nonScratchOrgs = _this8.state.nonScratchOrgs;
+					_axios2.default.post("api/writeOrgFile", {
+						orgObj: orgObj
+					}).then(function (res) {});
+				} else {
+					_this8.toggleLoadingImage(false);
+					_this8.showAlertMessage("danger", "Error:" + res.data.err);
+				}
+			});
+		}
+	}, {
 		key: "showAlertMessage",
 		value: function showAlertMessage(alertClass, alertMessage) {
 			this.setState({
@@ -25187,6 +25233,7 @@ var OrgContainer = function (_Component) {
 							{ className: "col-md-12 col-lg-4" },
 							_react2.default.createElement(_OrgConnect2.default, { connectOrg: this.connectOrg }),
 							_react2.default.createElement(_OrgCreate2.default, { createOrg: this.createOrg }),
+							_react2.default.createElement(_OrgChangeAlias2.default, { changeAlias: this.changeAlias }),
 							_react2.default.createElement(
 								"div",
 								{ id: "orgDetailsSection" },
@@ -27084,6 +27131,128 @@ exports.default = OrgCreate;
 
 
 Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var OrgChangeAlias = function (_Component) {
+    _inherits(OrgChangeAlias, _Component);
+
+    function OrgChangeAlias() {
+        _classCallCheck(this, OrgChangeAlias);
+
+        var _this = _possibleConstructorReturn(this, (OrgChangeAlias.__proto__ || Object.getPrototypeOf(OrgChangeAlias)).call(this));
+
+        _this.state = {
+            alias: "",
+            userName: ""
+        };
+
+        _this.handleAliasChange = _this.handleAliasChange.bind(_this);
+        _this.handleUserNameChange = _this.handleUserNameChange.bind(_this);
+        _this.handleChangeAlias = _this.handleChangeAlias.bind(_this);
+        return _this;
+    }
+
+    _createClass(OrgChangeAlias, [{
+        key: "handleAliasChange",
+        value: function handleAliasChange(event) {
+            this.setState({ alias: event.target.value });
+        }
+    }, {
+        key: "handleUserNameChange",
+        value: function handleUserNameChange(event) {
+            this.setState({ userName: event.target.value });
+        }
+    }, {
+        key: "handleChangeAlias",
+        value: function handleChangeAlias() {
+            this.props.changeAlias(this.state.alias, this.state.userName);
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            return _react2.default.createElement(
+                "div",
+                { className: "card mb-4" },
+                _react2.default.createElement(
+                    "div",
+                    { className: "card-header" },
+                    _react2.default.createElement(
+                        "strong",
+                        null,
+                        "Change Org Alias"
+                    )
+                ),
+                _react2.default.createElement(
+                    "div",
+                    { className: "card-body" },
+                    _react2.default.createElement(
+                        "h6",
+                        { className: "card-subtitle mb-2 text-muted" },
+                        "Set or Reset Alias for an Org"
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "row from-group input-bar" },
+                        _react2.default.createElement(
+                            "label",
+                            null,
+                            "Please specify the org's user name"
+                        ),
+                        _react2.default.createElement("input", { type: "text", className: "form-control", value: this.state.userName,
+                            onChange: this.handleUserNameChange })
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "card-footer todo-list-footer" },
+                        _react2.default.createElement(
+                            "div",
+                            { className: "input-group" },
+                            _react2.default.createElement("input", { type: "text", className: "form-control input-md", placeholder: "Alias", value: this.state.alias,
+                                onChange: this.handleAliasChange }),
+                            _react2.default.createElement(
+                                "span",
+                                { className: "input-group-btn" },
+                                _react2.default.createElement(
+                                    "button",
+                                    { className: "btn btn-primary btn-md", onClick: this.handleChangeAlias },
+                                    "Change Alias"
+                                )
+                            )
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return OrgChangeAlias;
+}(_react.Component);
+
+exports.default = OrgChangeAlias;
+
+/***/ }),
+/* 121 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
@@ -27097,15 +27266,15 @@ var _axios = __webpack_require__(7);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _ProjectList = __webpack_require__(121);
+var _ProjectList = __webpack_require__(122);
 
 var _ProjectList2 = _interopRequireDefault(_ProjectList);
 
-var _ProjectAdd = __webpack_require__(123);
+var _ProjectAdd = __webpack_require__(124);
 
 var _ProjectAdd2 = _interopRequireDefault(_ProjectAdd);
 
-var _ProjectCreate = __webpack_require__(124);
+var _ProjectCreate = __webpack_require__(125);
 
 var _ProjectCreate2 = _interopRequireDefault(_ProjectCreate);
 
@@ -27373,7 +27542,7 @@ var ProjectContainer = function (_Component) {
 exports.default = ProjectContainer;
 
 /***/ }),
-/* 121 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27389,7 +27558,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _ProjectRow = __webpack_require__(122);
+var _ProjectRow = __webpack_require__(123);
 
 var _ProjectRow2 = _interopRequireDefault(_ProjectRow);
 
@@ -27513,7 +27682,7 @@ var ProjectList = function (_Component) {
 exports.default = ProjectList;
 
 /***/ }),
-/* 122 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27668,7 +27837,7 @@ var ProjectRow = function (_Component) {
 exports.default = ProjectRow;
 
 /***/ }),
-/* 123 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27833,7 +28002,7 @@ var ProjectAdd = function (_Component) {
 exports.default = ProjectAdd;
 
 /***/ }),
-/* 124 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27999,7 +28168,7 @@ var ProjectCreate = function (_Component) {
 exports.default = ProjectCreate;
 
 /***/ }),
-/* 125 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28076,7 +28245,7 @@ var ProjectConvertResultRow = function (_Component) {
 exports.default = ProjectConvertResultRow;
 
 /***/ }),
-/* 126 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28116,11 +28285,11 @@ var _PageHeader = __webpack_require__(11);
 
 var _PageHeader2 = _interopRequireDefault(_PageHeader);
 
-var _CreatePanel = __webpack_require__(127);
+var _CreatePanel = __webpack_require__(128);
 
 var _CreatePanel2 = _interopRequireDefault(_CreatePanel);
 
-var _CreateLightning = __webpack_require__(128);
+var _CreateLightning = __webpack_require__(129);
 
 var _CreateLightning2 = _interopRequireDefault(_CreateLightning);
 
@@ -28262,7 +28431,7 @@ var CreateContainer = function (_Component) {
 exports.default = CreateContainer;
 
 /***/ }),
-/* 127 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28400,7 +28569,7 @@ var CreatePanel = function (_Component) {
 exports.default = CreatePanel;
 
 /***/ }),
-/* 128 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28538,7 +28707,7 @@ var CreateLightning = function (_Component) {
 exports.default = CreateLightning;
 
 /***/ }),
-/* 129 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28574,19 +28743,19 @@ var _CurrentProjectNotExist = __webpack_require__(22);
 
 var _CurrentProjectNotExist2 = _interopRequireDefault(_CurrentProjectNotExist);
 
-var _SourceListCard = __webpack_require__(130);
+var _SourceListCard = __webpack_require__(131);
 
 var _SourceListCard2 = _interopRequireDefault(_SourceListCard);
 
-var _SourcePush = __webpack_require__(133);
+var _SourcePush = __webpack_require__(134);
 
 var _SourcePush2 = _interopRequireDefault(_SourcePush);
 
-var _SourcePull = __webpack_require__(134);
+var _SourcePull = __webpack_require__(135);
 
 var _SourcePull2 = _interopRequireDefault(_SourcePull);
 
-var _SourceRetrieve = __webpack_require__(135);
+var _SourceRetrieve = __webpack_require__(136);
 
 var _SourceRetrieve2 = _interopRequireDefault(_SourceRetrieve);
 
@@ -28598,7 +28767,7 @@ var _ProjectConvertResult = __webpack_require__(50);
 
 var _ProjectConvertResult2 = _interopRequireDefault(_ProjectConvertResult);
 
-var _DeployFailedResult = __webpack_require__(136);
+var _DeployFailedResult = __webpack_require__(137);
 
 var _DeployFailedResult2 = _interopRequireDefault(_DeployFailedResult);
 
@@ -28925,7 +29094,7 @@ var SourceContainer = function (_Component) {
 exports.default = SourceContainer;
 
 /***/ }),
-/* 130 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28939,7 +29108,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _SourceList = __webpack_require__(131);
+var _SourceList = __webpack_require__(132);
 
 var _SourceList2 = _interopRequireDefault(_SourceList);
 
@@ -28972,7 +29141,7 @@ function SourceListCard(props) {
 exports.default = SourceListCard;
 
 /***/ }),
-/* 131 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28988,7 +29157,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _SourceRow = __webpack_require__(132);
+var _SourceRow = __webpack_require__(133);
 
 var _SourceRow2 = _interopRequireDefault(_SourceRow);
 
@@ -29107,7 +29276,7 @@ var SourceList = function (_Component) {
 exports.default = SourceList;
 
 /***/ }),
-/* 132 */
+/* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29185,7 +29354,7 @@ var SourceRow = function (_Component) {
 exports.default = SourceRow;
 
 /***/ }),
-/* 133 */
+/* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29322,7 +29491,7 @@ var SourcePush = function (_Component) {
 exports.default = SourcePush;
 
 /***/ }),
-/* 134 */
+/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29459,7 +29628,7 @@ var SourcePull = function (_Component) {
 exports.default = SourcePull;
 
 /***/ }),
-/* 135 */
+/* 136 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29596,7 +29765,7 @@ var SourceRetrieve = function (_Component) {
 exports.default = SourceRetrieve;
 
 /***/ }),
-/* 136 */
+/* 137 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29612,7 +29781,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _DeployFailedResultRow = __webpack_require__(137);
+var _DeployFailedResultRow = __webpack_require__(138);
 
 var _DeployFailedResultRow2 = _interopRequireDefault(_DeployFailedResultRow);
 
@@ -29750,7 +29919,7 @@ var DeployFailedResult = function (_Component) {
 exports.default = DeployFailedResult;
 
 /***/ }),
-/* 137 */
+/* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29838,7 +30007,7 @@ var DeployFailedResultRow = function (_Component) {
 exports.default = DeployFailedResultRow;
 
 /***/ }),
-/* 138 */
+/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29878,11 +30047,11 @@ var _PageHeader = __webpack_require__(11);
 
 var _PageHeader2 = _interopRequireDefault(_PageHeader);
 
-var _LimitsRetrieve = __webpack_require__(139);
+var _LimitsRetrieve = __webpack_require__(140);
 
 var _LimitsRetrieve2 = _interopRequireDefault(_LimitsRetrieve);
 
-var _LimitsResult = __webpack_require__(140);
+var _LimitsResult = __webpack_require__(141);
 
 var _LimitsResult2 = _interopRequireDefault(_LimitsResult);
 
@@ -30027,7 +30196,7 @@ var LimitsContainer = function (_Component) {
 exports.default = LimitsContainer;
 
 /***/ }),
-/* 139 */
+/* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30146,7 +30315,7 @@ var LimitsRetrieve = function (_Component) {
 exports.default = LimitsRetrieve;
 
 /***/ }),
-/* 140 */
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30162,7 +30331,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _LimitsResultRow = __webpack_require__(141);
+var _LimitsResultRow = __webpack_require__(142);
 
 var _LimitsResultRow2 = _interopRequireDefault(_LimitsResultRow);
 
@@ -30249,7 +30418,7 @@ var LimitsResult = function (_Component) {
 exports.default = LimitsResult;
 
 /***/ }),
-/* 141 */
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30313,7 +30482,7 @@ var LimitsResultRow = function (_Component) {
 exports.default = LimitsResultRow;
 
 /***/ }),
-/* 142 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30341,11 +30510,11 @@ var _AlertMessage = __webpack_require__(10);
 
 var _AlertMessage2 = _interopRequireDefault(_AlertMessage);
 
-var _CurrentOrgLine = __webpack_require__(143);
+var _CurrentOrgLine = __webpack_require__(144);
 
 var _CurrentOrgLine2 = _interopRequireDefault(_CurrentOrgLine);
 
-var _CurrentOrgNotExist = __webpack_require__(144);
+var _CurrentOrgNotExist = __webpack_require__(145);
 
 var _CurrentOrgNotExist2 = _interopRequireDefault(_CurrentOrgNotExist);
 
@@ -30353,19 +30522,19 @@ var _PageHeader = __webpack_require__(11);
 
 var _PageHeader2 = _interopRequireDefault(_PageHeader);
 
-var _UserList = __webpack_require__(145);
+var _UserList = __webpack_require__(146);
 
 var _UserList2 = _interopRequireDefault(_UserList);
 
-var _UserRefresh = __webpack_require__(147);
+var _UserRefresh = __webpack_require__(148);
 
 var _UserRefresh2 = _interopRequireDefault(_UserRefresh);
 
-var _UserDetail = __webpack_require__(148);
+var _UserDetail = __webpack_require__(149);
 
 var _UserDetail2 = _interopRequireDefault(_UserDetail);
 
-var _UserCreate = __webpack_require__(149);
+var _UserCreate = __webpack_require__(150);
 
 var _UserCreate2 = _interopRequireDefault(_UserCreate);
 
@@ -30565,7 +30734,7 @@ var UserContainer = function (_Component) {
 exports.default = UserContainer;
 
 /***/ }),
-/* 143 */
+/* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30650,7 +30819,7 @@ var CurrentOrgLine = function (_Component) {
 exports.default = CurrentOrgLine;
 
 /***/ }),
-/* 144 */
+/* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30720,7 +30889,7 @@ var CurrentOrgNotExist = function (_Component) {
 exports.default = CurrentOrgNotExist;
 
 /***/ }),
-/* 145 */
+/* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30734,7 +30903,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _UserRow = __webpack_require__(146);
+var _UserRow = __webpack_require__(147);
 
 var _UserRow2 = _interopRequireDefault(_UserRow);
 
@@ -30819,7 +30988,7 @@ function UserList(props) {
 exports.default = UserList;
 
 /***/ }),
-/* 146 */
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30929,7 +31098,7 @@ var UserRow = function (_Component) {
 exports.default = UserRow;
 
 /***/ }),
-/* 147 */
+/* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31053,7 +31222,7 @@ var UserRefresh = function (_Component) {
 exports.default = UserRefresh;
 
 /***/ }),
-/* 148 */
+/* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31225,7 +31394,7 @@ var UserDetail = function (_Component) {
 exports.default = UserDetail;
 
 /***/ }),
-/* 149 */
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31354,7 +31523,7 @@ var UserCreate = function (_Component) {
 exports.default = UserCreate;
 
 /***/ }),
-/* 150 */
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31479,7 +31648,7 @@ var MenuItems = function (_Component) {
 exports.default = MenuItems;
 
 /***/ }),
-/* 151 */
+/* 152 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

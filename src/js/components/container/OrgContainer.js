@@ -10,6 +10,7 @@ import CurrentProjectNotExist from "../presentational/CurrentProjectNotExist";
 import PageHeader from "../presentational/PageHeader";
 import OrgConnect from "../presentational/OrgConnect";
 import OrgCreate from "../presentational/OrgCreate";
+import OrgChangeAlias from "../presentational/OrgChangeAlias";
 
 class OrgContainer extends Component {
 	constructor() {
@@ -61,6 +62,7 @@ class OrgContainer extends Component {
 		this.connectOrg = this.connectOrg.bind(this);
 		this.createOrg = this.createOrg.bind(this);
 		this.deleteOrg = this.deleteOrg.bind(this);
+		this.changeAlias = this.changeAlias.bind(this);
 	}
 
 	handleRefreshOrgs(e) {
@@ -250,6 +252,44 @@ class OrgContainer extends Component {
 			}
 		});
 	}
+
+	changeAlias(alias, userName) {
+		this.toggleLoadingImage(true);
+		axios.post("api/changeAlias", {
+			userName: userName,
+			alias: alias
+		}).then((res) => {
+			if(res.status === 200) {
+				this.toggleLoadingImage(false);
+				this.showAlertMessage("success", "Alias successfully set");
+				for(let i = 0; i < this.state.nonScratchOrgs.length; i++) {
+					if(this.state.nonScratchOrgs[i].username === userName) {
+						this.state.nonScratchOrgs[i].alias = alias;
+					} 
+				}
+				for(let i = 0; i < this.state.scratchOrgs.length; i++) {
+					if(this.state.scratchOrgs[i].username === userName) {
+						this.state.scratchOrgs[i].alias = alias;
+					} 
+				}
+				this.setState ({
+					nonScratchOrgs: this.state.nonScratchOrgs,
+					scratchOrgs: this.state.scratchOrgs
+				});
+				
+				let orgObj = {};
+				orgObj.orgs = {};
+				orgObj.orgs.scratchOrgs = this.state.scratchOrgs;
+				orgObj.orgs.nonScratchOrgs = this.state.nonScratchOrgs;
+				axios.post("api/writeOrgFile", {
+					orgObj: orgObj
+				}).then((res)=>{});
+			} else {
+				this.toggleLoadingImage(false);
+				this.showAlertMessage("danger", "Error:" + res.data.err);
+			}
+		});
+	}
 	
 	showAlertMessage(alertClass, alertMessage) {
 		this.setState({
@@ -304,6 +344,7 @@ class OrgContainer extends Component {
 						<div className="col-md-12 col-lg-4">
 							<OrgConnect connectOrg={this.connectOrg}/>
 							<OrgCreate createOrg={this.createOrg}/>
+							<OrgChangeAlias changeAlias={this.changeAlias}/>
 							<div id="orgDetailsSection">
 								{this.state.showDetailOrg ? <OrgDetails org={this.state.detailOrg}/> : null}
 							</div>

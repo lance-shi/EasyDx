@@ -27,6 +27,7 @@ const userRouter = require('./routes/userRouter');
 const createUserRouter = require('./routes/createUserRouter');
 const generatePasswordRouter = require('./routes/generatePasswordRouter');
 const writeOrgFileRouter = require('./routes/writeOrgFileRouter');
+const changeAliasRouter = require('./routes/changeAliasRouter');
 
 const app = express();
 const port = process.env.PORT || 3666;
@@ -55,6 +56,7 @@ app.use("/api/user", userRouter);
 app.use("/api/createUser", createUserRouter);
 app.use("/api/generatePassword", generatePasswordRouter);
 app.use("/api/writeOrgFile", writeOrgFileRouter);
+app.use("/api/changeAlias", changeAliasRouter);
 
 app.use(express.static('dist'));
 
