@@ -3605,10 +3605,12 @@ var ProjectConvertResult = function (_Component) {
         var _this = _possibleConstructorReturn(this, (ProjectConvertResult.__proto__ || Object.getPrototypeOf(ProjectConvertResult)).call(this));
 
         _this.state = {
-            currentPage: 1
+            currentPage: 1,
+            searchValue: ""
         };
 
         _this.pageClick = _this.pageClick.bind(_this);
+        _this.handleSearchValueChange = _this.handleSearchValueChange.bind(_this);
         return _this;
     }
 
@@ -3620,15 +3622,34 @@ var ProjectConvertResult = function (_Component) {
             });
         }
     }, {
+        key: "handleSearchValueChange",
+        value: function handleSearchValueChange(event) {
+            this.setState({
+                searchValue: event.target.value,
+                currentPage: 1
+            });
+        }
+    }, {
         key: "render",
         value: function render() {
             var _this2 = this;
 
+            var filteredSource = this.props.convertResults;
+            if (this.state.searchValue !== "") {
+                filteredSource = [];
+                for (var i = 0; i < this.props.convertResults.length; i++) {
+                    var fullName = this.props.convertResults[i].fullName.toLowerCase();
+                    var searchValue = this.state.searchValue.toLocaleLowerCase();
+                    if (fullName.includes(searchValue)) {
+                        filteredSource.push(this.props.convertResults[i]);
+                    }
+                }
+            }
             var numberPerPage = 10;
-            var maxCount = Math.ceil(this.props.convertResults.length / numberPerPage);
+            var maxCount = Math.ceil(filteredSource.length / numberPerPage);
             var indexOfLastItem = this.state.currentPage * numberPerPage;
             var indexOfFirstItem = indexOfLastItem - numberPerPage;
-            var currentRecords = this.props.convertResults.slice(indexOfFirstItem, indexOfLastItem);
+            var currentRecords = filteredSource.slice(indexOfFirstItem, indexOfLastItem);
 
             var convertResultRows = currentRecords.map(function (convertResult) {
                 return _react2.default.createElement(_ProjectConvertResultRow2.default, {
@@ -3640,16 +3661,22 @@ var ProjectConvertResult = function (_Component) {
                 { className: "card mb-4" },
                 _react2.default.createElement(
                     "div",
-                    { className: "card-header" },
-                    _react2.default.createElement(
-                        "strong",
-                        null,
-                        this.props.title
-                    )
-                ),
-                _react2.default.createElement(
-                    "div",
                     { className: "card-body" },
+                    _react2.default.createElement(
+                        "div",
+                        { className: "card-title row" },
+                        _react2.default.createElement(
+                            "h3",
+                            { className: "col-sm-6" },
+                            this.props.title
+                        ),
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col-sm-6" },
+                            _react2.default.createElement("input", { type: "text", className: "form-control input-md", placeholder: "Search", value: this.state.searchValue,
+                                onChange: this.handleSearchValueChange })
+                        )
+                    ),
                     _react2.default.createElement(
                         "div",
                         { className: "table-responsive" },
@@ -26257,9 +26284,11 @@ var OrgList = function (_Component) {
 		var _this = _possibleConstructorReturn(this, (OrgList.__proto__ || Object.getPrototypeOf(OrgList)).call(this));
 
 		_this.state = {
-			currentPage: 1
+			currentPage: 1,
+			searchValue: ""
 		};
 		_this.pageClick = _this.pageClick.bind(_this);
+		_this.handleSearchValueChange = _this.handleSearchValueChange.bind(_this);
 		return _this;
 	}
 
@@ -26271,15 +26300,43 @@ var OrgList = function (_Component) {
 			});
 		}
 	}, {
+		key: "handleSearchValueChange",
+		value: function handleSearchValueChange(event) {
+			this.setState({
+				searchValue: event.target.value,
+				currentPage: 1
+			});
+		}
+	}, {
 		key: "render",
 		value: function render() {
 			var _this2 = this;
 
+			var filteredSource = this.props.orgs;
+			if (this.state.searchValue !== "") {
+				filteredSource = [];
+				for (var i = 0; i < this.props.orgs.length; i++) {
+					var username = this.props.orgs[i].username.toLowerCase();
+					var defaultMarker = "";
+					if (this.props.orgs[i].defaultMarker !== null && this.props.orgs[i].defaultMarker !== undefined) {
+						defaultMarker = this.props.orgs[i].defaultMarker.toLowerCase();
+					}
+					var alias = "";
+					if (this.props.orgs[i].alias !== null && this.props.orgs[i].alias !== undefined) {
+						alias = this.props.orgs[i].alias.toLowerCase();
+					}
+
+					var searchValue = this.state.searchValue.toLocaleLowerCase();
+					if (username.includes(searchValue) || alias.includes(searchValue) || defaultMarker.includes(searchValue)) {
+						filteredSource.push(this.props.orgs[i]);
+					}
+				}
+			}
 			var numberPerPage = 5;
-			var maxCount = Math.ceil(this.props.orgs.length / numberPerPage);
+			var maxCount = Math.ceil(filteredSource.length / numberPerPage);
 			var indexOfLastItem = this.state.currentPage * numberPerPage;
 			var indexOfFirstItem = indexOfLastItem - numberPerPage;
-			var currentOrgs = this.props.orgs.slice(indexOfFirstItem, indexOfLastItem);
+			var currentOrgs = filteredSource.slice(indexOfFirstItem, indexOfLastItem);
 
 			var orgType = "nonScratch";
 			if (this.props.title === "Scratch Orgs") {
@@ -26299,9 +26356,19 @@ var OrgList = function (_Component) {
 				"div",
 				null,
 				_react2.default.createElement(
-					"h3",
-					{ className: "card-title" },
-					this.props.title
+					"div",
+					{ className: "card-title row" },
+					_react2.default.createElement(
+						"h3",
+						{ className: "col-sm-6" },
+						this.props.title
+					),
+					_react2.default.createElement(
+						"div",
+						{ className: "col-sm-6" },
+						_react2.default.createElement("input", { type: "text", className: "form-control input-md", placeholder: "Search", value: this.state.searchValue,
+							onChange: this.handleSearchValueChange })
+					)
 				),
 				_react2.default.createElement(
 					"div",
@@ -27631,7 +27698,7 @@ var ProjectList = function (_Component) {
 					{ className: "card-body" },
 					_react2.default.createElement(
 						"div",
-						{ className: "table-responsive" },
+						null,
 						_react2.default.createElement(
 							"table",
 							{ className: "table table-striped" },
@@ -29182,10 +29249,12 @@ var SourceList = function (_Component) {
 		var _this = _possibleConstructorReturn(this, (SourceList.__proto__ || Object.getPrototypeOf(SourceList)).call(this));
 
 		_this.state = {
-			currentPage: 1
+			currentPage: 1,
+			searchValue: ""
 		};
 
 		_this.pageClick = _this.pageClick.bind(_this);
+		_this.handleSearchValueChange = _this.handleSearchValueChange.bind(_this);
 		return _this;
 	}
 
@@ -29197,15 +29266,34 @@ var SourceList = function (_Component) {
 			});
 		}
 	}, {
+		key: "handleSearchValueChange",
+		value: function handleSearchValueChange(event) {
+			this.setState({
+				searchValue: event.target.value,
+				currentPage: 1
+			});
+		}
+	}, {
 		key: "render",
 		value: function render() {
 			var _this2 = this;
 
+			var filteredSource = this.props.sources;
+			if (this.state.searchValue !== "") {
+				filteredSource = [];
+				for (var i = 0; i < this.props.sources.length; i++) {
+					var fullName = this.props.sources[i].fullName.toLowerCase();
+					var searchValue = this.state.searchValue.toLocaleLowerCase();
+					if (fullName.includes(searchValue)) {
+						filteredSource.push(this.props.sources[i]);
+					}
+				}
+			}
 			var numberPerPage = 10;
-			var maxCount = Math.ceil(this.props.sources.length / numberPerPage);
+			var maxCount = Math.ceil(filteredSource.length / numberPerPage);
 			var indexOfLastItem = this.state.currentPage * numberPerPage;
 			var indexOfFirstItem = indexOfLastItem - numberPerPage;
-			var currentRecords = this.props.sources.slice(indexOfFirstItem, indexOfLastItem);
+			var currentRecords = filteredSource.slice(indexOfFirstItem, indexOfLastItem);
 
 			var sourceRows = currentRecords.map(function (source) {
 				return _react2.default.createElement(_SourceRow2.default, { key: _this2.props.title + source.fullName + source.filePath, source: source });
@@ -29215,9 +29303,19 @@ var SourceList = function (_Component) {
 				"div",
 				{ className: "section-group" },
 				_react2.default.createElement(
-					"h3",
-					{ className: "card-title" },
-					this.props.title
+					"div",
+					{ className: "card-title row" },
+					_react2.default.createElement(
+						"h3",
+						{ className: "col-sm-6" },
+						this.props.title
+					),
+					_react2.default.createElement(
+						"div",
+						{ className: "col-sm-6" },
+						_react2.default.createElement("input", { type: "text", className: "form-control input-md", placeholder: "Search", value: this.state.searchValue,
+							onChange: this.handleSearchValueChange })
+					)
 				),
 				_react2.default.createElement(
 					"div",
@@ -29806,10 +29904,12 @@ var DeployFailedResult = function (_Component) {
         var _this = _possibleConstructorReturn(this, (DeployFailedResult.__proto__ || Object.getPrototypeOf(DeployFailedResult)).call(this));
 
         _this.state = {
-            currentPage: 1
+            currentPage: 1,
+            searchValue: ""
         };
 
         _this.pageClick = _this.pageClick.bind(_this);
+        _this.handleSearchValueChange = _this.handleSearchValueChange.bind(_this);
         return _this;
     }
 
@@ -29821,15 +29921,34 @@ var DeployFailedResult = function (_Component) {
             });
         }
     }, {
+        key: "handleSearchValueChange",
+        value: function handleSearchValueChange(event) {
+            this.setState({
+                searchValue: event.target.value,
+                currentPage: 1
+            });
+        }
+    }, {
         key: "render",
         value: function render() {
             var _this2 = this;
 
+            var filteredSource = this.props.deploymentFailures;
+            if (this.state.searchValue !== "") {
+                filteredSource = [];
+                for (var i = 0; i < this.props.deploymentFailures.length; i++) {
+                    var fullName = this.props.deploymentFailures[i].fullName.toLowerCase();
+                    var searchValue = this.state.searchValue.toLocaleLowerCase();
+                    if (fullName.includes(searchValue)) {
+                        filteredSource.push(this.props.deploymentFailures[i]);
+                    }
+                }
+            }
             var numberPerPage = 10;
-            var maxCount = Math.ceil(this.props.deploymentFailures.length / numberPerPage);
+            var maxCount = Math.ceil(filteredSource.length / numberPerPage);
             var indexOfLastItem = this.state.currentPage * numberPerPage;
             var indexOfFirstItem = indexOfLastItem - numberPerPage;
-            var currentRecords = this.props.deploymentFailures.slice(indexOfFirstItem, indexOfLastItem);
+            var currentRecords = filteredSource.slice(indexOfFirstItem, indexOfLastItem);
 
             var failedResultRows = currentRecords.map(function (failedResult) {
                 return _react2.default.createElement(_DeployFailedResultRow2.default, {
@@ -29841,16 +29960,22 @@ var DeployFailedResult = function (_Component) {
                 { className: "card mb-4" },
                 _react2.default.createElement(
                     "div",
-                    { className: "card-header" },
-                    _react2.default.createElement(
-                        "strong",
-                        null,
-                        this.props.title
-                    )
-                ),
-                _react2.default.createElement(
-                    "div",
                     { className: "card-body" },
+                    _react2.default.createElement(
+                        "div",
+                        { className: "card-title row" },
+                        _react2.default.createElement(
+                            "h3",
+                            { className: "col-sm-6" },
+                            this.props.title
+                        ),
+                        _react2.default.createElement(
+                            "div",
+                            { className: "col-sm-6" },
+                            _react2.default.createElement("input", { type: "text", className: "form-control input-md", placeholder: "Search", value: this.state.searchValue,
+                                onChange: this.handleSearchValueChange })
+                        )
+                    ),
                     _react2.default.createElement(
                         "div",
                         { className: "table-responsive" },

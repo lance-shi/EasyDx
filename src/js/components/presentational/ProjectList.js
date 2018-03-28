@@ -36,7 +36,7 @@ class ProjectList extends Component {
 					<strong>Current Projects</strong>
 				</div>
 				<div className="card-body">
-					<div className="table-responsive">
+					<div>
 						<table className="table table-striped">
 							<thead>
 								<tr>

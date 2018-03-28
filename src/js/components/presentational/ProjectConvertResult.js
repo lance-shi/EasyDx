@@ -6,10 +6,12 @@ class ProjectConvertResult extends Component {
     constructor() {
 		super();
 		this.state = {
-			currentPage: 1
+            currentPage: 1,
+            searchValue: ""
 		}
 
-		this.pageClick = this.pageClick.bind(this);
+        this.pageClick = this.pageClick.bind(this);
+        this.handleSearchValueChange = this.handleSearchValueChange.bind(this);
 	}
 
 	pageClick(number) {
@@ -17,23 +19,45 @@ class ProjectConvertResult extends Component {
 			currentPage: number
 		});
     }
+
+    handleSearchValueChange(event) {
+		this.setState({
+			searchValue: event.target.value,
+			currentPage: 1
+		});
+	}
     
     render() {
+        let filteredSource = this.props.convertResults;
+		if(this.state.searchValue !== "") {
+			filteredSource = [];
+			for(let i = 0; i < this.props.convertResults.length; i++) {
+				let fullName = this.props.convertResults[i].fullName.toLowerCase();
+				let searchValue = this.state.searchValue.toLocaleLowerCase();
+				if(fullName.includes(searchValue)) {
+					filteredSource.push(this.props.convertResults[i]);
+				}
+			}
+		}
         const numberPerPage = 10;
-		let maxCount = Math.ceil(this.props.convertResults.length / numberPerPage);
+		let maxCount = Math.ceil(filteredSource.length / numberPerPage);
 		let indexOfLastItem = this.state.currentPage * numberPerPage;
 		let indexOfFirstItem = indexOfLastItem - numberPerPage;
-		let currentRecords = this.props.convertResults.slice(indexOfFirstItem, indexOfLastItem);
+		let currentRecords = filteredSource.slice(indexOfFirstItem, indexOfLastItem);
 
         let convertResultRows = currentRecords.map(convertResult=><ProjectConvertResultRow 
             key={this.props.title+convertResult.filePath} 
             convertResult={convertResult}/>);
         return (
             <div className="card mb-4">
-                <div className="card-header">
-                    <strong>{this.props.title}</strong>
-                </div>
                 <div className="card-body">
+                    <div className="card-title row">
+                        <h3 className="col-sm-6">{this.props.title}</h3>
+                        <div className="col-sm-6">
+                            <input type="text" className="form-control input-md" placeholder="Search" value={this.state.searchValue} 
+                                onChange={this.handleSearchValueChange}/>
+                        </div>
+                    </div>
                     <div className="table-responsive">
                         <table className="table table-striped">
                             <thead>
