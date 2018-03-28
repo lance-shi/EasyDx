@@ -3,6 +3,8 @@ Salesforce DX CLI tool is great. But not everybody likes command lines. Plus, so
 
 So I have written this simple GUI version of Salesforce DX to help getting our daily work with Salesforce DX easier. The code is written in React, Node and Express. 
 
+![DX screenshot](screenshots/easydx.png?raw=true "Easy Dx")
+
 ## Installation
 
 > Before installing Easy DX, you need to install [Salesforce CLI Tool](https://developer.salesforce.com/tools/sfdxcli) and [Node JS](https://nodejs.org/en/). 
@@ -27,7 +29,7 @@ npm start
 
 Then in your favourite browser, open this url: http://localhost:3666
 
-Easy DX's UI is pretty self-explanatory. For further usage, I will post on my blog: sfdcinpractice.com 
+Easy DX's UI is pretty self-explanatory. You can find a user guide at my blog [here](http://sfdcinpractice.com/index.php/2018/03/28/use-easydx-gui-for-your-salesforce-dx-project/).
 
 ## To Update
 If you use git clone to get the project, simply use git pull get the latest source. 
