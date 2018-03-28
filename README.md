@@ -7,7 +7,7 @@ So I have written this simple GUI version of Salesforce DX to help getting our d
 
 > Before installing Easy DX, you need to install [Salesforce CLI Tool](https://developer.salesforce.com/tools/sfdxcli) and [Node JS](https://nodejs.org/en/). 
 
-npm install doesn't work very well for easdydx for now. So you need to use git clone to get a local copy of the repository by: 
+npm install doesn't work very well for easdydx for now. So you need to use git clone (recommended) to get a local copy of the repository by: 
 ```shell
 git clone https://github.com/lance-shi/EasyDx.git
 ```
@@ -29,6 +29,9 @@ Then in your favourite browser, open this url: http://localhost:3666
 
 Easy DX's UI is pretty self-explanatory. For further usage, I will post on my blog: sfdcinpractice.com 
 
-Please note that Easy DX is still at Alpha stage for now. I am still actively working on pushing more features into it. 
+## To Update
+If you use git clone to get the project, simply use git pull get the latest source. 
+
+If you have downloaded the .zip file. You can download an updated version and replace the existing one. Your local data (projects and orgs) are inside data/ folder. Just keep that folder will keep your local data safe. 
 
 
