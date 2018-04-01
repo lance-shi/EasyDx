@@ -41,6 +41,11 @@ class MenuItems extends Component {
                             <span className="far fa-user fa-lg"></span> User
                         </NavLink> 
                     </li>
+                    <li className="nav-item">
+                        <NavLink to="/Package" activeClassName="active" className="nav-link">
+                            <span className="fas fa-archive fa-lg"></span> Package
+                        </NavLink> 
+                    </li>
                 </ul>
             </nav>
         );
