@@ -8,6 +8,7 @@ import CurrentProjectNotExist from "../presentational/CurrentProjectNotExist";
 import PageHeader from "../presentational/PageHeader";
 import Package2Create from "../presentational/Package2Create";
 import Package2List from "../presentational/Package2List";
+import Package2VersionList from "../presentational/Package2VersionList";
 
 class PackageContainer extends Component {
 	constructor() {
@@ -19,7 +20,8 @@ class PackageContainer extends Component {
 			showAlertMessage: false,
 			alertClass: "info",
             alertMessage: "",
-            packageList: []
+			packageList: [],
+			versionList: []
 		};
 
 		axios.get("/api/project").then((res) => {
@@ -43,7 +45,8 @@ class PackageContainer extends Component {
 		this.showAlertMessage = this.showAlertMessage.bind(this);
         this.hideAlertMessage = this.hideAlertMessage.bind(this);
         this.createPackage = this.createPackage.bind(this);
-        this.handleRefreshPackages = this.handleRefreshPackages.bind(this);
+		this.handleRefreshPackages = this.handleRefreshPackages.bind(this);
+		this.handleRefreshVersions = this.handleRefreshVersions.bind(this);
 	}
 	
 	showAlertMessage(alertClass, alertMessage) {
@@ -120,7 +123,30 @@ class PackageContainer extends Component {
                 this.showAlertMessage("danger", "Error:" + res.data.err);
             }
         });
-    }
+	}
+	
+	handleRefreshVersions() {
+		if(!this.state.defaultProjectExists) {
+            this.showAlertMessage("danger", "Error: Please specify a default project first");
+            return;
+        }
+        this.toggleLoadingImage(true);
+        axios.post("/api/listPackage2Version", {
+            directory: this.state.currentProject.directory
+        }).then((res) => {
+            if(res.status === 200) {
+				let result = res.data.result;
+                this.setState({
+					versionList: result,
+                    showLoaidngImage: false
+                });
+                this.showAlertMessage("success", "Package list refreshed successfully!");
+            } else {
+                this.toggleLoadingImage(false);
+                this.showAlertMessage("danger", "Error:" + res.data.err);
+            }
+        });
+	}
 
 	render() {
 		return (
@@ -137,6 +163,8 @@ class PackageContainer extends Component {
                                 project={this.state.currentProject}/> : <CurrentProjectNotExist/>}
                             <Package2List packageList={this.state.packageList}
                                 handleRefreshPackages={this.handleRefreshPackages}/>
+							<Package2VersionList versionList={this.state.versionList}
+                                handleRefreshVersions={this.handleRefreshVersions}/>
 						</div>
 						<div className="col-md-12 col-lg-4">
                             <Package2Create createPackage={this.createPackage}/>

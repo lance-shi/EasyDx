@@ -30,6 +30,7 @@ const writeOrgFileRouter = require('./routes/writeOrgFileRouter');
 const changeAliasRouter = require('./routes/changeAliasRouter');
 const createPackage2Router = require('./routes/createPackage2Router');
 const listPackage2Router = require('./routes/listPackage2Router');
+const listPackage2VersionRouter = require('./routes/listPackage2VersionRouter');
 
 const app = express();
 const port = process.env.PORT || 3666;
@@ -61,6 +62,7 @@ app.use("/api/writeOrgFile", writeOrgFileRouter);
 app.use("/api/changeAlias", changeAliasRouter);
 app.use("/api/createPackage2", createPackage2Router);
 app.use("/api/listPackage2", listPackage2Router);
+app.use("/api/listPackage2Version", listPackage2VersionRouter);
 
 app.use(express.static('dist'));
 

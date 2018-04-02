@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
 
 class Package2Row extends Component {
 	render() {
@@ -14,6 +13,5 @@ class Package2Row extends Component {
 		);
 	} 
 } 
-
 
 export default Package2Row;
