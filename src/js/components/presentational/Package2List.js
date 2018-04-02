@@ -15,12 +15,15 @@ class Package2List extends Component {
 					<strong>Package List</strong>
 				</div>
                 <div className="card-body">
-                    <div>
+                    <div className="table-responsive">
                         <table className="table table-striped">
                             <thead>
                                 <tr>
+                                    <th>Name</th>
                                     <th>Id</th>
+                                    <th>Type</th>
                                     <th>Subscriber Package Id</th>
+                                    <th>Description</th>
                                 </tr>
                             </thead>
                             <tbody>

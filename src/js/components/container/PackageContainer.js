@@ -76,12 +76,18 @@ class PackageContainer extends Component {
             packageName: packageName,
             packageType: packageType,
             description: description,
-            directory: this.state.currentProject.directory,
-            alias: alias
+            directory: this.state.currentProject.directory
         }).then((res) => {
             if(res.status === 200) {
-                let result = res.data.result;
-                this.state.packageList.push(result);
+				let result = res.data.result;
+				let curPackage = {
+					Id: result.Id,
+					SubscriberPackageId: result.SubscriberPackageId,
+					Name: packageName,
+					Description: description,
+					ContainerOptions: packageType
+				};
+                this.state.packageList.push(curPackage);
                 this.setState({
                     showLoaidngImage: false
                 });
@@ -94,7 +100,26 @@ class PackageContainer extends Component {
     }
 
     handleRefreshPackages() {
-
+		if(!this.state.defaultProjectExists) {
+            this.showAlertMessage("danger", "Error: Please specify a default project first");
+            return;
+        }
+        this.toggleLoadingImage(true);
+        axios.post("/api/listPackage2", {
+            directory: this.state.currentProject.directory
+        }).then((res) => {
+            if(res.status === 200) {
+				let result = res.data.result;
+                this.setState({
+					packageList: result,
+                    showLoaidngImage: false
+                });
+                this.showAlertMessage("success", "Package list refreshed successfully!");
+            } else {
+                this.toggleLoadingImage(false);
+                this.showAlertMessage("danger", "Error:" + res.data.err);
+            }
+        });
     }
 
 	render() {

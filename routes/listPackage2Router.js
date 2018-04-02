@@ -3,13 +3,13 @@ const bodyParser = require('body-parser');
 const cmd = require('node-cmd');
 const fs = require('fs');
 
-const createPackage2Router = express.Router();
+const listPackage2Router = express.Router();
 
-createPackage2Router.use(bodyParser.json());
+listPackage2Router.use(bodyParser.json());
 
-createPackage2Router.route('/')
+listPackage2Router.route('/')
 .post((req, res) => {
-    let { directory, packageName, description, packageType } = req.body;
+    let directory = req.body.directory;
     const sfdxProjFileName = 'sfdx-project.json';
     const isWin = process.platform === "win32";
     let directoryDelimeter = "/";
@@ -24,9 +24,8 @@ createPackage2Router.route('/')
             console.log(err);
             return;
         }
-        console.log('command is: ' + `sfdx force:package2:create -n ${packageName} -d "${description}" -o ${packageType}`);
         cmd.get(
-            `cd ${directory} && sfdx force:package2:create -n ${packageName} -d "${description}" -o ${packageType} --json`,
+            `cd ${directory} && sfdx force:package2:list --json`,
             function(err, data, stderr) {
                 if(!err) {
                     res.statusCode = 200;
@@ -43,4 +42,4 @@ createPackage2Router.route('/')
     });
 });
 
-module.exports = createPackage2Router;
+module.exports = listPackage2Router;

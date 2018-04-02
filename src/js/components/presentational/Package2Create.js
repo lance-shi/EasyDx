@@ -23,7 +23,7 @@ class Package2Create extends Component {
     }
 
     handleDescriptionChange(event) {
-        this.setState({componentName: event.target.value});
+        this.setState({description: event.target.value});
     }
 
     handlePackageNameChange(event) {
@@ -49,7 +49,7 @@ class Package2Create extends Component {
                     </div>
                     <div className="row from-group input-bar">
                         <label>Please put the descirption here. </label>
-                        <input type="text" className="form-control" value={this.props.description} 
+                        <input type="text" className="form-control" value={this.state.description} 
                             onChange={this.handleDescriptionChange}/>
                     </div>
                     <div className="card-footer todo-list-footer">

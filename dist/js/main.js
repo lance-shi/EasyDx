@@ -31789,12 +31789,18 @@ var PackageContainer = function (_Component) {
 				packageName: packageName,
 				packageType: packageType,
 				description: description,
-				directory: this.state.currentProject.directory,
-				alias: alias
+				directory: this.state.currentProject.directory
 			}).then(function (res) {
 				if (res.status === 200) {
 					var result = res.data.result;
-					_this2.state.packageList.push(result);
+					var curPackage = {
+						Id: result.Id,
+						SubscriberPackageId: result.SubscriberPackageId,
+						Name: packageName,
+						Description: description,
+						ContainerOptions: packageType
+					};
+					_this2.state.packageList.push(curPackage);
 					_this2.setState({
 						showLoaidngImage: false
 					});
@@ -31807,7 +31813,30 @@ var PackageContainer = function (_Component) {
 		}
 	}, {
 		key: "handleRefreshPackages",
-		value: function handleRefreshPackages() {}
+		value: function handleRefreshPackages() {
+			var _this3 = this;
+
+			if (!this.state.defaultProjectExists) {
+				this.showAlertMessage("danger", "Error: Please specify a default project first");
+				return;
+			}
+			this.toggleLoadingImage(true);
+			_axios2.default.post("/api/listPackage2", {
+				directory: this.state.currentProject.directory
+			}).then(function (res) {
+				if (res.status === 200) {
+					var result = res.data.result;
+					_this3.setState({
+						packageList: result,
+						showLoaidngImage: false
+					});
+					_this3.showAlertMessage("success", "Package list refreshed successfully!");
+				} else {
+					_this3.toggleLoadingImage(false);
+					_this3.showAlertMessage("danger", "Error:" + res.data.err);
+				}
+			});
+		}
 	}, {
 		key: "render",
 		value: function render() {
@@ -31907,7 +31936,7 @@ var Package2Create = function (_Component) {
     }, {
         key: "handleDescriptionChange",
         value: function handleDescriptionChange(event) {
-            this.setState({ componentName: event.target.value });
+            this.setState({ description: event.target.value });
         }
     }, {
         key: "handlePackageNameChange",
@@ -31968,7 +31997,7 @@ var Package2Create = function (_Component) {
                             null,
                             "Please put the descirption here. "
                         ),
-                        _react2.default.createElement("input", { type: "text", className: "form-control", value: this.props.description,
+                        _react2.default.createElement("input", { type: "text", className: "form-control", value: this.state.description,
                             onChange: this.handleDescriptionChange })
                     ),
                     _react2.default.createElement(
@@ -32062,7 +32091,7 @@ var Package2List = function (_Component) {
                     { className: "card-body" },
                     _react2.default.createElement(
                         "div",
-                        null,
+                        { className: "table-responsive" },
                         _react2.default.createElement(
                             "table",
                             { className: "table table-striped" },
@@ -32075,12 +32104,27 @@ var Package2List = function (_Component) {
                                     _react2.default.createElement(
                                         "th",
                                         null,
+                                        "Name"
+                                    ),
+                                    _react2.default.createElement(
+                                        "th",
+                                        null,
                                         "Id"
                                     ),
                                     _react2.default.createElement(
                                         "th",
                                         null,
+                                        "Type"
+                                    ),
+                                    _react2.default.createElement(
+                                        "th",
+                                        null,
                                         "Subscriber Package Id"
+                                    ),
+                                    _react2.default.createElement(
+                                        "th",
+                                        null,
+                                        "Description"
                                     )
                                 )
                             ),
@@ -32154,12 +32198,27 @@ var Package2Row = function (_Component) {
 				_react2.default.createElement(
 					"td",
 					null,
+					this.props.curPackage.Name
+				),
+				_react2.default.createElement(
+					"td",
+					null,
 					this.props.curPackage.Id
 				),
 				_react2.default.createElement(
 					"td",
 					null,
+					this.props.curPackage.ContainerOptions
+				),
+				_react2.default.createElement(
+					"td",
+					null,
 					this.props.curPackage.SubscriberPackageId
+				),
+				_react2.default.createElement(
+					"td",
+					null,
+					this.props.curPackage.Description
 				)
 			);
 		}
