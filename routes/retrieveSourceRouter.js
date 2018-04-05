@@ -31,7 +31,7 @@ retrieveSourceRouter.route('/')
         }
     
         cmd.get(
-            `cd ${directory} && sfdx force:mdapi:retrieve -s -r ./inputTmp ${orgStr} -p ${req.body.packageName}`,
+            `cd ${directory} && sfdx force:mdapi:retrieve -s -r ./inputTmp ${orgStr} -p "${req.body.packageName}"`,
             function(err, data, stderr) {
                 if(!err) {
                     res.statusCode = 200;
