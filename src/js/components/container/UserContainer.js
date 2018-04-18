@@ -10,6 +10,7 @@ import UserList from "../presentational/UserList";
 import UserRefresh from "../presentational/UserRefresh";
 import UserDetail from "../presentational/UserDetail";
 import UserCreate from "../presentational/UserCreate";
+import UserAssignPerm from "../presentational/UserAssignPerm";
 
 class UserContainer extends Component {
 	constructor() {
@@ -46,6 +47,7 @@ class UserContainer extends Component {
 		this.refreshUserList = this.refreshUserList.bind(this);
 		this.createUser = this.createUser.bind(this);
 		this.generatePassword = this.generatePassword.bind(this);
+		this.assignPermission = this.assignPermission.bind(this);
 	}
 	
 	showAlertMessage(alertClass, alertMessage) {
@@ -126,11 +128,28 @@ class UserContainer extends Component {
 		});
 	}
 
+	assignPermission(userName, permissionName) {
+		this.toggleLoadingImage(true);
+		axios.post("/api/assignPermission", {
+			userName: userName,
+			permissionSet: permissionName
+		}).then((res) => {
+			if(res.status === 200) {
+				let result = res.data.result;
+	            this.toggleLoadingImage(false);
+				this.showAlertMessage("success", "User permission assigned successfully!");
+	        } else {
+				this.toggleLoadingImage(false);
+	        	this.showAlertMessage("danger", "Error:" + res.data.err);
+	        }
+		});
+	}
+
 	render() {
 		return (
 			<div>
 				{this.state.showLoaidngImage ? <LoadingImage/> : null}
-				<PageHeader title="Create"/>
+				<PageHeader title="User"/>
 				{this.state.showAlertMessage ? <AlertMessage 
 					alertClass={this.state.alertClass}
 					message={this.state.alertMessage}/> : null}
@@ -152,6 +171,7 @@ class UserContainer extends Component {
 								defaultOrgExist={this.state.defaultOrgExists}
 								currentOrg={this.state.currentOrg}
 								showAlertMessage={this.showAlertMessage}/>
+							<UserAssignPerm assignPermission={this.assignPermission}/>
 							{this.state.showDetailUser ? <UserDetail user={this.state.currentUser}/> : null}
 						</div>
 					</div>

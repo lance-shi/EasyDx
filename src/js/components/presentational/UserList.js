@@ -17,8 +17,8 @@ function UserList(props) {
                         <thead>
                             <tr>
                                 <th>Default</th>
-                                <th>Alias</th>
                                 <th>User Name</th>
+                                <th>Alias</th>
                                 <th>Profile</th>
                                 <th>Action</th>
                             </tr>

@@ -152,7 +152,7 @@ class PackageContainer extends Component {
 		return (
 			<div>
 				{this.state.showLoaidngImage ? <LoadingImage/> : null}
-				<PageHeader title="Org"/>
+				<PageHeader title="Package"/>
 				{this.state.showAlertMessage ? <AlertMessage 
 					alertClass={this.state.alertClass}
 					message={this.state.alertMessage}/> : null}

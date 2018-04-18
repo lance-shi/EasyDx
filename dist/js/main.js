@@ -21092,15 +21092,15 @@ var _UserContainer = __webpack_require__(143);
 
 var _UserContainer2 = _interopRequireDefault(_UserContainer);
 
-var _PackageContainer = __webpack_require__(151);
+var _PackageContainer = __webpack_require__(152);
 
 var _PackageContainer2 = _interopRequireDefault(_PackageContainer);
 
-var _MenuItems = __webpack_require__(157);
+var _MenuItems = __webpack_require__(158);
 
 var _MenuItems2 = _interopRequireDefault(_MenuItems);
 
-var _Header = __webpack_require__(158);
+var _Header = __webpack_require__(159);
 
 var _Header2 = _interopRequireDefault(_Header);
 
@@ -30668,6 +30668,10 @@ var _UserCreate = __webpack_require__(150);
 
 var _UserCreate2 = _interopRequireDefault(_UserCreate);
 
+var _UserAssignPerm = __webpack_require__(151);
+
+var _UserAssignPerm2 = _interopRequireDefault(_UserAssignPerm);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -30719,6 +30723,7 @@ var UserContainer = function (_Component) {
 		_this.refreshUserList = _this.refreshUserList.bind(_this);
 		_this.createUser = _this.createUser.bind(_this);
 		_this.generatePassword = _this.generatePassword.bind(_this);
+		_this.assignPermission = _this.assignPermission.bind(_this);
 		return _this;
 	}
 
@@ -30814,13 +30819,33 @@ var UserContainer = function (_Component) {
 			});
 		}
 	}, {
+		key: "assignPermission",
+		value: function assignPermission(userName, permissionName) {
+			var _this5 = this;
+
+			this.toggleLoadingImage(true);
+			_axios2.default.post("/api/assignPermission", {
+				userName: userName,
+				permissionSet: permissionName
+			}).then(function (res) {
+				if (res.status === 200) {
+					var result = res.data.result;
+					_this5.toggleLoadingImage(false);
+					_this5.showAlertMessage("success", "User permission assigned successfully!");
+				} else {
+					_this5.toggleLoadingImage(false);
+					_this5.showAlertMessage("danger", "Error:" + res.data.err);
+				}
+			});
+		}
+	}, {
 		key: "render",
 		value: function render() {
 			return _react2.default.createElement(
 				"div",
 				null,
 				this.state.showLoaidngImage ? _react2.default.createElement(_LoadingImage2.default, null) : null,
-				_react2.default.createElement(_PageHeader2.default, { title: "Create" }),
+				_react2.default.createElement(_PageHeader2.default, { title: "User" }),
 				this.state.showAlertMessage ? _react2.default.createElement(_AlertMessage2.default, {
 					alertClass: this.state.alertClass,
 					message: this.state.alertMessage }) : null,
@@ -30850,6 +30875,7 @@ var UserContainer = function (_Component) {
 								defaultOrgExist: this.state.defaultOrgExists,
 								currentOrg: this.state.currentOrg,
 								showAlertMessage: this.showAlertMessage }),
+							_react2.default.createElement(_UserAssignPerm2.default, { assignPermission: this.assignPermission }),
 							this.state.showDetailUser ? _react2.default.createElement(_UserDetail2.default, { user: this.state.currentUser }) : null
 						)
 					)
@@ -31085,12 +31111,12 @@ function UserList(props) {
                             _react2.default.createElement(
                                 "th",
                                 null,
-                                "Alias"
+                                "User Name"
                             ),
                             _react2.default.createElement(
                                 "th",
                                 null,
-                                "User Name"
+                                "Alias"
                             ),
                             _react2.default.createElement(
                                 "th",
@@ -31660,6 +31686,126 @@ exports.default = UserCreate;
 
 
 Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var UserAssignPerm = function (_Component) {
+    _inherits(UserAssignPerm, _Component);
+
+    function UserAssignPerm() {
+        _classCallCheck(this, UserAssignPerm);
+
+        var _this = _possibleConstructorReturn(this, (UserAssignPerm.__proto__ || Object.getPrototypeOf(UserAssignPerm)).call(this));
+
+        _this.state = {
+            permissionName: "",
+            userName: ""
+        };
+
+        _this.handleUserChange = _this.handleUserChange.bind(_this);
+        _this.handlePermissionChange = _this.handlePermissionChange.bind(_this);
+        _this.handleAssignPermission = _this.handleAssignPermission.bind(_this);
+        return _this;
+    }
+
+    _createClass(UserAssignPerm, [{
+        key: "handleUserChange",
+        value: function handleUserChange(event) {
+            this.setState({ userName: event.target.value });
+        }
+    }, {
+        key: "handlePermissionChange",
+        value: function handlePermissionChange(event) {
+            this.setState({ permissionName: event.target.value });
+        }
+    }, {
+        key: "handleAssignPermission",
+        value: function handleAssignPermission() {
+            this.props.assignPermission(this.state.userName, this.state.permissionName);
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            return _react2.default.createElement(
+                "div",
+                { className: "card mb-4" },
+                _react2.default.createElement(
+                    "div",
+                    { className: "card-header" },
+                    _react2.default.createElement(
+                        "strong",
+                        null,
+                        "Assign Permission"
+                    )
+                ),
+                _react2.default.createElement(
+                    "div",
+                    { className: "card-body" },
+                    _react2.default.createElement(
+                        "h6",
+                        { className: "card-subtitle mb-2 text-muted" },
+                        "Assign Permission to a User"
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "row from-group input-bar" },
+                        _react2.default.createElement(
+                            "label",
+                            null,
+                            "Please specify the user name or alias"
+                        ),
+                        _react2.default.createElement("input", { type: "text", className: "form-control", value: this.state.userName,
+                            onChange: this.handleUserChange })
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "row from-group input-bar" },
+                        _react2.default.createElement(
+                            "label",
+                            null,
+                            "Please specify the permission set name"
+                        ),
+                        _react2.default.createElement("input", { type: "text", className: "form-control", value: this.state.permissionName,
+                            onChange: this.handlePermissionChange })
+                    ),
+                    _react2.default.createElement(
+                        "button",
+                        { type: "button", className: "btn btn-primary form-button",
+                            onClick: this.handleAssignPermission },
+                        "Assign Permission"
+                    )
+                )
+            );
+        }
+    }]);
+
+    return UserAssignPerm;
+}(_react.Component);
+
+exports.default = UserAssignPerm;
+
+/***/ }),
+/* 152 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
@@ -31693,15 +31839,15 @@ var _PageHeader = __webpack_require__(10);
 
 var _PageHeader2 = _interopRequireDefault(_PageHeader);
 
-var _Package2Create = __webpack_require__(152);
+var _Package2Create = __webpack_require__(153);
 
 var _Package2Create2 = _interopRequireDefault(_Package2Create);
 
-var _Package2List = __webpack_require__(153);
+var _Package2List = __webpack_require__(154);
 
 var _Package2List2 = _interopRequireDefault(_Package2List);
 
-var _Package2VersionList = __webpack_require__(155);
+var _Package2VersionList = __webpack_require__(156);
 
 var _Package2VersionList2 = _interopRequireDefault(_Package2VersionList);
 
@@ -31876,7 +32022,7 @@ var PackageContainer = function (_Component) {
 				"div",
 				null,
 				this.state.showLoaidngImage ? _react2.default.createElement(_LoadingImage2.default, null) : null,
-				_react2.default.createElement(_PageHeader2.default, { title: "Org" }),
+				_react2.default.createElement(_PageHeader2.default, { title: "Package" }),
 				this.state.showAlertMessage ? _react2.default.createElement(_AlertMessage2.default, {
 					alertClass: this.state.alertClass,
 					message: this.state.alertMessage }) : null,
@@ -31913,7 +32059,7 @@ var PackageContainer = function (_Component) {
 exports.default = PackageContainer;
 
 /***/ }),
-/* 152 */
+/* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32064,7 +32210,7 @@ var Package2Create = function (_Component) {
 exports.default = Package2Create;
 
 /***/ }),
-/* 153 */
+/* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32080,7 +32226,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Package2Row = __webpack_require__(154);
+var _Package2Row = __webpack_require__(155);
 
 var _Package2Row2 = _interopRequireDefault(_Package2Row);
 
@@ -32186,7 +32332,7 @@ var Package2List = function (_Component) {
 exports.default = Package2List;
 
 /***/ }),
-/* 154 */
+/* 155 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32260,7 +32406,7 @@ var Package2Row = function (_Component) {
 exports.default = Package2Row;
 
 /***/ }),
-/* 155 */
+/* 156 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32276,7 +32422,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Package2VersionRow = __webpack_require__(156);
+var _Package2VersionRow = __webpack_require__(157);
 
 var _Package2VersionRow2 = _interopRequireDefault(_Package2VersionRow);
 
@@ -32440,7 +32586,7 @@ var Package2VersionList = function (_Component) {
 exports.default = Package2VersionList;
 
 /***/ }),
-/* 156 */
+/* 157 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32519,7 +32665,7 @@ var Package2VersionRow = function (_Component) {
 exports.default = Package2VersionRow;
 
 /***/ }),
-/* 157 */
+/* 158 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32654,7 +32800,7 @@ var MenuItems = function (_Component) {
 exports.default = MenuItems;
 
 /***/ }),
-/* 158 */
+/* 159 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
