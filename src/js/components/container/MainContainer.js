@@ -9,6 +9,7 @@ import SourceContainer from "./SourceContainer";
 import LimitsContainer from "./LimitsContainer";
 import UserContainer from "./UserContainer";
 import PackageContainer from "./PackageContainer";
+import DataContainer from "./DataContainer";
 import MenuItems from "../presentational/MenuItems";
 import Header from "../presentational/Header";
 
@@ -39,6 +40,7 @@ class MainContainer extends Component {
                                 <Route path="/Limits" component={LimitsContainer}/>
                                 <Route path="/User" component={UserContainer}/>
                                 <Route path="/Package" component={PackageContainer}/>
+                                <Route path="/Data" component={DataContainer}/>
                             </Switch>
                         </main>
                     </div>
